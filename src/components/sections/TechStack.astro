@@ -1,0 +1,49 @@
+---
+interface TechItem {
+  label: string;
+  icon: string;
+  alt: string;
+}
+
+const techStack: TechItem[] = [
+  { label: 'Python', icon: '/python-icon.svg', alt: 'Python logo' },
+  { label: 'Go', icon: '/go-icon.svg', alt: 'Go logo' },
+  { label: 'Kubernetes', icon: '/kubernetes-icon.svg', alt: 'Kubernetes logo' },
+  { label: 'PyTorch', icon: '/pytorch-icon.svg', alt: 'PyTorch logo' },
+  { label: 'PostgreSQL', icon: '/postgresql-icon.svg', alt: 'PostgreSQL logo' },
+  { label: 'AWS', icon: '/aws-icon.svg', alt: 'AWS logo' },
+];
+---
+
+<section class="border-outline-variant/25 border-t py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-12 max-w-2xl">
+      <h2 class="font-display text-on-surface text-4xl font-bold tracking-tight">
+        Technical Stack
+      </h2>
+      <p class="text-on-surface-variant mt-3 text-base leading-6">
+        Tools and technologies I use to build robust software.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-6">
+      {
+        techStack.map((item) => (
+          <article class="border-outline-variant/25 bg-surface-container-high flex h-full flex-col items-center gap-3 rounded-xl border p-6 text-center">
+            <div class="bg-surface-container-highest flex size-12 items-center justify-center rounded-lg">
+              <img
+                src={item.icon}
+                alt={item.alt}
+                width="28"
+                height="28"
+                loading="lazy"
+                class="h-7 w-7 object-contain"
+              />
+            </div>
+            <h3 class="font-display text-on-surface text-sm leading-5 font-bold">{item.label}</h3>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
