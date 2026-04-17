@@ -1,0 +1,117 @@
+/*
+Must come before @import "tailwindcss" so @font-face declarations land
+in the base layer correctly
+*/
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
+
+@import 'tailwindcss';
+
+@theme {
+  /* Dark mode surface hierarchy */
+  --color-surface: #0e1322;
+  --color-surface-container-lowest: #0b0f1a;
+  --color-surface-container-low: #161b2b;
+  --color-surface-container: #1a1f2f;
+  --color-surface-container-high: #212638;
+  --color-surface-container-highest: #2f3445;
+
+  /* Core palette from design guideline */
+  --color-primary: #1275e2;
+  --color-secondary: #5f78a3;
+  --color-tertiary: #c55b00;
+  --color-neutral: #74777f;
+
+  /* Semantic aliases used by current components */
+  --color-primary-container: #1275e2;
+  --color-on-primary: #ffffff;
+
+  --color-tertiary-dim: #9b4900;
+  --color-on-tertiary: #ffffff;
+
+  /* Text hierarchy */
+  --color-on-surface: #e2e4f0;
+  --color-on-surface-variant: #9ba3c0;
+  --color-on-surface-dim: #6b7494;
+
+  /* Borders - never used for section seperation, only ghost/accessibility */
+  --color-outline: #4a5180;
+  --color-outline-variant: #2e3452;
+
+  /* Status */
+  --color-error: #b3261e;
+  --color-success: #2e7d32;
+
+  /* Terminal accent - classic terminal green */
+  --color-terminal: #10b981;
+
+  /* Shape + spacing scale: roundedness 2+ (slightly softer), spacing 2 (normal) */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+}
+
+@theme inline {
+  /* Typography guideline: Inter for headlines, body text, and labels */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+  --font-display: 'Inter Variable', 'Inter', system-ui, sans-serif;
+}
+
+/* Base layer - document-level defaults only */
+@layer base {
+  html {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Mint-tinted text selection */
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-tertiary) 20%, transparent);
+    color: var(--color-on-surface);
+  }
+
+  /* Code / monospace elements */
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  /* Accessible focus ring */
+  :focus-visible {
+    outline: 1px solid var(--color-primary-container);
+    outline-offset: 3px;
+  }
+
+  /* Industrial scrollbar - border-radius: 0, always */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface-container-low);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-outline);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-outline-variant);
+  }
+}

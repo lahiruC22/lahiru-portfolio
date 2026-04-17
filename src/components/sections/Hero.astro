@@ -1,0 +1,154 @@
+<section class="py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <!-- Left column -->
+      <div class="flex-1 flex flex-col items-start gap-8">
+        <!-- Availability Badge -->
+        <div
+          class="px-3 py-1 bg-primary-container/10 rounded-full border border-primary-container/20 inline-flex items-center gap-2"
+        >
+          <!-- Pulsing dot — outer ring pulses, inner stays solid -->
+          <span class="relative flex size-2" aria-hidden="true">
+            <span
+              class="pulse-ring absolute inline-flex size-full rounded-full bg-primary-container opacity-75"
+            ></span>
+            <span class="relative inline-flex size-2 rounded-full bg-primary-container"></span>
+          </span>
+          <span
+            class="text-xs font-bold font-display uppercase tracking-wider text-primary-container"
+          >
+            Available for new projects
+          </span>
+        </div>
+
+        <!-- Headline Section -->
+        <h1
+          class="font-display font-bold leading-[1.05] text-5xl sm:text-6xl lg:text-7xl tracking-tight"
+        >
+          <span class="text-on-surface">Software Engineer</span>
+          <span class="text-primary-container">AI/ML</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="max-w-xl text-xl font-display font-normal leading-7 text-on-surface-variant">
+          Software Engineer focused on AI/ML, Distributed Systems, and High-Performance Backend
+          Engineering. I help businesses build reliable backend solutions.
+        </p>
+
+        <!-- Call to Action Buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-4">
+          <!-- Primary Call to Action - Explore Work -->
+          <a
+            href="#projects"
+            class="inline-flex items-center justify-center px-8 py-4 rounded-sm font-display text-lg font-bold text-on-primary transition-opacity duration-150 hover:opacity-90"
+            style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%)"
+          >
+            Explore work
+          </a>
+
+          <!-- Secondary Call to Action - Let's Talk -->
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center px-8 py-4 rounded-sm font-display text-lg font-bold text-on-surface border border-outline-variant/15 transition-colors duration-150 hover:bg-surface-container-high hover:border-outline-variant/30"
+          >
+            Let's Talk
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column - Terminal Card -->
+      <div class="flex-1 relative w-full">
+        <!-- Ambient glow "Glass & Gradient" design systems element -->
+        <div
+          class="absolute -inset-1 bg-primary-container opacity-25 rounded-sm blur-sm -z-10"
+          aria-hidden="true"
+        >
+        </div>
+
+        <!-- Terminal Card shell -->
+        <div
+          class="relative bg-surface-container rounded-sm border border-outline-variant/15 overflow-hidden shadow-[0px_24px_48px_rgba(0,0,0,0.4)]"
+        >
+          <!-- Terminal header bar -->
+          <div class="flex items-center gap-2 px-6 py-4 bg-surface-container-highest">
+            <span class="size-3 rounded-full bg-red-500/80" aria-hidden="true"></span>
+            <span class="size-3 rounded-full bg-amber-500/80" aria-hidden="true"></span>
+            <span class="size-3 rounded-full bg-emerald-500/80" aria-hidden="true"></span>
+          </div>
+
+          <!-- Terminal body -->
+          <div class="flex flex-col gap-2 p-6">
+            <p class="font-mono text-sm leading-5 text-terminal">$ whoami</p>
+            <p class="font-mono text-sm leading-5 text-on-surface">software_engineer</p>
+
+            <!-- neofetch skills -->
+            <p class="font-mono text-sm leading-5 text-terminal">$ neofetch --skills</p>
+
+            <!-- Skills list -->
+            <div class="grid grid-cols-2 gap-x-4 gap-y-0">
+              <div class="flex flex-col">
+                <p class="font-mono text-sm font-bold leading-5 text-primary-container">OS:</p>
+                <p class="font-mono text-sm leading-5 text-on-surface-variant">Distributed Linux</p>
+                <p class="font-mono text-sm font-bold leading-5 text-primary-container pt-2">
+                  Backend:
+                </p>
+                <p class="font-mono text-sm leading-5 text-on-surface-variant">Go, Python, Rust</p>
+              </div>
+
+              <div class="flex flex-col">
+                <p class="font-mono text-sm font-bold leading-5 text-primary-container">AI/ML:</p>
+                <p class="font-mono text-sm leading-5 text-on-surface-variant">
+                  PyTorch, TensorFlow
+                </p>
+                <p class="font-mono text-sm font-bold leading-5 text-primary-container pt-2">
+                  Infra:
+                </p>
+                <p class="font-mono text-sm leading-5 text-on-surface-variant">
+                  Kubernetes, Docker
+                </p>
+              </div>
+            </div>
+            <!-- Skills grid end -->
+
+            <!-- Status Box -->
+            <div
+              class="mt-2 p-4 bg-primary-container/5 rounded-sm border border-primary-container/20"
+            >
+              <p class="font-mono text-sm leading-5 text-primary-container">
+                // Status: Optimizing Pipelines
+              </p>
+              <p class="font-mono text-sm leading-5 text-on-surface-dim italic">
+                Processing distributed telemetry data...
+              </p>
+            </div>
+          </div><!-- Terminal body end -->
+        </div><!-- Terminal card end -->
+      </div>
+      <!-- Right column end -->
+    </div>
+    <!-- Flex container end -->
+  </div>
+  <!-- Max width container end -->
+</section>
+
+<style>
+  /* Availability badge - pulsing outer ring animation */
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+
+    .pulse-ring {
+      animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Respect prefers-reduced-motion - Pause all animations */
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-ring {
+        animation: none;
+      }
+    }
+  }
+</style>

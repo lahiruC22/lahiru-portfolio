@@ -1,0 +1,170 @@
+---
+import { startsWith } from "astro:schema";
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<header
+  class="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-[20px]"
+>
+  <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+    <a
+      href="/"
+      class="flex items-center gap-2 group"
+      aria-label="Go to homepage"
+    >
+      <img
+        src="/terminal-icon.svg"
+        alt=""
+        aria-hidden="true"
+        class="h-5 w-6.25 shrink-0"
+      />
+
+      <span class="text-xl font-bold text-on-surface uppercase font-display">
+        lahirucw
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-9" aria-label="Main navigation">
+      {
+        navItems.map((link) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? "page" : undefined}
+            class:list={[
+              "text-sm font-medium font-display transition-colors duration-150 py-1 whitespace-nowrap",
+              isActive(link.href)
+                ? "text-on-surface border-b-2 border-tertiary"
+                : "text-on-surface-variant hover:text-on-surface",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a
+      href="/resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden md:inline-flex items-center px-5 py-2 bg-primary-container text-on-primary text-sm font-bold font-display rounded-sm transition-opacity duration-150 hover:opacity-90"
+    >
+      Resume
+    </a>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Open navigation menu"
+      class="flex md:hidden flex-col justify-center gap-1.25 p-2 text-on-surface-variant hover:text-on-surface transition-colors"
+    >
+      <span
+        id="bar-1"
+        class="block w-5 h-[1.5px] bg-current transition-all duration-200 origin-center"
+      ></span>
+      <span
+        id="bar-2"
+        class="block w-5 h-[1.5px] bg-current transition-all duration-200"
+      ></span>
+      <span
+        id="bar-3"
+        class="block w-5 h-[1.5px] bg-current transition-all duration-200"
+      ></span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-surface-container-low"
+    aria-hidden="true"
+  >
+    <nav class="flex flex-col px-6 py-4" aria-label="Mobile navigation">
+      {
+        navItems.map((link) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? "page" : undefined}
+            class:list={[
+              "py-3 text-sm font-medium font-display transition-colors duration-150",
+              isActive(link.href)
+                ? "text-on-surface border-l-2 border-tertiary pl-4"
+                : "text-on-surface-variant hover:text-on-surface pl-4.5",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-4 px-5 py-2 bg-primary-container text-on-primary text-sm font-bold font-display rounded-sm text-center"
+      >
+        Resume
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById(
+    "nav-toggle",
+  ) as HTMLButtonElement | null;
+  const menu = document.getElementById("mobile-menu") as HTMLDivElement | null;
+  const bar1 = document.getElementById("bar-1") as HTMLSpanElement | null;
+  const bar2 = document.getElementById("bar-2") as HTMLSpanElement | null;
+  const bar3 = document.getElementById("bar-3") as HTMLSpanElement | null;
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    const expanded = !menu?.classList.contains("hidden");
+    toggle.setAttribute("aria-expanded", String(expanded));
+    menu?.setAttribute("aria-hidden", String(!expanded));
+    toggle.setAttribute(
+      "aria-label",
+      expanded ? "Close navigation menu" : "Open navigation menu",
+    );
+    if (bar1 && bar2 && bar3) {
+      if (expanded) {
+        bar1.style.transform = "translateY(6.5px) rotate(45deg)";
+        bar2.style.opacity = "0";
+        bar3.style.transform = "translateY(-6.5px) rotate(-45deg)";
+      } else {
+        bar1.style.transform = "";
+        bar2.style.opacity = "";
+        bar3.style.transform = "";
+      }
+    }
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      menu.setAttribute("aria-hidden", "true");
+      toggle?.setAttribute("aria-expanded", "false");
+      toggle?.setAttribute("aria-label", "Open navigation menu");
+      if (bar1 && bar2 && bar3) {
+        bar1.style.transform = "";
+        bar2.style.opacity = "";
+        bar3.style.transform = "";
+      }
+    });
+  });
+</script>
