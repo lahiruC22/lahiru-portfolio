@@ -1,0 +1,58 @@
+---
+interface NoteItem {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const notes: NoteItem[] = [
+  {
+    title: 'Designing Reliable Retry Logic for Distributed Workers',
+    description:
+      'How exponential backoff, idempotency, and dead-letter queues improve failure recovery.',
+    href: '#',
+  },
+  {
+    title: 'A Practical Guide to API Latency Profiling in Go',
+    description:
+      'A lightweight profiling workflow to identify bottlenecks and reduce p95 response time.',
+    href: '#',
+  },
+  {
+    title: 'Lessons Learned Deploying ML Services on Kubernetes',
+    description:
+      'Operational patterns for stable model serving, autoscaling behavior, and rollout safety.',
+    href: '#',
+  },
+];
+---
+
+<section class="border-outline-variant/25 border-t py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-12 max-w-3xl">
+      <h2 class="font-display text-on-surface text-4xl font-bold tracking-tight">From the Blog</h2>
+      <p class="text-on-surface-variant mt-3 text-base leading-6">
+        Latest technical notes, architecture insights, and engineering lessons from recent work.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        notes.map((note) => (
+          <article class="border-outline-variant/30 bg-surface-container-high rounded-xl border p-6">
+            <h3 class="font-display text-on-surface text-xl leading-7 font-bold">{note.title}</h3>
+
+            <p class="text-on-surface-variant mt-3 text-sm leading-6">{note.description}</p>
+
+            <a
+              href={note.href}
+              class="text-primary-container hover:text-on-surface mt-5 inline-flex items-center text-sm font-semibold transition-colors"
+            >
+              Read note
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

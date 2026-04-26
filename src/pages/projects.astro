@@ -1,0 +1,304 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/sections/Footer.astro';
+
+interface ProjectItem {
+  slug: string;
+  title: string;
+  description: string;
+  category: 'aiml' | 'backend' | 'systems';
+  year: string;
+  role: string;
+  impact: string;
+  stack: string[];
+  links: {
+    caseStudy: string;
+    repo?: string;
+    live?: string;
+  };
+}
+
+const categories = [
+  { key: 'all', label: 'All' },
+  { key: 'aiml', label: 'AI/ML' },
+  { key: 'backend', label: 'Backend' },
+  { key: 'systems', label: 'Distributed Systems' },
+] as const;
+
+const projects: ProjectItem[] = [
+  {
+    slug: 'adaptive-model-inference-router',
+    title: 'Adaptive Model Inference Router',
+    description:
+      'A routing layer that dynamically selects model variants by confidence and latency budgets.',
+    category: 'aiml',
+    year: '2026',
+    role: 'Backend + ML Systems',
+    impact: 'Lowered p95 response time by 27% with confidence-aware routing.',
+    stack: ['Python', 'FastAPI', 'Redis', 'OpenTelemetry'],
+    links: {
+      caseStudy: '/projects/adaptive-model-inference-router',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+  {
+    slug: 'event-sourced-billing-core',
+    title: 'Event-Sourced Billing Core',
+    description:
+      'A resilient billing service with idempotent processing and audit-first event streams.',
+    category: 'backend',
+    year: '2025',
+    role: 'Backend Engineer',
+    impact: 'Improved replay consistency and reduced reconciliation errors by 41%.',
+    stack: ['Go', 'PostgreSQL', 'Kafka', 'Docker'],
+    links: {
+      caseStudy: '/projects/event-sourced-billing-core',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+  {
+    slug: 'kubernetes-workload-recovery-engine',
+    title: 'Kubernetes Workload Recovery Engine',
+    description:
+      'Automated remediation policies for failed workloads with controlled rollout strategies.',
+    category: 'systems',
+    year: '2025',
+    role: 'Platform Engineer',
+    impact: 'Cut failed deployment recovery time from 19 minutes to 6 minutes.',
+    stack: ['Kubernetes', 'Go', 'Helm', 'Prometheus'],
+    links: {
+      caseStudy: '/projects/kubernetes-workload-recovery-engine',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+  {
+    slug: 'vector-retrieval-orchestration-api',
+    title: 'Vector Retrieval Orchestration API',
+    description: 'Backend API for semantic retrieval across multiple embedding providers.',
+    category: 'aiml',
+    year: '2024',
+    role: 'Applied AI Engineer',
+    impact: 'Increased retrieval precision on internal benchmarks by 18%.',
+    stack: ['Python', 'PostgreSQL', 'pgvector', 'Docker'],
+    links: {
+      caseStudy: '/projects/vector-retrieval-orchestration-api',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+  {
+    slug: 'go-api-latency-observatory',
+    title: 'Go API Latency Observatory',
+    description: 'Tracing and profiling pipeline that surfaces endpoint bottlenecks and SLA drift.',
+    category: 'backend',
+    year: '2024',
+    role: 'Observability Engineer',
+    impact: 'Reduced time-to-diagnosis during incidents by 53%.',
+    stack: ['Go', 'Jaeger', 'Prometheus', 'Grafana'],
+    links: {
+      caseStudy: '/projects/go-api-latency-observatory',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+  {
+    slug: 'distributed-job-scheduler',
+    title: 'Distributed Job Scheduler',
+    description:
+      'Horizontal scheduler with heartbeat failover and queue partitioning for high-throughput jobs.',
+    category: 'systems',
+    year: '2023',
+    role: 'Systems Engineer',
+    impact: 'Sustained 4x throughput growth while maintaining predictable queue latency.',
+    stack: ['Rust', 'Redis', 'NATS', 'Linux'],
+    links: {
+      caseStudy: '/projects/distributed-job-scheduler',
+      repo: 'https://github.com/lahirucw',
+    },
+  },
+];
+---
+
+<Layout
+  title="Projects"
+  description="A portfolio of systems experiments, applied AI work, and backend projects."
+>
+  <section class="py-20">
+    <div class="mx-auto max-w-5xl">
+      <header class="mb-10" data-fade-in style="--reveal-delay: 60ms">
+        <h1
+          class="font-heading text-primary text-5xl leading-tight font-medium"
+          transition:name="page-title"
+        >
+          Projects
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-4 max-w-170 text-base leading-7"
+          transition:name="page-subtitle"
+        >
+          Project work that documents the outcome of research questions, engineering constraints,
+          and systems trade-offs.
+        </p>
+      </header>
+
+      <div class="mb-12 flex flex-wrap gap-6">
+        {
+          categories.map((category) => (
+            <button
+              type="button"
+              data-filter={category.key}
+              class="filter-tab border-muted/50 font-body text-on-surface-variant hover:text-primary border-b pb-2 text-sm transition-colors duration-200"
+              aria-pressed={category.key === 'all' ? 'true' : 'false'}
+            >
+              {category.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div id="project-grid" class="grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2">
+        {
+          projects.map((project, index) => (
+            <article
+              id={project.slug}
+              data-category={project.category}
+              data-reveal
+              data-hover-lift
+              style={`--reveal-delay: ${index * 100}ms`}
+              class="project-card border-outline h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            >
+              <div class="border-outline bg-surface flex h-full flex-col border p-8">
+                <p class="font-body text-on-surface-dim text-sm">
+                  {project.role} · {project.year}
+                </p>
+                <h2 class="font-heading text-primary text-3xl leading-tight font-medium">
+                  {project.title}
+                </h2>
+                <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+                  {project.description}
+                </p>
+
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <li class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+
+                <p class="font-body text-on-surface-variant mt-5 text-sm leading-6">
+                  {project.impact}
+                </p>
+
+                <div class="mt-6 flex flex-wrap items-center gap-4 text-sm">
+                  <a
+                    href={project.links.caseStudy}
+                    class="font-body text-primary hover:text-accent transition-colors duration-200"
+                  >
+                    Case Study
+                  </a>
+                  {project.links.repo && (
+                    <a
+                      href={project.links.repo}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="font-body text-primary hover:text-accent transition-colors duration-200"
+                    >
+                      Repository
+                    </a>
+                  )}
+                  {project.links.live && (
+                    <a
+                      href={project.links.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="font-body text-primary hover:text-accent transition-colors duration-200"
+                    >
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <p id="empty-state" class="font-body text-on-surface-variant mt-8 hidden text-base italic">
+        No public projects in this category.
+      </p>
+
+      <section class="mt-16 max-w-3xl" data-reveal style="--reveal-delay: 120ms">
+        <p class="font-body text-accent text-xs tracking-[0.18em] uppercase">Legacy Work</p>
+        <div class="bg-surface border-outline mt-4 rounded-md border p-6 shadow-(--shadow-soft)">
+          <h2 class="font-heading text-primary text-2xl font-medium">
+            Data Science Portfolio (Earlier Focus)
+          </h2>
+          <p class="font-body text-on-surface-variant mt-3 text-base leading-7">
+            Before pivoting toward backend systems and applied AI infrastructure, I documented data
+            science projects on a dedicated portfolio platform.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs"
+              >data science</span
+            >
+            <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs"
+              >legacy</span
+            >
+            <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs"
+              >career evolution</span
+            >
+          </div>
+          <a
+            href="https://www.datascienceportfol.io/"
+            target="_blank"
+            rel="noreferrer"
+            class="font-body text-primary hover:text-accent mt-5 inline-block text-sm transition-colors duration-200"
+          >
+            View Legacy Portfolio
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-tab'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.project-card'));
+  const emptyState = document.getElementById('empty-state');
+
+  const applyFilter = (filter: string) => {
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const category = card.dataset.category;
+      const show = filter === 'all' || category === filter;
+      card.style.display = show ? '' : 'none';
+      if (show) visible += 1;
+    });
+
+    tabs.forEach((tab) => {
+      const active = tab.dataset.filter === filter;
+      tab.setAttribute('aria-pressed', String(active));
+      tab.classList.toggle('text-primary', active);
+      tab.classList.toggle('border-accent', active);
+    });
+
+    if (emptyState) {
+      emptyState.classList.toggle('hidden', visible !== 0);
+    }
+  };
+
+  const hash = window.location.hash.replace('#', '');
+  const initial = hash && tabs.some((t) => t.dataset.filter === hash) ? hash : 'all';
+  applyFilter(initial);
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter ?? 'all';
+      window.location.hash = filter === 'all' ? '' : filter;
+      applyFilter(filter);
+    });
+  });
+</script>
