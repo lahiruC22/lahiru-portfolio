@@ -1,23 +1,197 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/sections/Hero.astro';
-import CoreCompetencies from '../components/sections/CoreCompetencies.astro';
-import TechStack from '../components/sections/TechStack.astro';
-import HomeCTA from '../components/sections/HomeCTA.astro';
 import Footer from '../components/sections/Footer.astro';
+import { fade } from 'astro:transitions';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const homeTextTransition = fade({ duration: '0.55s' });
+const heroTitle = 'Building intelligent systems with quiet precision.';
+const heroSubtitle =
+  'Software Engineer focused on AI/ML, backend architecture, and distributed systems.';
+
+const researchInterests = [
+  {
+    title: 'Reliable AI Systems in Production',
+    summary:
+      'How to make model-backed services observable, testable, and failure-tolerant under real traffic.',
+  },
+  {
+    title: 'Evaluation for LLM Applications',
+    summary:
+      'Designing practical evaluation loops that connect prompt quality, retrieval behavior, and user outcomes.',
+  },
+  {
+    title: 'Distributed Systems for ML Workloads',
+    summary:
+      'Balancing latency, throughput, and consistency when inference and data pipelines operate at scale.',
+  },
+] as const;
+
+const currentQuestions = [
+  'What is the smallest evaluation suite that still catches most regressions in retrieval-augmented systems?',
+  'Which reliability patterns from event-driven backend systems transfer best to agentic workflows?',
+  'How should confidence and uncertainty be surfaced so teams can make safer product decisions?',
+] as const;
+
+const heroTitleTokens = heroTitle.split(' ');
+const heroSubtitleTokens = heroSubtitle.split(' ');
 ---
 
 <Layout
   title="Home"
-  description="Software Engineer focused on AI/ML, Distributed Systems, and High-Performance Backend Engineering."
+  description="Building intelligent systems with quiet precision. Software Engineer specializing in AI/ML, backend architecture, and distributed systems."
 >
-  <Hero />
-  <CoreCompetencies />
-  <TechStack />
-  <HomeCTA />
+  <section class="flex min-h-[calc(100vh-6rem)] items-center justify-center py-20">
+    <div class="mx-auto max-w-170 text-center">
+      <h1
+        class="font-heading text-primary text-5xl leading-tight font-medium sm:text-6xl lg:text-7xl"
+        transition:name="home-title"
+        transition:animate={homeTextTransition}
+        aria-label={heroTitle}
+        data-writing-text
+        style="--text-delay: 120ms; --token-stagger: 95ms"
+      >
+        {
+          heroTitleTokens.map((token, index) => (
+            <span class="writing-token" style={`--token-index: ${index}`}>
+              {token}&nbsp;
+            </span>
+          ))
+        }
+      </h1>
+      <p
+        class="font-body text-on-surface-variant mx-auto mt-8 max-w-120 text-lg leading-8"
+        transition:name="home-subtitle"
+        transition:animate={homeTextTransition}
+        aria-label={heroSubtitle}
+        data-writing-text
+        style="--text-delay: 780ms; --token-stagger: 62ms"
+      >
+        {
+          heroSubtitleTokens.map((token, index) => (
+            <span class="writing-token" style={`--token-index: ${index}`}>
+              {token}&nbsp;
+            </span>
+          ))
+        }
+      </p>
+
+      <div
+        class="mt-10 flex flex-wrap items-center justify-center gap-6"
+        data-fade-in
+        style="--reveal-delay: 1380ms"
+      >
+        <a
+          href="/projects"
+          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+        >
+          Explore Case Studies
+        </a>
+        <a
+          href="/blog"
+          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+        >
+          Read Engineering Notes
+        </a>
+        <a
+          href="/contact"
+          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+        >
+          Start a Conversation
+        </a>
+        <a
+          href="/research"
+          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+        >
+          Current Research and Study Notes
+        </a>
+      </div>
+
+      <p
+        class="font-body text-on-surface-dim mt-6 text-center text-sm"
+        data-fade-in
+        style="--reveal-delay: 1540ms"
+      >
+        Earlier work in data science:
+        <a
+          href="https://www.datascienceportfol.io/lahirucw"
+          target="_blank"
+          rel="noreferrer"
+          class="text-primary hover:text-accent ml-1 transition-colors duration-200"
+        >
+          Legacy portfolio
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="py-8 md:py-14" data-reveal style="--reveal-delay: 120ms">
+    <div class="border-outline bg-surface rounded-xl border p-7 shadow-(--shadow-soft) md:p-9">
+      <div class="max-w-3xl">
+        <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">Research Focus</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl leading-tight font-medium md:text-4xl">
+          Building research-driven software systems
+        </h2>
+        <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+          My engineering work is guided by explicit questions, not only implementation speed. I
+          focus on applied research topics that improve reliability, decision quality, and
+          real-world AI system behavior.
+        </p>
+      </div>
+
+      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {
+          researchInterests.map((interest) => (
+            <article class="border-outline-variant/70 rounded-lg border p-4" data-hover-lift>
+              <h3 class="font-heading text-primary text-xl leading-tight font-medium">
+                {interest.title}
+              </h3>
+              <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                {interest.summary}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <div>
+          <h3 class="font-heading text-primary text-2xl font-medium">Current questions</h3>
+          <ul class="mt-4 space-y-3">
+            {
+              currentQuestions.map((question) => (
+                <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
+                  <span class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+                  <span>{question}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <aside class="border-outline-variant/70 bg-background rounded-lg border p-5">
+          <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">Collaboration</p>
+          <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+            Open to applied research collaboration, paper-to-production work, and experimentation on
+            evaluation and system reliability.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-4">
+            <a
+              href="/research"
+              class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+            >
+              View research roadmap
+            </a>
+            <a
+              href="/contact"
+              class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+            >
+              Discuss collaboration
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <Footer />
 </Layout>

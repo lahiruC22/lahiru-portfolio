@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/sections/Footer.astro';
+---
+
+<Layout
+  title="Contact"
+  description="Start a conversation about backend systems, applied AI, research collaboration, or engineering opportunities."
+>
+  <section class="py-20">
+    <div class="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2">
+      <div class="space-y-8" data-fade-in style="--reveal-delay: 40ms">
+        <h1
+          class="font-heading text-primary text-5xl leading-tight font-medium"
+          transition:name="page-title"
+        >
+          Start a conversation.
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-6 text-base leading-7"
+          transition:name="page-subtitle"
+        >
+          I am open to full-time roles, selected freelance work, and research collaboration focused
+          on backend systems, applied AI, and developer tooling.
+        </p>
+        <p class="font-body text-on-surface-variant text-sm leading-6">
+          If you want to discuss a project, a paper, or a product idea that needs careful technical
+          execution, this is the place to reach me.
+        </p>
+        <a
+          href="mailto:lahirucwofficial@gmail.com"
+          class="font-body text-primary hover:text-accent mt-4 inline-block text-sm transition-colors duration-200"
+        >
+          Prefer email? lahirucwofficial@gmail.com
+        </a>
+      </div>
+
+      <form
+        class="space-y-6"
+        name="contact"
+        method="post"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        data-fade-in
+        style="--reveal-delay: 160ms"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>
+            Do not fill this out if you are human: <input name="bot-field" />
+          </label>
+        </p>
+        <label class="block">
+          <span class="font-body text-on-surface-dim mb-2 block text-sm">Name</span>
+          <input
+            type="text"
+            name="name"
+            required
+            class="font-body text-primary border-muted focus:border-primary w-full border-b bg-transparent px-0 py-2 transition-colors outline-none"
+          />
+        </label>
+
+        <label class="block">
+          <span class="font-body text-on-surface-dim mb-2 block text-sm">Email</span>
+          <input
+            type="email"
+            name="email"
+            required
+            class="font-body text-primary border-muted focus:border-primary w-full border-b bg-transparent px-0 py-2 transition-colors outline-none"
+          />
+        </label>
+
+        <label class="block">
+          <span class="font-body text-on-surface-dim mb-2 block text-sm">Message</span>
+          <textarea
+            name="message"
+            rows="4"
+            required
+            class="font-body text-primary border-muted focus:border-primary w-full resize-none border-b bg-transparent px-0 py-2 transition-colors outline-none"
+          ></textarea>
+        </label>
+
+        <button
+          type="submit"
+          class="font-body bg-primary hover:bg-accent h-12 rounded-md px-6 text-white transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

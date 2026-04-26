@@ -1,0 +1,325 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const researchTracks = [
+  {
+    horizon: 'Near-Term (0-3 months)',
+    title: 'Evaluation Foundations for AI Features',
+    objective:
+      'Define a lightweight, repeatable evaluation baseline for retrieval-backed and LLM-assisted workflows.',
+    actions: [
+      'Build a small benchmark set for correctness, relevance, and failure-mode coverage.',
+      'Compare prompt and retrieval strategies with measurable acceptance criteria.',
+      'Track evaluation drift as content and model versions evolve.',
+    ],
+  },
+  {
+    horizon: 'Mid-Term (3-9 months)',
+    title: 'Reliability Patterns for Agentic Systems',
+    objective:
+      'Translate proven backend reliability concepts into robust multi-step AI orchestration patterns.',
+    actions: [
+      'Experiment with idempotent tool execution and retry-safe workflow states.',
+      'Measure impact of timeout and fallback strategies on user-visible quality.',
+      'Map incident-style observability practices to agent execution traces.',
+    ],
+  },
+  {
+    horizon: 'Long-Term (9-18 months)',
+    title: 'Decision-Aware AI Infrastructure',
+    objective:
+      'Design system-level patterns where confidence, uncertainty, and risk are first-class runtime signals.',
+    actions: [
+      'Prototype confidence-aware routing for model and tool selection.',
+      'Evaluate uncertainty communication patterns for engineering teams.',
+      'Study trade-offs between conservative and aggressive automation in production.',
+    ],
+  },
+] as const;
+
+const activeReading = [
+  {
+    focus: 'LLM Evaluation and Diagnostics',
+    status: 'Active',
+  },
+  {
+    focus: 'Distributed Systems Reliability Trade-offs',
+    status: 'Active',
+  },
+  {
+    focus: 'Applied Human-AI Interaction for Developer Workflows',
+    status: 'Ongoing',
+  },
+] as const;
+
+const certifications = [
+  {
+    name: 'Google Cloud Associate Cloud Engineer',
+    provider: 'Google Cloud',
+    status: 'In Progress',
+    timeline: 'Target: 2026 Q3',
+    focus: 'Cloud operations, IAM, and production services for scalable backend systems.',
+  },
+  {
+    name: 'AWS Certified Developer - Associate',
+    provider: 'Amazon Web Services',
+    status: 'In Progress',
+    timeline: 'Target: 2026 Q4',
+    focus: 'Serverless architecture, observability, and secure application delivery patterns.',
+  },
+  {
+    name: 'Machine Learning Specialization',
+    provider: 'DeepLearning.AI + Stanford Online',
+    status: 'Completed',
+    timeline: '2025',
+    focus: 'Model fundamentals and practical deployment thinking for applied AI systems.',
+  },
+] as const;
+
+const books = [
+  {
+    title: 'Designing Data-Intensive Applications',
+    author: 'Martin Kleppmann',
+    status: 'Reading',
+    takeaway:
+      'Using clear trade-off language for consistency, partitioning, and reliability decisions.',
+  },
+  {
+    title: 'System Design Interview, Volume 1',
+    author: 'Alex Xu',
+    status: 'Reading',
+    takeaway: 'Turning product requirements into explicit capacity and architecture decisions.',
+  },
+  {
+    title: 'Building Microservices (2nd Edition)',
+    author: 'Sam Newman',
+    status: 'Finished',
+    takeaway:
+      'Service boundaries and deployment autonomy matter more than framework-level decisions.',
+  },
+  {
+    title: 'Clean Architecture',
+    author: 'Robert C. Martin',
+    status: 'Finished',
+    takeaway: 'Protect core business logic from infrastructure churn through strict layering.',
+  },
+] as const;
+---
+
+<Layout
+  title="Research"
+  description="Research interests, active questions, and roadmap for applied AI systems, evaluation, and reliability engineering."
+>
+  <section class="py-20">
+    <div class="mx-auto w-full max-w-5xl">
+      <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
+        <h1
+          class="font-heading text-primary mt-3 text-5xl leading-tight font-medium"
+          transition:name="page-title"
+        >
+          Research interests and roadmap
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-5 text-base leading-7"
+          transition:name="page-subtitle"
+        >
+          I am interested in applied research at the intersection of AI/ML systems, backend
+          reliability, and developer tooling. This page captures what I am actively exploring and
+          how I structure that exploration over time.
+        </p>
+      </header>
+
+      <section class="mt-12" data-reveal style="--reveal-delay: 120ms">
+        <h2 class="font-heading text-primary text-3xl font-medium">Core interests</h2>
+        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <article
+            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
+            data-hover-lift
+          >
+            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
+              Reliable AI systems in production
+            </h3>
+            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+              I study practical ways to make model-backed services resilient, observable, and easier
+              to debug under real production constraints.
+            </p>
+          </article>
+          <article
+            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
+            data-hover-lift
+          >
+            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
+              Evaluation and benchmark design
+            </h3>
+            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+              I focus on lightweight evaluation systems that reveal regressions quickly and support
+              confident product iteration.
+            </p>
+          </article>
+          <article
+            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
+            data-hover-lift
+          >
+            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
+              Distributed systems for ML workloads
+            </h3>
+            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+              I am interested in architecture decisions around latency, consistency, and throughput
+              when AI and backend platforms converge.
+            </p>
+          </article>
+          <article
+            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
+            data-hover-lift
+          >
+            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
+              Human-AI developer workflows
+            </h3>
+            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+              I explore how AI-assisted development can improve quality and speed without reducing
+              technical rigor or accountability.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="mt-14" data-reveal style="--reveal-delay: 180ms">
+        <h2 class="font-heading text-primary text-3xl font-medium">Research roadmap</h2>
+        <div class="mt-6 space-y-5">
+          {
+            researchTracks.map((track) => (
+              <article class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)">
+                <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">
+                  {track.horizon}
+                </p>
+                <h3 class="font-heading text-primary mt-2 text-2xl leading-tight font-medium">
+                  {track.title}
+                </h3>
+                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                  {track.objective}
+                </p>
+                <ul class="mt-4 space-y-2">
+                  {track.actions.map((item) => (
+                    <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
+                      <span class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mt-14" data-reveal style="--reveal-delay: 240ms">
+        <h2 class="font-heading text-primary text-3xl font-medium">Currently exploring</h2>
+        <div class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {
+            activeReading.map((item) => (
+              <article class="border-outline-variant/70 bg-background rounded-lg border p-4">
+                <p class="text-on-surface-dim font-mono text-xs">{item.status}</p>
+                <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">{item.focus}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mt-14" data-reveal style="--reveal-delay: 300ms">
+        <h2 class="font-heading text-primary text-3xl font-medium">Learning notes</h2>
+        <p class="font-body text-on-surface-variant mt-3 max-w-3xl text-base leading-7">
+          I keep this study track here so the page stays unified: research questions up top, the
+          current reading and certification work underneath them.
+        </p>
+
+        <div class="mt-6 grid grid-cols-1 gap-12 lg:grid-cols-2">
+          <section data-reveal style="--reveal-delay: 340ms">
+            <h3 class="font-heading text-primary text-2xl font-medium">Certifications</h3>
+            <div class="mt-6 space-y-6">
+              {
+                certifications.map((cert) => (
+                  <article
+                    class="bg-surface border-outline rounded-md border p-6 shadow-(--shadow-soft)"
+                    data-hover-lift
+                  >
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <h4 class="font-heading text-primary text-2xl leading-tight font-medium">
+                        {cert.name}
+                      </h4>
+                      <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
+                        {cert.status}
+                      </span>
+                    </div>
+                    <p class="font-body text-on-surface-dim mt-3 text-sm">
+                      {cert.provider} · {cert.timeline}
+                    </p>
+                    <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+                      {cert.focus}
+                    </p>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+
+          <section data-reveal style="--reveal-delay: 380ms">
+            <h3 class="font-heading text-primary text-2xl font-medium">Books</h3>
+            <div class="mt-6 space-y-6">
+              {
+                books.map((book) => (
+                  <article
+                    class="bg-surface border-outline rounded-md border p-6 shadow-(--shadow-soft)"
+                    data-hover-lift
+                  >
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <h4 class="font-heading text-primary text-2xl leading-tight font-medium">
+                        {book.title}
+                      </h4>
+                      <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
+                        {book.status}
+                      </span>
+                    </div>
+                    <p class="font-body text-on-surface-dim mt-3 text-sm">{book.author}</p>
+                    <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+                      {book.takeaway}
+                    </p>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section
+        class="border-outline mt-14 rounded-lg border p-6"
+        data-reveal
+        style="--reveal-delay: 420ms"
+      >
+        <h2 class="font-heading text-primary text-2xl font-medium">Open to collaboration</h2>
+        <p class="font-body text-on-surface-variant mt-3 max-w-3xl text-sm leading-6">
+          I am open to collaborations in applied AI research, paper-to-production implementation,
+          and reliability-focused experimentation for intelligent systems.
+        </p>
+        <div class="mt-5 flex flex-wrap items-center gap-5">
+          <a
+            href="/contact"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
+            Reach out for collaboration
+          </a>
+          <a
+            href="/projects"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
+            See related project work
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

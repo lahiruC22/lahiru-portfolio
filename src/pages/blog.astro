@@ -1,0 +1,320 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const posts = [
+  {
+    slug: 'idempotency-patterns-event-driven-services',
+    title: 'Idempotency Patterns for Event-Driven Services',
+    date: '2026-04-10',
+    readingTime: '7 min read',
+    href: '/blog/idempotency-patterns-event-driven-services',
+    tags: ['event-driven', 'backend'],
+  },
+  {
+    slug: 'diagnosing-slow-api-paths-incremental-profiling',
+    title: 'Diagnosing Slow API Paths with Incremental Profiling',
+    date: '2026-03-28',
+    readingTime: '6 min read',
+    href: '/blog/diagnosing-slow-api-paths-incremental-profiling',
+    tags: ['performance', 'go'],
+  },
+  {
+    slug: 'practical-trade-offs-kubernetes-autoscaling',
+    title: 'Practical Trade-offs in Kubernetes Autoscaling',
+    date: '2026-03-14',
+    readingTime: '8 min read',
+    href: '/blog/practical-trade-offs-kubernetes-autoscaling',
+    tags: ['kubernetes', 'platform'],
+  },
+  {
+    slug: 'prototype-to-production-serving-ml-models-safely',
+    title: 'From Prototype to Production: Serving ML Models Safely',
+    date: '2026-02-25',
+    readingTime: '9 min read',
+    href: '/blog/prototype-to-production-serving-ml-models-safely',
+    tags: ['mlops', 'ai'],
+  },
+];
+
+const learningPathPrompt =
+  'Enter a technical topic or skill you want to learn, and I will curate a personalized path from my writing archive.';
+---
+
+<Layout
+  title="Writing"
+  description="Essays and engineering notes on backend architecture, distributed systems, and applied AI."
+>
+  <section class="py-20">
+    <div class="mx-auto w-full max-w-5xl">
+      <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
+        <h1
+          class="font-heading text-primary text-5xl leading-tight font-medium"
+          transition:name="page-title"
+        >
+          Writing
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-4 text-base leading-7"
+          transition:name="page-subtitle"
+        >
+          Essays, experiments, and technical notes that sit between research thinking and shipped
+          systems.
+        </p>
+      </header>
+
+      <div class="border-outline mt-12 max-w-3xl border-t">
+        {
+          posts.map((post, index) => (
+            <a
+              href={post.href}
+              id={post.slug}
+              data-reveal
+              style={`--reveal-delay: ${index * 110}ms`}
+              class="group border-outline/80 hover:bg-surface block border-b py-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            >
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                <h2 class="font-heading text-primary group-hover:text-accent min-w-0 text-2xl font-medium transition-all duration-500 group-hover:translate-x-1">
+                  {post.title}
+                </h2>
+                <p class="font-body text-muted shrink-0 text-sm sm:pt-1">{post.date}</p>
+              </div>
+              <p class="text-on-surface-dim mt-2 font-mono text-xs">{post.readingTime}</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <section class="mt-14 max-w-3xl" data-reveal style="--reveal-delay: 180ms">
+        <h2 class="font-heading text-primary text-2xl font-medium">Related pages</h2>
+        <div class="mt-4 flex flex-wrap gap-4">
+          <a
+            href="/research"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
+            Research roadmap
+          </a>
+          <a
+            href="/projects"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
+            Projects
+          </a>
+        </div>
+      </section>
+
+      <section class="mt-16 max-w-3xl" data-reveal style="--reveal-delay: 240ms">
+        <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">
+          Learning Path Generator
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium">
+          Generate a reading path from the writing archive
+        </h2>
+        <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+          {learningPathPrompt}
+        </p>
+
+        <div class="border-outline bg-surface-dim mt-8 rounded-lg border p-8">
+          <form id="path-form" class="flex flex-col gap-4">
+            <div>
+              <label for="topic" class="font-body text-on-surface block text-sm font-medium">
+                What would you like to learn?
+              </label>
+              <input
+                type="text"
+                id="topic"
+                name="topic"
+                placeholder="e.g., distributed systems, mlops, performance optimization"
+                class="border-outline bg-background text-on-surface placeholder-on-surface-dim focus:border-accent focus:ring-accent/20 mt-2 w-full rounded-lg border px-4 py-3 text-base transition-all duration-300 focus:ring-2 focus:outline-none"
+                required
+              />
+              <p class="font-body text-on-surface-dim mt-2 text-xs">
+                Try topics like distributed systems, mlops, event-driven architecture, performance
+                optimization, kubernetes.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              class="bg-accent hover:bg-primary mt-4 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-300 disabled:opacity-50"
+              id="submit-btn"
+            >
+              Generate Path
+            </button>
+          </form>
+
+          <div id="loading" class="mt-6 hidden">
+            <div class="flex items-center gap-3">
+              <div
+                class="border-accent size-4 animate-spin rounded-full border-2 border-t-transparent"
+              >
+              </div>
+              <p class="font-body text-on-surface-variant text-sm">
+                Reasoning about the best learning sequence...
+              </p>
+            </div>
+          </div>
+
+          <div id="error" class="mt-6 hidden">
+            <div class="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
+              <p class="font-body text-sm text-red-500" id="error-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="results" class="mt-12 hidden">
+          <div data-fade-in style="--reveal-delay: 120ms">
+            <div class="mb-8">
+              <h3 id="path-title" class="font-heading text-primary text-3xl font-medium"></h3>
+              <p id="path-description" class="font-body text-on-surface-variant mt-2 text-base"></p>
+              <p id="reading-time" class="font-body text-accent mt-2 text-sm font-semibold"></p>
+            </div>
+
+            <div id="path-steps" class="space-y-6"></div>
+
+            <div class="border-outline bg-surface-dim mt-10 rounded-lg border p-6">
+              <h3 class="font-heading text-primary mb-3 text-lg font-medium">After This Path</h3>
+              <ul id="next-steps-list" class="font-body text-on-surface space-y-2 text-sm"></ul>
+            </div>
+
+            <button
+              onclick="location.reload()"
+              class="bg-surface-dim text-accent hover:bg-surface border-outline mt-8 rounded-lg border px-6 py-3 font-semibold transition-all duration-300"
+            >
+              Try Another Topic
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  interface LearningPathStep {
+    position: number;
+    title: string;
+    slug: string;
+    summary: string;
+    whyThisStep: string;
+    keyTakeaways: string[];
+    relatedProjects: string[];
+    readingTime: string;
+    tags: string[];
+  }
+
+  interface LearningPathResponse {
+    topic: string;
+    pathTitle: string;
+    pathDescription: string;
+    steps: LearningPathStep[];
+    totalReadingTime: string;
+    nextSteps: string[];
+  }
+
+  const form = document.getElementById('path-form') as HTMLFormElement | null;
+  const loadingEl = document.getElementById('loading') as HTMLElement | null;
+  const errorEl = document.getElementById('error') as HTMLElement | null;
+  const errorText = document.getElementById('error-text') as HTMLElement | null;
+  const resultsEl = document.getElementById('results') as HTMLElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const pathStepsEl = document.getElementById('path-steps') as HTMLElement | null;
+
+  if (form && loadingEl && errorEl && errorText && resultsEl && submitBtn && pathStepsEl) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const topic = (document.getElementById('topic') as HTMLInputElement | null)?.value.trim();
+      if (!topic) return;
+
+      errorEl.classList.add('hidden');
+      resultsEl.classList.add('hidden');
+      loadingEl.classList.remove('hidden');
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/learning-path', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to generate learning path');
+        }
+
+        const data = (await response.json()) as LearningPathResponse;
+
+        (document.getElementById('path-title') as HTMLElement).textContent = data.pathTitle;
+        (document.getElementById('path-description') as HTMLElement).textContent =
+          data.pathDescription;
+        (document.getElementById('reading-time') as HTMLElement).textContent =
+          `Total reading time: ${data.totalReadingTime}`;
+
+        pathStepsEl.innerHTML = data.steps
+          .map(
+            (step, index) => `
+              <a
+                href="/blog/${step.slug}"
+                class="group block rounded-lg border border-outline p-6 transition-all duration-300 hover:border-accent hover:bg-surface-dim"
+                data-reveal
+                style="--reveal-delay: ${(index + 1) * 100}ms"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3">
+                      <span class="bg-accent text-on-accent size-8 flex items-center justify-center rounded-full font-semibold">
+                        ${step.position}
+                      </span>
+                      <h3 class="font-heading text-primary group-hover:text-accent text-lg font-medium transition-colors">
+                        ${step.title}
+                      </h3>
+                    </div>
+                    <p class="text-on-surface-variant mt-2 text-sm">${step.summary}</p>
+                    <p class="text-accent mt-3 text-sm font-semibold italic">${step.whyThisStep}</p>
+                    <div class="mt-4">
+                      <p class="font-body text-on-surface text-xs font-semibold">Key Takeaways:</p>
+                      <ul class="text-on-surface-dim mt-2 space-y-1 text-xs">
+                        ${step.keyTakeaways.map((take) => `<li class="flex gap-2"><span>•</span> <span>${take}</span></li>`).join('')}
+                      </ul>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                      ${step.tags.map((tag) => `<span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">${tag}</span>`).join('')}
+                    </div>
+                  </div>
+                  <div class="text-on-surface-dim shrink-0 text-xs">${step.readingTime}</div>
+                </div>
+              </a>
+            `
+          )
+          .join('');
+
+        const nextStepsList = document.getElementById('next-steps-list') as HTMLElement | null;
+        if (nextStepsList) {
+          nextStepsList.innerHTML = data.nextSteps
+            .map((step) => `<li class="flex gap-2"><span>→</span> <span>${step}</span></li>`)
+            .join('');
+        }
+
+        loadingEl.classList.add('hidden');
+        resultsEl.classList.remove('hidden');
+      } catch (error) {
+        errorText.textContent =
+          error instanceof Error ? error.message : 'Failed to generate learning path';
+        loadingEl.classList.add('hidden');
+        errorEl.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
