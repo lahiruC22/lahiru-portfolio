@@ -131,6 +131,7 @@ const { project } = Astro.props as { project: ProjectDetail };
 <Layout title={project.title} description={project.description} ogType="article">
   <section class="py-20">
     <div class="mx-auto max-w-3xl" data-reveal>
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Case study</p>
       <p class="font-body text-on-surface-dim text-sm">
         {project.category} · {project.year} · {project.role}
       </p>
