@@ -3,12 +3,14 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/sections/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
+import { profile } from '../lib/content';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
+  publishedTime?: string;
 }
 
 const {
@@ -16,6 +18,7 @@ const {
   description = 'Full-stack software engineer - AI/ML building resilient systems at the intersection of performance and developer experience.',
   ogImage = '/og-default.svg',
   ogType = 'website',
+  publishedTime,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -27,10 +30,10 @@ const structuredData = {
   '@graph': [
     {
       '@type': 'Person',
-      name: 'Lahiru Wimalarathna',
+      name: profile.name,
       url: Astro.site?.toString(),
       jobTitle: 'Software Engineer',
-      sameAs: ['https://github.com/lahirucw', 'https://www.linkedin.com/in/lahiru-wimalarathna'],
+      sameAs: [profile.contact.github, profile.contact.linkedin],
     },
     {
       '@type': 'WebSite',
@@ -44,6 +47,22 @@ const structuredData = {
       description,
       url: canonicalURL.toString(),
     },
+    ...(publishedTime
+      ? [
+          {
+            '@type': 'Article',
+            headline: title,
+            description,
+            datePublished: publishedTime,
+            dateModified: publishedTime,
+            author: {
+              '@type': 'Person',
+              name: profile.name,
+            },
+            mainEntityOfPage: canonicalURL.toString(),
+          },
+        ]
+      : []),
   ],
 };
 ---
@@ -79,8 +98,14 @@ const structuredData = {
   </head>
 
   <body class="flex min-h-dvh flex-col">
+    <a
+      href="#main-content"
+      class="bg-primary text-background fixed top-3 left-3 z-100 -translate-y-24 rounded-md px-4 py-3 font-mono text-sm font-semibold transition-transform focus:translate-y-0"
+    >
+      Skip to main content
+    </a>
     <Navbar />
-    <main class="ds-container flex-1 pt-16">
+    <main id="main-content" class="ds-container flex-1 pt-16">
       <slot />
     </main>
     <Footer />

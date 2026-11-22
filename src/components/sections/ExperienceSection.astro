@@ -1,0 +1,91 @@
+---
+import type { Experience } from '../../lib/content';
+import { formatPeriod } from '../../lib/content';
+
+interface Props {
+  experiences: Experience[];
+  compact?: boolean;
+}
+
+const { experiences, compact = false } = Astro.props;
+---
+
+<div class="space-y-6">
+  {
+    experiences.map((experience) => (
+      <article id={experience.id} class="border-outline bg-surface rounded-lg border p-5 sm:p-7">
+        <div class="grid gap-5 md:grid-cols-[12rem_1fr]">
+          <div>
+            <p class="text-on-surface-dim font-mono text-xs">
+              {formatPeriod(experience.startDate, experience.endDate, experience.current)}
+            </p>
+            <p class="text-accent mt-2 font-mono text-[0.68rem] uppercase">
+              {experience.employmentType}
+            </p>
+            <p class="text-on-surface-dim mt-2 text-xs">{experience.location}</p>
+          </div>
+          <div>
+            <h3 class="font-heading text-primary text-2xl font-medium">{experience.role}</h3>
+            <p class="text-accent mt-1 text-sm">{experience.employer}</p>
+
+            <div class:list={['space-y-5', compact ? 'mt-5' : 'mt-7']}>
+              {experience.projects.map((project) => (
+                <section
+                  class="border-outline border-t pt-5"
+                  aria-labelledby={`${project.id}-title`}
+                >
+                  <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
+                        {project.kind} · {project.roleContext}
+                      </p>
+                      <h4
+                        id={`${project.id}-title`}
+                        class="font-heading text-primary mt-2 text-xl font-medium"
+                      >
+                        {project.name}
+                      </h4>
+                    </div>
+                    {project.url && (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-primary hover:text-accent shrink-0 font-mono text-xs"
+                      >
+                        Visit project ↗
+                      </a>
+                    )}
+                  </div>
+                  <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                    {project.description}
+                  </p>
+
+                  <div class="mt-5 space-y-4">
+                    {project.contributions.map((contribution) => (
+                      <article>
+                        <h5 class="text-on-surface text-sm font-semibold">{contribution.title}</h5>
+                        <p class="font-body text-on-surface-variant mt-1 text-sm leading-6">
+                          {contribution.description}
+                        </p>
+                        {contribution.technologies.length > 0 && (
+                          <ul class="mt-3 flex flex-wrap gap-2" aria-label="Technologies">
+                            {contribution.technologies.map((technology) => (
+                              <li class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-[0.68rem]">
+                                {technology}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

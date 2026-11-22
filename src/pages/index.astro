@@ -1,131 +1,272 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {
+  profile,
+  portfolioProjects,
+  skillCategories,
+  experiences,
+  education,
+  formatPeriod,
+} from '../lib/content';
 
-const capabilities = [
-  {
-    number: '01',
-    title: 'Backend systems',
-    description: 'APIs, data access, idempotency, concurrency, and fault-tolerant service design.',
-  },
-  {
-    number: '02',
-    title: 'Distributed infrastructure',
-    description: 'Containers, orchestration, messaging, tracing, and operational ownership.',
-  },
-  {
-    number: '03',
-    title: 'Applied AI',
-    description: 'Model integration, retrieval, evaluation, and production model-serving patterns.',
-  },
-] as const;
+const featuredProjects = portfolioProjects.slice(0, 3);
+const highestEducation = education[0];
+const [firstName, ...remainingName] = profile.name.split(' ');
 
-const researchTracks = [
+const researchAreas = [
   'Reliable AI systems in production',
   'Evaluation and benchmark design',
   'Distributed systems for ML workloads',
 ] as const;
+
+const writing = [
+  {
+    title: 'Idempotency Patterns for Event-Driven Services',
+    summary:
+      'Correct retry behavior across duplicates, partial failures, and repeated event delivery.',
+    tags: ['Event-driven', 'Reliability'],
+    href: '/blog/idempotency-patterns-event-driven-services',
+  },
+  {
+    title: 'Diagnosing Slow API Paths with Incremental Profiling',
+    summary: 'A trace-first method for finding latency across application and database boundaries.',
+    tags: ['Performance', 'Go'],
+    href: '/blog/diagnosing-slow-api-paths-incremental-profiling',
+  },
+  {
+    title: 'Practical Trade-offs in Kubernetes Autoscaling',
+    summary: 'How workload characteristics and control-system behavior shape scaling decisions.',
+    tags: ['Kubernetes', 'SRE'],
+    href: '/blog/practical-trade-offs-kubernetes-autoscaling',
+  },
+] as const;
 ---
 
-<Layout
-  title="Home"
-  description="Lahiru Wimalarathna is a software engineer working across backend systems, distributed infrastructure, and applied AI."
->
+<Layout title="Home" description={profile.summary}>
   <section
-    class="grid min-h-[calc(100vh-6rem)] items-center gap-12 py-16 lg:grid-cols-[1.25fr_0.75fr] lg:py-24"
+    class="grid min-h-[calc(100vh-4rem)] w-full min-w-0 items-center gap-10 overflow-hidden py-14 sm:py-20 lg:grid-cols-[1.42fr_0.58fr] lg:py-24"
   >
-    <div>
-      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase" data-fade-in>
-        Software Engineer · AI/ML · Backend
+    <div class="min-w-0" data-fade-in>
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+        Software Engineering · Applied AI · Systems
       </p>
       <h1
-        class="font-heading text-primary mt-5 max-w-4xl text-5xl leading-[1.02] font-medium sm:text-6xl lg:text-[5.25rem]"
-        data-fade-in
-        style="--reveal-delay: 80ms"
+        class="font-heading text-primary mt-6 max-w-[14ch] text-4xl leading-[0.98] font-medium tracking-tight sm:text-6xl lg:text-[5.5rem]"
       >
-        Building reliable intelligent systems.
+        {firstName}<br />{remainingName.join(' ')}
       </h1>
-      <p
-        class="font-body text-on-surface-variant mt-7 max-w-2xl text-lg leading-8"
-        data-fade-in
-        style="--reveal-delay: 160ms"
-      >
-        I work across backend architecture, distributed systems, and applied AI — with attention to
-        observability, evaluation, and production reliability.
+      <p class="font-heading text-on-surface mt-6 max-w-3xl text-2xl leading-tight sm:text-3xl">
+        {profile.headline}
       </p>
-      <div
-        class="mt-9 flex flex-wrap items-center gap-3"
-        data-fade-in
-        style="--reveal-delay: 240ms"
+      <p
+        class="font-body text-on-surface-variant mt-5 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8"
       >
+        {profile.summary}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
         <a
           href="/projects"
-          class="bg-primary text-background hover:bg-accent-bright rounded-md px-5 py-3 font-mono text-sm font-semibold transition-colors"
+          class="bg-primary text-background hover:bg-accent-bright inline-flex h-12 items-center rounded-md px-5 font-mono text-sm font-semibold transition-colors"
         >
-          View projects
-        </a>
-        <a
-          href="/experience"
-          class="border-outline text-primary hover:border-accent rounded-md border px-5 py-3 font-mono text-sm transition-colors"
-        >
-          Experience
+          Explore projects
         </a>
         <a
           href="/contact"
-          class="text-on-surface-variant hover:text-primary px-2 py-3 font-mono text-sm transition-colors"
+          class="border-outline text-primary hover:border-accent inline-flex h-12 items-center rounded-md border px-5 font-mono text-sm transition-colors"
         >
-          Get in touch →
+          Contact
         </a>
       </div>
+      <nav class="mt-7 flex flex-wrap items-center gap-5" aria-label="Social links">
+        <a
+          href={profile.contact.github}
+          target="_blank"
+          rel="noreferrer"
+          class="text-on-surface-variant hover:text-primary font-mono text-xs transition-colors"
+        >
+          GitHub ↗
+        </a>
+        <a
+          href={profile.contact.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          class="text-on-surface-variant hover:text-primary font-mono text-xs transition-colors"
+        >
+          LinkedIn ↗
+        </a>
+        <a
+          href={`mailto:${profile.contact.email}`}
+          class="text-on-surface-variant hover:text-primary font-mono text-xs transition-colors"
+        >
+          Email ↗
+        </a>
+      </nav>
     </div>
 
     <aside
-      class="border-outline bg-surface rounded-lg border p-5 shadow-(--shadow-soft)"
+      class="border-outline bg-surface relative overflow-hidden rounded-lg border p-5 sm:p-6"
       data-reveal
       style="--reveal-delay: 160ms"
     >
       <div class="border-outline flex items-center justify-between border-b pb-4">
-        <span class="text-on-surface-dim font-mono text-xs">system profile</span>
+        <p class="text-on-surface-dim font-mono text-xs">01 / system.profile</p>
         <span class="text-accent flex items-center gap-2 font-mono text-xs">
           <span class="bg-accent size-1.5 rounded-full"></span>
           active
         </span>
       </div>
-      <dl class="divide-outline mt-2 divide-y">
-        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
+      <dl class="divide-outline divide-y">
+        <div class="grid grid-cols-[6.5rem_1fr] gap-4 py-5">
           <dt class="text-on-surface-dim font-mono text-xs">focus</dt>
-          <dd class="text-on-surface text-sm">AI + infrastructure</dd>
+          <dd class="text-on-surface text-sm">Backend + AI systems</dd>
         </div>
-        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
-          <dt class="text-on-surface-dim font-mono text-xs">based in</dt>
-          <dd class="text-on-surface text-sm">Sri Lanka</dd>
+        <div class="grid grid-cols-[6.5rem_1fr] gap-4 py-5">
+          <dt class="text-on-surface-dim font-mono text-xs">education</dt>
+          <dd class="text-on-surface text-sm">{highestEducation?.qualification}</dd>
         </div>
-        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
+        <div class="grid grid-cols-[6.5rem_1fr] gap-4 py-5">
           <dt class="text-on-surface-dim font-mono text-xs">open to</dt>
-          <dd class="text-on-surface text-sm">Engineering + research</dd>
+          <dd class="text-on-surface text-sm">Engineering collaboration</dd>
         </div>
       </dl>
+      <div class="border-outline mt-1 border-t pt-5">
+        <p class="text-terminal font-mono text-xs">$ cd ./selected-work</p>
+        <p class="text-on-surface-dim mt-2 font-mono text-xs">
+          {featuredProjects.length} projects loaded
+        </p>
+      </div>
     </aside>
   </section>
 
-  <section class="border-outline border-t py-16" data-reveal>
+  <section
+    class="border-outline border-t py-16 sm:py-20"
+    aria-labelledby="projects-heading"
+    data-reveal
+  >
     <div class="mb-8 flex items-end justify-between gap-6">
       <div>
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Capabilities</p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          What I build
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">02 / Selected work</p>
+        <h2
+          id="projects-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Featured projects
         </h2>
       </div>
+      <a
+        href="/projects"
+        class="text-on-surface-variant hover:text-primary hidden font-mono text-xs sm:block"
+      >
+        All projects →
+      </a>
     </div>
-    <div
-      class="border-outline bg-outline grid gap-px overflow-hidden rounded-lg border md:grid-cols-3"
-    >
+    <div class="border-outline bg-outline grid gap-px border md:grid-cols-3">
       {
-        capabilities.map((item) => (
-          <article class="bg-surface p-6 sm:p-8" data-hover-lift>
-            <p class="text-accent font-mono text-xs">{item.number}</p>
-            <h3 class="font-heading text-primary mt-8 text-xl font-medium">{item.title}</h3>
-            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-              {item.description}
+        featuredProjects.map((project, index) => (
+          <article class="bg-surface flex min-h-96 flex-col p-6 sm:p-7" data-hover-lift>
+            <div class="flex items-center justify-between">
+              <p class="text-accent font-mono text-xs">0{index + 1}</p>
+              <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">{project.type}</p>
+            </div>
+            <h3 class="font-heading text-primary mt-12 text-2xl leading-tight font-medium">
+              {project.name}
+            </h3>
+            <p class="font-body text-on-surface-variant mt-4 text-sm leading-6">
+              {project.summary}
+            </p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <li class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-[0.68rem]">
+                  {tech}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={`/projects/${project.id}`}
+              class="text-primary hover:text-accent mt-5 inline-flex items-center gap-2 font-mono text-xs"
+            >
+              Read case study <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    class="border-outline border-t py-16 sm:py-20"
+    aria-labelledby="expertise-heading"
+    data-reveal
+  >
+    <div class="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+      <div>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          03 / Technical expertise
+        </p>
+        <h2
+          id="expertise-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          How I build
+        </h2>
+        <p class="font-body text-on-surface-variant mt-4 max-w-md text-base leading-7">
+          A concise view of the tools and engineering areas used across my portfolio and project
+          work.
+        </p>
+      </div>
+      <div class="divide-outline border-outline divide-y border-y">
+        {
+          skillCategories.map((item) => (
+            <article class="grid gap-4 py-6 sm:grid-cols-[11rem_1fr] sm:gap-8">
+              <div>
+                <p class="text-accent font-mono text-[0.68rem] uppercase">Skill category</p>
+                <h3 class="font-heading text-primary mt-2 text-xl font-medium">{item.name}</h3>
+              </div>
+              <div>
+                <p class="text-on-surface-dim mt-3 font-mono text-xs">{item.items.join(' · ')}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="border-outline border-t py-16 sm:py-20"
+    aria-labelledby="experience-heading"
+    data-reveal
+  >
+    <div class="mb-8 flex items-end justify-between gap-6">
+      <div>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">04 / Experience</p>
+        <h2
+          id="experience-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Where I have worked
+        </h2>
+      </div>
+      <a
+        href="/experience"
+        class="text-on-surface-variant hover:text-primary hidden font-mono text-xs sm:block"
+      >
+        Full timeline →
+      </a>
+    </div>
+    <div class="divide-outline border-outline divide-y border-y">
+      {
+        experiences.map((item) => (
+          <article class="grid gap-3 py-6 md:grid-cols-[9rem_1fr_1.2fr] md:items-start md:gap-8">
+            <p class="text-on-surface-dim font-mono text-xs">
+              {formatPeriod(item.startDate, item.endDate, item.current)}
+            </p>
+            <div>
+              <h3 class="font-heading text-primary text-lg font-medium">{item.role}</h3>
+              <p class="text-accent mt-1 text-sm">{item.employer}</p>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm leading-6">
+              {item.projects.map((project) => project.name).join(' · ')}
             </p>
           </article>
         ))
@@ -133,32 +274,130 @@ const researchTracks = [
     </div>
   </section>
 
-  <section class="grid gap-10 py-16 lg:grid-cols-[1fr_0.65fr]" data-reveal>
-    <div>
-      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Research direction</p>
-      <h2 class="font-heading text-primary mt-3 max-w-2xl text-3xl font-medium sm:text-4xl">
-        Questions that shape the work
-      </h2>
-      <ul class="border-outline mt-7 divide-y border-y">
-        {
-          researchTracks.map((track, index) => (
-            <li class="grid grid-cols-[2.5rem_1fr] items-center gap-3 py-5">
-              <span class="text-on-surface-dim font-mono text-xs">0{index + 1}</span>
-              <span class="text-on-surface text-base">{track}</span>
-            </li>
-          ))
-        }
-      </ul>
+  <section
+    class="border-outline border-t py-16 sm:py-20"
+    aria-labelledby="research-heading"
+    data-reveal
+  >
+    <div class="grid gap-8 lg:grid-cols-[1fr_0.72fr]">
+      <div>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">05 / Research</p>
+        <h2
+          id="research-heading"
+          class="font-heading text-primary mt-3 max-w-xl text-3xl font-medium sm:text-4xl"
+        >
+          Active questions for engineering research
+        </h2>
+      </div>
+      <div class="border-outline bg-surface rounded-lg border p-6">
+        <ul class="divide-outline divide-y">
+          {
+            researchAreas.map((area, index) => (
+              <li class="grid grid-cols-[2.25rem_1fr] items-center gap-3 py-4 first:pt-0 last:pb-0">
+                <span class="text-on-surface-dim font-mono text-xs">0{index + 1}</span>
+                <span class="text-on-surface text-sm">{area}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href="/research"
+          class="text-primary hover:text-accent mt-6 inline-block font-mono text-xs"
+        >
+          Explore research program →
+        </a>
+      </div>
     </div>
-    <aside class="border-outline bg-surface-raised rounded-lg border p-7">
-      <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">Collaboration</p>
-      <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-        Open to applied research, engineering collaborations, and roles focused on AI systems,
-        backend infrastructure, or distributed platforms.
-      </p>
-      <a href="/contact" class="text-primary hover:text-accent mt-6 inline-block font-mono text-sm">
-        Start a conversation →
+  </section>
+
+  <section
+    class="border-outline border-t py-16 sm:py-20"
+    aria-labelledby="writing-heading"
+    data-reveal
+  >
+    <div class="mb-8 flex items-end justify-between gap-6">
+      <div>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          06 / Engineering writing
+        </p>
+        <h2
+          id="writing-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Selected notes
+        </h2>
+      </div>
+      <a
+        href="/blog"
+        class="text-on-surface-variant hover:text-primary hidden font-mono text-xs sm:block"
+      >
+        All writing →
       </a>
-    </aside>
+    </div>
+    <div class="divide-outline border-outline divide-y border-y">
+      {
+        writing.map((post) => (
+          <a
+            href={post.href}
+            class="group grid gap-4 py-6 sm:grid-cols-[1.25fr_0.75fr] sm:items-start"
+          >
+            <div>
+              <h3 class="font-heading text-primary group-hover:text-accent text-xl font-medium transition-colors">
+                {post.title}
+              </h3>
+              <p class="font-body text-on-surface-variant mt-2 max-w-xl text-sm leading-6">
+                {post.summary}
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 sm:justify-end">
+              {post.tags.map((tag) => (
+                <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-[0.68rem]">
+                  {tag}
+                </span>
+              ))}
+              <span class="text-primary ml-2 font-mono text-xs" aria-hidden="true">
+                →
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    class="border-outline bg-surface mt-2 mb-16 overflow-hidden rounded-lg border sm:mb-20"
+    id="contact"
+    data-reveal
+  >
+    <div class="grid md:grid-cols-[1fr_auto] md:items-center">
+      <div class="p-6 sm:p-8 lg:p-10">
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">07 / Contact</p>
+        <h2
+          class="font-heading text-primary mt-4 max-w-2xl text-3xl leading-tight font-medium sm:text-4xl"
+        >
+          Build or study a difficult systems problem.
+        </h2>
+        <p class="font-body text-on-surface-variant mt-4 max-w-xl text-sm leading-7">
+          Open to engineering roles, selected freelance work, and applied research collaboration.
+        </p>
+      </div>
+      <div
+        class="border-outline flex flex-wrap gap-3 border-t p-6 sm:p-8 md:border-t-0 md:border-l"
+      >
+        <a
+          href={`mailto:${profile.contact.email}`}
+          class="bg-primary text-background hover:bg-accent-bright inline-flex h-12 items-center rounded-md px-5 font-mono text-sm font-semibold transition-colors"
+        >
+          Start a conversation
+        </a>
+        <a
+          href="/projects"
+          class="border-outline text-primary hover:border-accent inline-flex h-12 items-center rounded-md border px-5 font-mono text-sm transition-colors"
+        >
+          View projects
+        </a>
+      </div>
+    </div>
   </section>
 </Layout>

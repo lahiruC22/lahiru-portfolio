@@ -1,0 +1,21 @@
+{
+  "name": "Lahiru Wimalarathna",
+  "headline": "Software Engineer | Backend Systems & AI",
+  "location": "Nugegoda, Sri Lanka",
+  "summary": "Software Engineer with experience building production software across backend systems, distributed services, and AI-powered applications. Experienced in Java, Spring Boot, Python, FastAPI, and TypeScript, with a focus on secure services, asynchronous processing, system performance, reliability, and maintainable software.",
+  "interests": [
+    "Backend engineering",
+    "Distributed systems",
+    "Privacy-preserving AI",
+    "Machine learning lifecycle management",
+    "Computational Neuroscience",
+    "Data Science"
+  ],
+  "contact": {
+    "email": "lahirucw1@gmail.com",
+    "phone": "0702154518",
+    "website": "https://lahiruwimalarathna.netlify.app/",
+    "github": "https://github.com/lahiruC22",
+    "linkedin": "https://www.linkedin.com/in/lahiru-wimalarathna/"
+  }
+}

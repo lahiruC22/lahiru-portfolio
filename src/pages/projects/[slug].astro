@@ -1,180 +1,99 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-interface ProjectDetail {
-  slug: string;
-  title: string;
-  description: string;
-  category: 'AI/ML' | 'Backend' | 'Distributed Systems';
-  year: string;
-  role: string;
-  impact: string;
-  stack: string[];
-  challenge: string;
-  solution: string;
-  outcomes: string[];
-}
-
-export const projects: ProjectDetail[] = [
-  {
-    slug: 'adaptive-model-inference-router',
-    title: 'Adaptive Model Inference Router',
-    description:
-      'A routing layer that dynamically selects model variants by confidence and latency budgets.',
-    category: 'AI/ML',
-    year: '2026',
-    role: 'Backend + ML Systems',
-    impact: 'Lowered p95 response time by 27% with confidence-aware routing.',
-    stack: ['Python', 'FastAPI', 'Redis', 'OpenTelemetry'],
-    challenge:
-      'Inference workloads had unpredictable latency because all requests were treated equally.',
-    solution:
-      'Built a confidence-aware routing policy that balanced latency budgets, cache hit signals, and model tiering.',
-    outcomes: ['p95 latency reduced by 27%', 'Fallback rate reduced across high-traffic endpoints'],
-  },
-  {
-    slug: 'event-sourced-billing-core',
-    title: 'Event-Sourced Billing Core',
-    description:
-      'A resilient billing service with idempotent processing and audit-first event streams.',
-    category: 'Backend',
-    year: '2025',
-    role: 'Backend Engineer',
-    impact: 'Improved replay consistency and reduced reconciliation errors by 41%.',
-    stack: ['Go', 'PostgreSQL', 'Kafka', 'Docker'],
-    challenge:
-      'Billing workflows required strict consistency under retries and partial downstream failures.',
-    solution:
-      'Implemented event sourcing with deterministic replay and explicit idempotency keys per operation.',
-    outcomes: [
-      '41% fewer reconciliation errors',
-      'Audit traceability improved for all billing state transitions',
-    ],
-  },
-  {
-    slug: 'kubernetes-workload-recovery-engine',
-    title: 'Kubernetes Workload Recovery Engine',
-    description:
-      'Automated remediation policies for failed workloads with controlled rollout strategies.',
-    category: 'Distributed Systems',
-    year: '2025',
-    role: 'Platform Engineer',
-    impact: 'Cut failed deployment recovery time from 19 minutes to 6 minutes.',
-    stack: ['Kubernetes', 'Go', 'Helm', 'Prometheus'],
-    challenge:
-      'Runtime failures required manual playbooks that delayed recovery and increased incident windows.',
-    solution:
-      'Introduced policy-driven health checks and automatic remediation steps with guarded rollback paths.',
-    outcomes: [
-      'Recovery time reduced from 19 to 6 minutes',
-      'On-call toil reduced with predictable remediation policies',
-    ],
-  },
-  {
-    slug: 'vector-retrieval-orchestration-api',
-    title: 'Vector Retrieval Orchestration API',
-    description: 'Backend API for semantic retrieval across multiple embedding providers.',
-    category: 'AI/ML',
-    year: '2024',
-    role: 'Applied AI Engineer',
-    impact: 'Increased retrieval precision on internal benchmarks by 18%.',
-    stack: ['Python', 'PostgreSQL', 'pgvector', 'Docker'],
-    challenge: 'Search quality varied across domains and providers with no orchestration layer.',
-    solution:
-      'Built provider-agnostic retrieval orchestration with consistent ranking and schema normalization.',
-    outcomes: ['Precision improved by 18%', 'Unified retrieval contract across multiple providers'],
-  },
-  {
-    slug: 'go-api-latency-observatory',
-    title: 'Go API Latency Observatory',
-    description: 'Tracing and profiling pipeline that surfaces endpoint bottlenecks and SLA drift.',
-    category: 'Backend',
-    year: '2024',
-    role: 'Observability Engineer',
-    impact: 'Reduced time-to-diagnosis during incidents by 53%.',
-    stack: ['Go', 'Jaeger', 'Prometheus', 'Grafana'],
-    challenge:
-      'Latency regressions were hard to isolate due to fragmented telemetry and inconsistent sampling.',
-    solution:
-      'Implemented consistent distributed tracing strategy and endpoint-specific profiling dashboards.',
-    outcomes: [
-      '53% faster incident diagnosis',
-      'Improved SLA drift detection before customer impact',
-    ],
-  },
-  {
-    slug: 'distributed-job-scheduler',
-    title: 'Distributed Job Scheduler',
-    description:
-      'Horizontal scheduler with heartbeat failover and queue partitioning for high-throughput jobs.',
-    category: 'Distributed Systems',
-    year: '2023',
-    role: 'Systems Engineer',
-    impact: 'Sustained 4x throughput growth while maintaining predictable queue latency.',
-    stack: ['Rust', 'Redis', 'NATS', 'Linux'],
-    challenge:
-      'Job throughput growth introduced head-of-line blocking and uneven worker saturation.',
-    solution:
-      'Designed partition-aware queueing with heartbeat failover and adaptive worker balancing.',
-    outcomes: ['4x throughput scaling', 'Stable queue latency under heavy spikes'],
-  },
-];
+import type { PortfolioProject } from '../../lib/content';
+import { portfolioProjects } from '../../lib/content';
 
 export function getStaticPaths() {
-  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+  return portfolioProjects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
 }
 
-const { project } = Astro.props as { project: ProjectDetail };
+const { project } = Astro.props as { project: PortfolioProject };
 ---
 
-<Layout title={project.title} description={project.description} ogType="article">
-  <section class="py-20">
-    <div class="mx-auto max-w-3xl" data-reveal>
-      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Case study</p>
-      <p class="font-body text-on-surface-dim text-sm">
-        {project.category} · {project.year} · {project.role}
-      </p>
-      <h1 class="font-heading text-primary mt-3 text-5xl leading-tight font-medium">
-        {project.title}
-      </h1>
-      <p class="font-body text-on-surface-variant mt-6 text-lg leading-8">{project.description}</p>
+<Layout title={project.name} description={project.summary} ogType="article">
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl">
+      <nav aria-label="Breadcrumb" class="text-on-surface-dim font-mono text-xs">
+        <a href="/projects" class="hover:text-primary transition-colors">Projects</a>
+        <span aria-hidden="true"> / </span>
+        <span>{project.type}</span>
+      </nav>
 
-      <div class="mt-8 flex flex-wrap gap-2">
-        {
-          project.stack.map((tech) => (
-            <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
-              {tech}
-            </span>
-          ))
-        }
-      </div>
+      <header class="mt-7" data-fade-in>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          {project.type}
+        </p>
+        <h1
+          class="font-heading text-primary mt-4 text-4xl leading-[1.02] font-medium sm:text-5xl lg:text-6xl"
+          transition:name="page-title"
+        >
+          {project.name}
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
+          transition:name="page-subtitle"
+        >
+          {project.summary}
+        </p>
+      </header>
 
-      <article class="mt-12 space-y-8" data-reveal>
-        <section>
-          <h2 class="font-heading text-primary text-2xl font-medium">Challenge</h2>
-          <p class="font-body text-on-surface-variant mt-3 leading-7">{project.challenge}</p>
-        </section>
-
-        <section>
-          <h2 class="font-heading text-primary text-2xl font-medium">Solution</h2>
-          <p class="font-body text-on-surface-variant mt-3 leading-7">{project.solution}</p>
-        </section>
-
-        <section>
-          <h2 class="font-heading text-primary text-2xl font-medium">Outcomes</h2>
-          <ul class="mt-3 space-y-2">
-            {
-              project.outcomes.map((outcome) => (
-                <li class="font-body text-on-surface-variant flex items-start gap-2 text-sm leading-6">
-                  <span class="text-accent mt-1 inline-block size-1.5 rounded-full" />
-                  <span>{outcome}</span>
+      {
+        project.technologies.length > 0 && (
+          <section
+            class="border-outline mt-12 border-t pt-8"
+            aria-labelledby="technologies-heading"
+          >
+            <h2
+              id="technologies-heading"
+              class="text-accent font-mono text-xs tracking-[0.18em] uppercase"
+            >
+              Technologies
+            </h2>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {project.technologies.map((technology) => (
+                <li class="text-accent bg-surface border-outline rounded-md border px-2.5 py-1.5 font-mono text-xs">
+                  {technology}
                 </li>
-              ))
-            }
-          </ul>
-          <p class="font-body text-primary mt-5 text-sm">{project.impact}</p>
-        </section>
-      </article>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        project.contributions.length > 0 && (
+          <section
+            class="border-outline mt-12 border-t pt-8"
+            aria-labelledby="contributions-heading"
+          >
+            <h2 id="contributions-heading" class="font-heading text-primary text-3xl font-medium">
+              Contributions
+            </h2>
+            <ul class="mt-5 space-y-3">
+              {project.contributions.map((contribution) => (
+                <li class="border-outline bg-surface flex items-start gap-3 rounded-md border p-5">
+                  <span class="bg-accent mt-2 size-1.5 shrink-0 rounded-full" />
+                  <span class="font-body text-on-surface-variant text-sm leading-6">
+                    {contribution}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <footer class="border-outline mt-14 flex flex-wrap gap-5 border-t pt-8">
+        <a href="/projects" class="text-primary hover:text-accent font-mono text-xs">
+          ← Back to projects
+        </a>
+        <a href="/contact" class="text-primary hover:text-accent font-mono text-xs">
+          Discuss this work →
+        </a>
+      </footer>
     </div>
   </section>
 </Layout>

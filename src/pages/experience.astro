@@ -1,334 +1,214 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-interface TimelineEntry {
-  slug: string;
-  kind: 'career' | 'education';
-  badge: string;
-  title: string;
-  org: string;
-  period: string;
-  summary: string;
-  chips: string[];
-  highlights: string[];
-}
-
-const timelineEntries: TimelineEntry[] = [
-  {
-    slug: 'current-education',
-    kind: 'education',
-    badge: 'Current Education',
-    title: 'BSc (Hons) in Computer Science',
-    org: 'University of Sri Jayewardenepura',
-    period: 'June 2022 - May 2026',
-    summary:
-      'Formal foundation in computer science that now supports a career path in backend systems, distributed infrastructure, and applied AI.',
-    chips: ['Academic foundation', 'Systems thinking', 'Continuous practice'],
-    highlights: [
-      'Aligning coursework with portfolio work so theory keeps feeding implementation.',
-      'Using the degree as a base for system design, reliability, and engineering judgment.',
-    ],
-  },
-  {
-    slug: 'fintech-platform',
-    kind: 'career',
-    badge: 'Career Milestone',
-    title: 'Software Engineering Intern',
-    org: 'FinTech Platform',
-    period: '2025 - 2026',
-    summary: 'Developed backend APIs and reliability tooling for payment workflows.',
-    chips: ['Go', 'PostgreSQL', 'Redis'],
-    highlights: [
-      'Reduced payment timeout incidents by 32%.',
-      'Introduced idempotency checks for critical transactions.',
-    ],
-  },
-  {
-    slug: 'ai-infrastructure-startup',
-    kind: 'career',
-    badge: 'Career Milestone',
-    title: 'Backend Engineering Intern',
-    org: 'AI Infrastructure Startup',
-    period: '2024 - 2025',
-    summary: 'Built services for model orchestration, observability, and deployment automation.',
-    chips: ['Python', 'Kubernetes', 'Prometheus'],
-    highlights: [
-      'Cut model deployment lead time from days to hours.',
-      'Improved service observability with trace-level dashboards.',
-    ],
-  },
-  {
-    slug: 'university-lab',
-    kind: 'career',
-    badge: 'Career Milestone',
-    title: 'Research & Systems Intern',
-    org: 'University Lab',
-    period: '2023 - 2024',
-    summary: 'Implemented distributed experiments and benchmark tooling for systems research.',
-    chips: ['Rust', 'Docker', 'Linux'],
-    highlights: [
-      'Built a reproducible benchmark harness for cluster tests.',
-      'Documented experiment pipelines for faster onboarding.',
-    ],
-  },
-];
-
-const filters = [
-  { key: 'all', label: 'All' },
-  { key: 'career', label: 'Career' },
-  { key: 'education', label: 'Education' },
-] as const;
+import ExperienceSection from '../components/sections/ExperienceSection.astro';
+import {
+  certifications,
+  education,
+  experiences,
+  profile,
+  skillCategories,
+  formatPeriod,
+} from '../lib/content';
 ---
 
 <Layout
-  title="Experience"
-  description="A narrative timeline of engineering experience across backend systems, infrastructure, and applied AI."
+  title="About"
+  description="Professional profile, academic background, experience, skills, and certifications."
 >
-  <section class="py-20">
-    <div class="mx-auto max-w-5xl" data-fade-in style="--reveal-delay: 60ms">
-      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Career and education</p>
-      <h1
-        class="font-heading text-primary mt-3 text-5xl leading-tight font-medium sm:text-5xl"
-        transition:name="page-title"
-      >
-        Experience
-      </h1>
-      <p
-        class="font-body text-on-surface-variant mt-4 max-w-2xl text-base leading-7"
-        transition:name="page-subtitle"
-      >
-        The timeline behind the portfolio: the internships, research work, and academic choices that
-        shaped my current focus on AI systems and backend reliability.
-      </p>
-    </div>
-
-    <div class="mx-auto mt-10 max-w-5xl">
-      <div class="mb-8 flex flex-wrap gap-3">
-        {
-          filters.map((filter) => (
-            <button
-              type="button"
-              data-filter={filter.key}
-              class="filter-tab border-muted/50 font-body text-on-surface-variant hover:text-primary border-b pb-2 text-sm transition-colors duration-200"
-              aria-pressed={filter.key === 'all' ? 'true' : 'false'}
-            >
-              {filter.label}
-            </button>
-          ))
-        }
-      </div>
-
-      <div class="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
-        <div class="relative pl-8 sm:pl-10">
-          <div
-            class="border-outline-variant absolute top-0 bottom-0 left-2 border-l-2 border-dashed sm:left-3"
-          >
-          </div>
-
-          <div class="space-y-4">
-            {
-              timelineEntries.map((item, index) => (
-                <button
-                  type="button"
-                  data-entry-card
-                  data-entry-slug={item.slug}
-                  data-entry-kind={item.kind}
-                  data-reveal
-                  style={`--reveal-delay: ${index * 120}ms`}
-                  class="group bg-surface border-outline relative w-full rounded-md border p-5 text-left shadow-(--shadow-soft) transition-all duration-300 hover:-translate-y-1"
-                >
-                  <span class="bg-accent absolute top-7 -left-[2.35rem] size-3 rounded-full sm:-left-[2.85rem]" />
-
-                  <p class="font-body text-on-surface-dim text-sm">
-                    {item.badge} · {item.period}
-                  </p>
-                  <h2 class="font-heading text-primary mt-2 text-2xl font-medium">{item.title}</h2>
-                  <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">{item.org}</p>
-
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    {item.chips.map((chip) => (
-                      <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p class="font-body text-on-surface-dim mt-4 text-sm leading-6">
-                    Click to open the story panel.
-                  </p>
-                </button>
-              ))
-            }
-          </div>
-        </div>
-
-        <aside
-          class="bg-surface border-outline sticky top-24 rounded-md border p-6 shadow-(--shadow-soft) lg:self-start"
-          data-fade-in
-          style="--reveal-delay: 180ms"
-        >
-          <p class="font-body text-accent text-xs tracking-[0.18em] uppercase">Story Spotlight</p>
-          <p id="timeline-badge" class="font-body text-on-surface-dim mt-3 text-sm"></p>
-          <h3
-            id="timeline-title"
-            class="font-heading text-primary mt-2 text-3xl leading-tight font-medium"
-          >
-          </h3>
-          <p id="timeline-org" class="font-body text-on-surface-variant mt-3 text-base leading-7">
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-6xl">
+      <header class="grid w-full min-w-0 gap-8 lg:grid-cols-[1fr_18rem]" data-fade-in>
+        <div class="min-w-0">
+          <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+            01 / Professional profile
           </p>
+          <h1
+            class="font-heading text-primary mt-4 max-w-4xl text-4xl leading-[0.98] font-medium sm:text-5xl lg:text-6xl"
+            transition:name="page-title"
+          >
+            About Me
+          </h1>
           <p
-            id="timeline-summary"
-            class="font-body text-on-surface-variant mt-5 text-base leading-8"
+            class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
+            transition:name="page-subtitle"
           >
+            {profile.summary}
           </p>
-
-          <div class="mt-6 flex flex-wrap gap-2" id="timeline-chips"></div>
-
-          <ul id="timeline-highlights" class="mt-6 space-y-3"></ul>
+        </div>
+        <aside class="border-outline bg-surface h-fit rounded-lg border p-5">
+          <p class="text-on-surface-dim font-mono text-xs">Profile</p>
+          <dl class="divide-outline mt-4 divide-y">
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Location</dt>
+              <dd class="text-on-surface mt-1 text-sm">{profile.location}</dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Headline</dt>
+              <dd class="text-on-surface mt-1 text-sm">{profile.headline}</dd>
+            </div>
+          </dl>
         </aside>
-      </div>
+      </header>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          02 / Academic background
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">Education</h2>
+        <div class="mt-8 space-y-5">
+          {
+            education.map((entry) => (
+              <article
+                id={entry.id}
+                class="border-outline bg-surface grid gap-5 rounded-lg border p-6 sm:p-8 md:grid-cols-[12rem_1fr]"
+              >
+                <div>
+                  <p class="text-on-surface-dim font-mono text-xs">
+                    {formatPeriod(entry.startDate, entry.endDate)}
+                  </p>
+                  <p class="text-accent mt-2 font-mono text-[0.68rem] uppercase">Degree</p>
+                </div>
+                <div>
+                  <h3 class="font-heading text-primary text-2xl font-medium">
+                    {entry.qualification}
+                  </h3>
+                  <p class="text-on-surface-variant mt-2 text-sm">
+                    {entry.institution} · {entry.location}
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-5">
+                    <p class="text-on-surface text-sm">
+                      <span class="text-on-surface-dim">GPA</span> · {entry.gpa}
+                    </p>
+                    <p class="text-on-surface text-sm">
+                      <span class="text-on-surface-dim">Classification</span> ·{' '}
+                      {entry.classification}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          03 / Professional experience
+        </p>
+        <div class="flex items-end justify-between gap-6">
+          <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+            My timeline
+          </h2>
+          <a
+            href="/projects"
+            class="text-on-surface-variant hover:text-primary hidden font-mono text-xs sm:block"
+          >
+            Project work →
+          </a>
+        </div>
+        <div class="mt-8">
+          <ExperienceSection experiences={experiences} />
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          04 / Technical skills
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Tools and technologies
+        </h2>
+        <div class="divide-outline border-outline mt-8 divide-y border-y">
+          {
+            skillCategories.map((category) => (
+              <article class="grid gap-4 py-6 md:grid-cols-[14rem_1fr] md:gap-8">
+                <h3 class="font-heading text-primary text-xl font-medium">{category.name}</h3>
+                <ul class="flex flex-wrap gap-2">
+                  {category.items.map((item) => (
+                    <li class="text-accent bg-surface border-outline rounded-md border px-2.5 py-1.5 font-mono text-xs">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          05 / Areas of interest
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Ongoing interests
+        </h2>
+        <div
+          class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+        >
+          {
+            profile.interests.map((interest, index) => (
+              <article class="bg-surface p-5 sm:p-6">
+                <p class="text-accent font-mono text-xs">0{index + 1}</p>
+                <p class="font-heading text-primary mt-5 text-lg font-medium">{interest}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">06 / Certifications</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Course certifications
+        </h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {
+            certifications.map((certification) => (
+              <article class="border-outline bg-surface rounded-lg border p-6">
+                <h3 class="font-heading text-primary text-xl font-medium">{certification.name}</h3>
+                {certification.issuer && (
+                  <p class="text-on-surface-variant mt-2 text-sm">{certification.issuer}</p>
+                )}
+                {certification.date && (
+                  <p class="text-on-surface-dim mt-3 font-mono text-xs">{certification.date}</p>
+                )}
+                {certification.verificationUrl && (
+                  <a
+                    href={certification.verificationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-primary hover:text-accent mt-4 inline-block font-mono text-xs"
+                  >
+                    Verify credential ↗
+                  </a>
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline bg-surface mt-16 rounded-lg border p-6 sm:p-8" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Connect</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium">
+          Open to engineering and research collaboration.
+        </h2>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="/contact"
+            class="bg-primary text-background hover:bg-accent-bright inline-flex h-12 items-center rounded-md px-5 font-mono text-sm font-semibold transition-colors"
+          >
+            Contact Me
+          </a>
+          <a
+            href="/projects"
+            class="border-outline text-primary hover:border-accent inline-flex h-12 items-center rounded-md border px-5 font-mono text-sm transition-colors"
+          >
+            View projects
+          </a>
+        </div>
+      </section>
     </div>
   </section>
 </Layout>
-
-<script>
-  const timelineData = [
-    {
-      slug: 'current-education',
-      badge: 'Current Education',
-      title: 'BSc (Hons) in Computer Science',
-      org: 'University of Sri Jayewardenepura',
-      summary:
-        'Formal foundation in computer science that now supports a career path in backend systems, distributed infrastructure, and applied AI.',
-      chips: ['Academic foundation', 'Systems thinking', 'Continuous practice'],
-      highlights: [
-        'June 2022 - May 2026',
-        'Aligning coursework with portfolio work so theory keeps feeding implementation.',
-        'Using the degree as a base for system design, reliability, and engineering judgment.',
-      ],
-    },
-    {
-      slug: 'fintech-platform',
-      badge: 'Career Milestone',
-      title: 'Software Engineering Intern',
-      org: 'FinTech Platform',
-      summary: 'Developed backend APIs and reliability tooling for payment workflows.',
-      chips: ['Go', 'PostgreSQL', 'Redis'],
-      highlights: [
-        '2025 - 2026',
-        'Reduced payment timeout incidents by 32%.',
-        'Introduced idempotency checks for critical transactions.',
-      ],
-    },
-    {
-      slug: 'ai-infrastructure-startup',
-      badge: 'Career Milestone',
-      title: 'Backend Engineering Intern',
-      org: 'AI Infrastructure Startup',
-      summary: 'Built services for model orchestration, observability, and deployment automation.',
-      chips: ['Python', 'Kubernetes', 'Prometheus'],
-      highlights: [
-        '2024 - 2025',
-        'Cut model deployment lead time from days to hours.',
-        'Improved service observability with trace-level dashboards.',
-      ],
-    },
-    {
-      slug: 'university-lab',
-      badge: 'Career Milestone',
-      title: 'Research & Systems Intern',
-      org: 'University Lab',
-      summary: 'Implemented distributed experiments and benchmark tooling for systems research.',
-      chips: ['Rust', 'Docker', 'Linux'],
-      highlights: [
-        '2023 - 2024',
-        'Built a reproducible benchmark harness for cluster tests.',
-        'Documented experiment pipelines for faster onboarding.',
-      ],
-    },
-  ];
-
-  const setupExperienceTimeline = () => {
-    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-tab'));
-    const cards = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-entry-card]'));
-
-    if (!tabs.length || !cards.length) return;
-
-    const spotlight = {
-      badge: document.getElementById('timeline-badge'),
-      title: document.getElementById('timeline-title'),
-      org: document.getElementById('timeline-org'),
-      summary: document.getElementById('timeline-summary'),
-      chips: document.getElementById('timeline-chips'),
-      highlights: document.getElementById('timeline-highlights'),
-    } as const;
-
-    const applyFilter = (filter: string) => {
-      cards.forEach((card) => {
-        const kind = card.dataset.entryKind;
-        card.hidden = !(filter === 'all' || kind === filter);
-      });
-
-      tabs.forEach((tab) => {
-        const active = tab.dataset.filter === filter;
-        tab.setAttribute('aria-pressed', String(active));
-        tab.classList.toggle('text-primary', active);
-        tab.classList.toggle('border-accent', active);
-      });
-    };
-
-    const setSpotlight = (slug: string) => {
-      const entry = timelineData.find((item) => item.slug === slug);
-      if (!entry) return;
-
-      if (spotlight.badge) spotlight.badge.textContent = entry.badge;
-      if (spotlight.title) spotlight.title.textContent = entry.title;
-      if (spotlight.org) spotlight.org.textContent = entry.org;
-      if (spotlight.summary) spotlight.summary.textContent = entry.summary;
-
-      if (spotlight.chips) {
-        spotlight.chips.innerHTML = entry.chips
-          .map(
-            (chip) =>
-              `<span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">${chip}</span>`
-          )
-          .join('');
-      }
-
-      if (spotlight.highlights) {
-        spotlight.highlights.innerHTML = entry.highlights
-          .map((highlight, index) =>
-            index === 0
-              ? `<li class="font-body text-on-surface-dim text-sm uppercase tracking-[0.18em]">${highlight}</li>`
-              : `<li class="font-body text-on-surface-variant flex items-start gap-2 text-sm leading-6"><span class="text-accent mt-1 inline-block size-1.5 rounded-full"></span><span>${highlight}</span></li>`
-          )
-          .join('');
-      }
-
-      cards.forEach((card) => {
-        const active = card.dataset.entrySlug === slug;
-        card.classList.toggle('border-accent', active);
-        card.classList.toggle('ring-1', active);
-        card.classList.toggle('ring-accent/20', active);
-      });
-    };
-
-    tabs.forEach((tab) => {
-      tab.onclick = () => {
-        applyFilter(tab.dataset.filter ?? 'all');
-      };
-    });
-
-    cards.forEach((card) => {
-      card.onclick = () => {
-        setSpotlight(card.dataset.entrySlug ?? 'current-education');
-      };
-    });
-
-    applyFilter('all');
-    setSpotlight('current-education');
-  };
-
-  setupExperienceTimeline();
-  document.addEventListener('astro:page-load', setupExperienceTimeline);
-</script>

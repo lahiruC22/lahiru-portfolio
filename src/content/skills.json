@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "languages",
+      "name": "Programming Languages",
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "Java",
+        "Python",
+        "C++",
+        "SQL",
+        "Bash"
+      ]
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Vue.js",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend and Databases",
+      "items": [
+        "Spring Boot",
+        "NestJS",
+        "PostgreSQL",
+        "MySQL",
+        "FastAPI"
+      ]
+    },
+    {
+      "id": "ai-data",
+      "name": "AI and Data",
+      "items": [
+        "Azure OpenAI",
+        "Gemini",
+        "LangGraph",
+        "MediaPipe (WASM)",
+        "Pandas",
+        "PySpark"
+      ]
+    },
+    {
+      "id": "tools-infrastructure",
+      "name": "Tools and Infrastructure",
+      "items": [
+        "Git",
+        "Selenium",
+        "GCP",
+        "Azure",
+        "AWS",
+        "Docker",
+        "GitHub Actions",
+        "Prometheus",
+        "Grafana"
+      ]
+    }
+  ]
+}
