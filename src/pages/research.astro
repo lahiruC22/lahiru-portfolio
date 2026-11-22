@@ -1,322 +1,440 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { certifications } from '../lib/content';
 
-const researchTracks = [
+const interests = [
   {
-    horizon: 'Near-Term (0-3 months)',
-    title: 'Evaluation Foundations for AI Features',
-    objective:
-      'Define a lightweight, repeatable evaluation baseline for retrieval-backed and LLM-assisted workflows.',
-    actions: [
-      'Build a small benchmark set for correctness, relevance, and failure-mode coverage.',
-      'Compare prompt and retrieval strategies with measurable acceptance criteria.',
-      'Track evaluation drift as content and model versions evolve.',
-    ],
+    title: 'Reliable AI systems',
+    description:
+      'Making model-backed services resilient, observable, and understandable under real production constraints.',
   },
   {
-    horizon: 'Mid-Term (3-9 months)',
-    title: 'Reliability Patterns for Agentic Systems',
-    objective:
-      'Translate proven backend reliability concepts into robust multi-step AI orchestration patterns.',
-    actions: [
-      'Experiment with idempotent tool execution and retry-safe workflow states.',
-      'Measure impact of timeout and fallback strategies on user-visible quality.',
-      'Map incident-style observability practices to agent execution traces.',
-    ],
+    title: 'Evaluation and benchmarks',
+    description:
+      'Using lightweight, repeatable tests to detect quality regressions in retrieval and AI-assisted workflows.',
   },
   {
-    horizon: 'Long-Term (9-18 months)',
-    title: 'Decision-Aware AI Infrastructure',
-    objective:
-      'Design system-level patterns where confidence, uncertainty, and risk are first-class runtime signals.',
-    actions: [
+    title: 'Distributed systems for ML',
+    description:
+      'Studying latency, consistency, throughput, and infrastructure trade-offs at the AI/backend boundary.',
+  },
+  {
+    title: 'Human-AI developer workflows',
+    description:
+      'Exploring how AI-assisted development can preserve technical rigor, accountability, and reviewability.',
+  },
+] as const;
+
+const researchProjects = [
+  {
+    status: 'Active',
+    title: 'Evaluation foundations for AI features',
+    question:
+      'How can retrieval-backed and LLM-assisted features be evaluated consistently across prompt and model changes?',
+    problem:
+      'Ad hoc demonstrations can miss correctness, relevance, and failure-mode regressions that affect real workflows.',
+    objectives: [
+      'Create a small benchmark set with explicit correctness and relevance criteria.',
+      'Compare prompt and retrieval strategies with measurable acceptance thresholds.',
+      'Track evaluation drift as content and model versions change.',
+    ],
+    methodology:
+      'Incremental benchmark design: start with representative cases, define failure modes, compare variants, and retain the evidence for later runs.',
+    progress:
+      'The evaluation framework is an active research direction. A published benchmark corpus and recorded experimental runs are not yet available.',
+    findings: 'No formal findings or publication results are currently listed.',
+  },
+  {
+    status: 'Planned',
+    title: 'Reliability patterns for agentic systems',
+    question:
+      'Which backend reliability patterns are useful when a system executes multi-step AI workflows and external tools?',
+    problem:
+      'Retries, tool failures, partial execution, and timeout behavior need explicit workflow states rather than single-request assumptions.',
+    objectives: [
+      'Study idempotent tool execution and retry-safe state transitions.',
+      'Compare timeout and fallback strategies under controlled failures.',
+      'Map observability practices to traces across agent actions.',
+    ],
+    methodology:
+      'Planned experiments will use controlled service and tool failures, explicit workflow states, and trace-based analysis.',
+    progress:
+      'This is a planned research direction based on backend reliability concepts; implementation and experimental results are not yet published.',
+    findings: 'No findings are currently listed.',
+  },
+  {
+    status: 'Planned',
+    title: 'Decision-aware AI infrastructure',
+    question:
+      'How can confidence and uncertainty become useful runtime signals for model and tool selection?',
+    problem:
+      'Infrastructure decisions often treat every request as equally certain, even when model confidence or latency budgets vary.',
+    objectives: [
       'Prototype confidence-aware routing for model and tool selection.',
-      'Evaluate uncertainty communication patterns for engineering teams.',
-      'Study trade-offs between conservative and aggressive automation in production.',
+      'Study uncertainty communication for engineering teams.',
+      'Compare conservative and aggressive automation trade-offs.',
     ],
+    methodology:
+      'System experiments would compare routing policies against latency budgets, fallback behavior, and defined success criteria.',
+    progress:
+      'This is a planned direction informed by experimental project work. Reproducible infrastructure benchmarks are not yet published.',
+    findings: 'No findings are currently listed.',
   },
 ] as const;
 
-const activeReading = [
+const methodology = [
   {
-    focus: 'LLM Evaluation and Diagnostics',
-    status: 'Active',
+    title: 'Define the question',
+    description: 'Translate an engineering concern into a measurable question and explicit scope.',
   },
   {
-    focus: 'Distributed Systems Reliability Trade-offs',
-    status: 'Active',
+    title: 'Establish a baseline',
+    description: 'Record the current behavior before comparing changes or proposed alternatives.',
   },
   {
-    focus: 'Applied Human-AI Interaction for Developer Workflows',
-    status: 'Ongoing',
+    title: 'Design controlled experiments',
+    description:
+      'Use repeatable inputs, failure cases, and comparable output criteria where possible.',
+  },
+  {
+    title: 'Report evidence and limits',
+    description:
+      'Separate measured findings from assumptions and publish the boundaries of the experiment.',
   },
 ] as const;
 
-const certifications = [
+const roadmap = [
   {
-    name: 'Google Cloud Associate Cloud Engineer',
-    provider: 'Google Cloud',
-    status: 'In Progress',
-    timeline: 'Target: 2026 Q3',
-    focus: 'Cloud operations, IAM, and production services for scalable backend systems.',
+    horizon: 'Near term',
+    status: 'Active',
+    title: 'Evaluation foundations',
+    detail: 'Build repeatable cases and acceptance criteria for retrieval-backed AI features.',
   },
   {
-    name: 'AWS Certified Developer - Associate',
-    provider: 'Amazon Web Services',
-    status: 'In Progress',
-    timeline: 'Target: 2026 Q4',
-    focus: 'Serverless architecture, observability, and secure application delivery patterns.',
+    horizon: 'Mid term',
+    status: 'Planned',
+    title: 'Agent workflow reliability',
+    detail: 'Explore retry-safe states, tool failures, fallbacks, and execution traces.',
   },
   {
-    name: 'Machine Learning Specialization',
-    provider: 'DeepLearning.AI + Stanford Online',
-    status: 'Completed',
-    timeline: '2025',
-    focus: 'Model fundamentals and practical deployment thinking for applied AI systems.',
+    horizon: 'Long term',
+    status: 'Planned',
+    title: 'Decision-aware infrastructure',
+    detail: 'Study confidence-aware routing and uncertainty under real workload constraints.',
   },
 ] as const;
 
 const books = [
-  {
-    title: 'Designing Data-Intensive Applications',
-    author: 'Martin Kleppmann',
-    status: 'Reading',
-    takeaway:
-      'Using clear trade-off language for consistency, partitioning, and reliability decisions.',
-  },
-  {
-    title: 'System Design Interview, Volume 1',
-    author: 'Alex Xu',
-    status: 'Reading',
-    takeaway: 'Turning product requirements into explicit capacity and architecture decisions.',
-  },
-  {
-    title: 'Building Microservices (2nd Edition)',
-    author: 'Sam Newman',
-    status: 'Finished',
-    takeaway:
-      'Service boundaries and deployment autonomy matter more than framework-level decisions.',
-  },
-  {
-    title: 'Clean Architecture',
-    author: 'Robert C. Martin',
-    status: 'Finished',
-    takeaway: 'Protect core business logic from infrastructure churn through strict layering.',
-  },
+  'Designing Data-Intensive Applications',
+  'System Design Interview, Volume 1',
+  'Building Microservices (2nd Edition)',
+  'Clean Architecture',
 ] as const;
 ---
 
 <Layout
   title="Research"
-  description="Research interests, active questions, and roadmap for applied AI systems, evaluation, and reliability engineering."
+  description="Research interests, active and planned work, methodology, and technical development."
 >
-  <section class="py-20">
-    <div class="mx-auto w-full max-w-5xl">
-      <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Research program</p>
-        <h1
-          class="font-heading text-primary mt-3 text-5xl leading-tight font-medium"
-          transition:name="page-title"
-        >
-          Research interests and roadmap
-        </h1>
-        <p
-          class="font-body text-on-surface-variant mt-5 text-base leading-7"
-          transition:name="page-subtitle"
-        >
-          I am interested in applied research at the intersection of AI/ML systems, backend
-          reliability, and developer tooling. This page captures what I am actively exploring and
-          how I structure that exploration over time.
-        </p>
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-6xl">
+      <header class="grid gap-8 lg:grid-cols-[1fr_18rem]" data-fade-in>
+        <div>
+          <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+            01 / Research program
+          </p>
+          <h1
+            class="font-heading text-primary mt-4 max-w-4xl text-5xl leading-[0.98] font-medium sm:text-6xl"
+            transition:name="page-title"
+          >
+            Research at the boundary of AI and systems.
+          </h1>
+          <p
+            class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
+            transition:name="page-subtitle"
+          >
+            My current research interests focus on evaluation, reliability, and infrastructure
+            decisions for intelligent systems.
+          </p>
+        </div>
+        <aside class="border-outline bg-surface h-fit rounded-lg border p-5">
+          <p class="text-on-surface-dim font-mono text-xs">Research status</p>
+          <dl class="divide-outline mt-4 divide-y">
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Active</dt>
+              <dd class="text-on-surface mt-1 text-sm">1 research direction</dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Planned</dt>
+              <dd class="text-on-surface mt-1 text-sm">2 research directions</dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Publications</dt>
+              <dd class="text-on-surface mt-1 text-sm">No formal publications listed</dd>
+            </div>
+          </dl>
+        </aside>
       </header>
 
-      <section class="mt-12" data-reveal style="--reveal-delay: 120ms">
-        <h2 class="font-heading text-primary text-3xl font-medium">Core interests</h2>
-        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <article
-            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
-            data-hover-lift
-          >
-            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
-              Reliable AI systems in production
-            </h3>
-            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-              I study practical ways to make model-backed services resilient, observable, and easier
-              to debug under real production constraints.
-            </p>
-          </article>
-          <article
-            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
-            data-hover-lift
-          >
-            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
-              Evaluation and benchmark design
-            </h3>
-            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-              I focus on lightweight evaluation systems that reveal regressions quickly and support
-              confident product iteration.
-            </p>
-          </article>
-          <article
-            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
-            data-hover-lift
-          >
-            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
-              Distributed systems for ML workloads
-            </h3>
-            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-              I am interested in architecture decisions around latency, consistency, and throughput
-              when AI and backend platforms converge.
-            </p>
-          </article>
-          <article
-            class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)"
-            data-hover-lift
-          >
-            <h3 class="font-heading text-primary text-2xl leading-tight font-medium">
-              Human-AI developer workflows
-            </h3>
-            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-              I explore how AI-assisted development can improve quality and speed without reducing
-              technical rigor or accountability.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="mt-14" data-reveal style="--reveal-delay: 180ms">
-        <h2 class="font-heading text-primary text-3xl font-medium">Research roadmap</h2>
-        <div class="mt-6 space-y-5">
-          {
-            researchTracks.map((track) => (
-              <article class="bg-surface border-outline rounded-lg border p-6 shadow-(--shadow-soft)">
-                <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">
-                  {track.horizon}
-                </p>
-                <h3 class="font-heading text-primary mt-2 text-2xl leading-tight font-medium">
-                  {track.title}
-                </h3>
-                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-                  {track.objective}
-                </p>
-                <ul class="mt-4 space-y-2">
-                  {track.actions.map((item) => (
-                    <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
-                      <span class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="mt-14" data-reveal style="--reveal-delay: 240ms">
-        <h2 class="font-heading text-primary text-3xl font-medium">Currently exploring</h2>
-        <div class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {
-            activeReading.map((item) => (
-              <article class="border-outline-variant/70 bg-background rounded-lg border p-4">
-                <p class="text-on-surface-dim font-mono text-xs">{item.status}</p>
-                <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">{item.focus}</p>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="mt-14" data-reveal style="--reveal-delay: 300ms">
-        <h2 class="font-heading text-primary text-3xl font-medium">Learning notes</h2>
-        <p class="font-body text-on-surface-variant mt-3 max-w-3xl text-base leading-7">
-          I keep this study track here so the page stays unified: research questions up top, the
-          current reading and certification work underneath them.
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          02 / Research interests
         </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Areas of inquiry
+        </h2>
+        <div
+          class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border md:grid-cols-2"
+        >
+          {
+            interests.map((interest, index) => (
+              <article class="bg-surface p-6 sm:p-8" data-hover-lift>
+                <p class="text-accent font-mono text-xs">0{index + 1}</p>
+                <h3 class="font-heading text-primary mt-8 text-xl font-medium">{interest.title}</h3>
+                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                  {interest.description}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
 
-        <div class="mt-6 grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <section data-reveal style="--reveal-delay: 340ms">
-            <h3 class="font-heading text-primary text-2xl font-medium">Certifications</h3>
-            <div class="mt-6 space-y-6">
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          03 / Active and planned research
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Research projects
+        </h2>
+        <div class="mt-8 space-y-5">
+          {
+            researchProjects.map((project, index) => (
+              <article class="border-outline bg-surface rounded-lg border p-6 sm:p-8">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <p class="text-on-surface-dim font-mono text-xs">Research 0{index + 1}</p>
+                  <span
+                    class:list={[
+                      'rounded-full border px-2.5 py-1 font-mono text-[0.68rem]',
+                      project.status === 'Active'
+                        ? 'border-accent/30 bg-accent/10 text-accent'
+                        : 'border-outline bg-background text-on-surface-dim',
+                    ]}
+                  >
+                    {project.status}
+                  </span>
+                </div>
+                <h3 class="font-heading text-primary mt-5 text-2xl font-medium">{project.title}</h3>
+
+                <dl class="mt-6 grid gap-6 md:grid-cols-2">
+                  <div>
+                    <dt class="text-accent font-mono text-[0.68rem] uppercase">
+                      Research question
+                    </dt>
+                    <dd class="font-body text-on-surface mt-2 text-sm leading-6">
+                      {project.question}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-accent font-mono text-[0.68rem] uppercase">
+                      Problem statement
+                    </dt>
+                    <dd class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                      {project.problem}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div class="mt-6 grid gap-6 md:grid-cols-2">
+                  <div>
+                    <p class="text-accent font-mono text-[0.68rem] uppercase">Objectives</p>
+                    <ul class="mt-3 space-y-2">
+                      {project.objectives.map((objective) => (
+                        <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
+                          <span class="bg-accent mt-2 size-1.5 shrink-0 rounded-full" />
+                          <span>{objective}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-accent font-mono text-[0.68rem] uppercase">Methodology</p>
+                    <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                      {project.methodology}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-outline mt-6 grid gap-4 border-t pt-5 md:grid-cols-2">
+                  <div>
+                    <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
+                      Current progress
+                    </p>
+                    <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                      {project.progress}
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Findings</p>
+                    <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                      {project.findings}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          04 / Published and academic work
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Publications and resources
+        </h2>
+        <div class="border-outline bg-surface mt-8 rounded-lg border p-6 sm:p-8">
+          <p class="text-on-surface-dim font-mono text-xs">Publication status</p>
+          <p class="font-body text-on-surface mt-3 max-w-3xl text-base leading-7">
+            No formal research publications or academic papers are currently listed on this site.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-5">
+            <a href="/projects" class="text-primary hover:text-accent font-mono text-xs">
+              Experimental project work →
+            </a>
+            <a href="/blog" class="text-primary hover:text-accent font-mono text-xs">
+              Engineering writing →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          05 / Research methodology
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          How experiments are structured
+        </h2>
+        <div
+          class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {
+            methodology.map((step, index) => (
+              <article class="bg-surface p-5 sm:p-6">
+                <p class="text-accent font-mono text-xs">0{index + 1}</p>
+                <h3 class="font-heading text-primary mt-8 text-lg font-medium">{step.title}</h3>
+                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                  {step.description}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          06 / Research roadmap
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Current and future direction
+        </h2>
+        <div class="divide-outline border-outline mt-8 divide-y border-y">
+          {
+            roadmap.map((item) => (
+              <article class="grid gap-3 py-6 md:grid-cols-[9rem_1fr_1.4fr] md:gap-8">
+                <div>
+                  <p class="text-on-surface-dim font-mono text-xs">{item.horizon}</p>
+                  <p class="text-accent mt-2 font-mono text-[0.68rem] uppercase">{item.status}</p>
+                </div>
+                <h3 class="font-heading text-primary text-xl font-medium">{item.title}</h3>
+                <p class="font-body text-on-surface-variant text-sm leading-6">{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          07 / Technical development
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Certifications and study
+        </h2>
+        <div class="mt-8 grid gap-6 lg:grid-cols-2">
+          <div class="border-outline bg-surface rounded-lg border p-6">
+            <h3 class="font-heading text-primary text-xl font-medium">Certifications</h3>
+            <div class="divide-outline mt-5 divide-y">
               {
                 certifications.map((cert) => (
-                  <article
-                    class="bg-surface border-outline rounded-md border p-6 shadow-(--shadow-soft)"
-                    data-hover-lift
-                  >
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                      <h4 class="font-heading text-primary text-2xl leading-tight font-medium">
-                        {cert.name}
-                      </h4>
-                      <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
-                        {cert.status}
+                  <article class="py-5 first:pt-0 last:pb-0">
+                    <div class="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <h4 class="font-heading text-primary text-lg font-medium">{cert.name}</h4>
+                        {cert.issuer && (
+                          <p class="text-on-surface-dim mt-1 text-sm">{cert.issuer}</p>
+                        )}
+                      </div>
+                      <span
+                        class:list={[
+                          'rounded-full border px-2 py-1 font-mono text-[0.68rem]',
+                          'border-accent/30 bg-accent/10 text-accent',
+                        ]}
+                      >
+                        Certification
                       </span>
                     </div>
-                    <p class="font-body text-on-surface-dim mt-3 text-sm">
-                      {cert.provider} · {cert.timeline}
-                    </p>
-                    <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-                      {cert.focus}
-                    </p>
+                    {cert.date && (
+                      <p class="text-on-surface-dim mt-3 font-mono text-xs">{cert.date}</p>
+                    )}
+                    {cert.verificationUrl && (
+                      <a
+                        href={cert.verificationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-primary hover:text-accent mt-3 inline-block font-mono text-xs"
+                      >
+                        Verify credential ↗
+                      </a>
+                    )}
                   </article>
                 ))
               }
             </div>
-          </section>
-
-          <section data-reveal style="--reveal-delay: 380ms">
-            <h3 class="font-heading text-primary text-2xl font-medium">Books</h3>
-            <div class="mt-6 space-y-6">
+          </div>
+          <div class="border-outline bg-surface rounded-lg border p-6">
+            <h3 class="font-heading text-primary text-xl font-medium">Currently reading</h3>
+            <ul class="divide-outline mt-5 divide-y">
               {
                 books.map((book) => (
-                  <article
-                    class="bg-surface border-outline rounded-md border p-6 shadow-(--shadow-soft)"
-                    data-hover-lift
-                  >
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                      <h4 class="font-heading text-primary text-2xl leading-tight font-medium">
-                        {book.title}
-                      </h4>
-                      <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
-                        {book.status}
-                      </span>
-                    </div>
-                    <p class="font-body text-on-surface-dim mt-3 text-sm">{book.author}</p>
-                    <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-                      {book.takeaway}
-                    </p>
-                  </article>
+                  <li class="font-body text-on-surface-variant py-4 text-sm leading-6 first:pt-0 last:pb-0">
+                    {book}
+                  </li>
                 ))
               }
-            </div>
-          </section>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section
-        class="border-outline mt-14 rounded-lg border p-6"
-        data-reveal
-        style="--reveal-delay: 420ms"
-      >
-        <h2 class="font-heading text-primary text-2xl font-medium">Open to collaboration</h2>
-        <p class="font-body text-on-surface-variant mt-3 max-w-3xl text-sm leading-6">
-          I am open to collaborations in applied AI research, paper-to-production implementation,
-          and reliability-focused experimentation for intelligent systems.
+      <section class="border-outline bg-surface mt-16 rounded-lg border p-6 sm:p-8" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Collaboration</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium">
+          Open to applied engineering research.
+        </h2>
+        <p class="font-body text-on-surface-variant mt-4 max-w-3xl text-base leading-7">
+          Interested in reliability-focused experimentation, AI system evaluation, and work that
+          connects research questions to production constraints.
         </p>
-        <div class="mt-5 flex flex-wrap items-center gap-5">
-          <a
-            href="/contact"
-            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-          >
-            Reach out for collaboration
-          </a>
-          <a
-            href="/projects"
-            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-          >
-            See related project work
-          </a>
-        </div>
+        <a
+          href="/contact"
+          class="text-primary hover:text-accent mt-6 inline-block font-mono text-xs"
+        >
+          Start a conversation →
+        </a>
       </section>
     </div>
   </section>

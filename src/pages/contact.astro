@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/ui/Button.astro';
+import { profile } from '../lib/content';
 ---
 
 <Layout
@@ -29,10 +30,10 @@ import Button from '../components/ui/Button.astro';
           execution, this is the place to reach me.
         </p>
         <a
-          href="mailto:lahirucwofficial@gmail.com"
+          href={`mailto:${profile.contact.email}`}
           class="font-body text-primary hover:text-accent mt-4 inline-block text-sm transition-colors duration-200"
         >
-          Prefer email? lahirucwofficial@gmail.com
+          Prefer email? {profile.contact.email}
         </a>
       </div>
 
