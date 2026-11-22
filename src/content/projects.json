@@ -1,0 +1,85 @@
+{
+  "projects": [
+    {
+      "id": "eternal-flames",
+      "name": "Eternal Flames",
+      "type": "Personal project",
+      "summary": "A full-stack timeline application combining client-side image processing, interactive 3D visuals, and performance-conscious data access.",
+      "contributions": [
+        "Implemented in-browser face detection using MediaPipe and WebAssembly to automate image cropping without server-side processing.",
+        "Built a Three.js and WebGL particle system with dynamic tuning and asynchronous processing, targeting stable 60 FPS on lower-end devices.",
+        "Improved PostgreSQL access by replacing offset pagination with cursor-based pagination and adding HTTP caching.",
+        "Implemented authentication and database safeguards using NextAuth v5, Bcrypt password hashing, and parameterized SQL queries."
+      ],
+      "technologies": [
+        "MediaPipe",
+        "WebAssembly",
+        "Three.js",
+        "WebGL",
+        "PostgreSQL",
+        "NextAuth v5",
+        "Bcrypt"
+      ]
+    },
+    {
+      "id": "federated-learning-slr",
+      "name": "Adapting CI/CD and MLOps for Federated Learning",
+      "type": "Research",
+      "summary": "A systematic literature review investigating lifecycle-management challenges in Federated Learning and the adaptation of CI/CD and MLOps practices to decentralized machine-learning environments.",
+      "contributions": [
+        "Conducted a systematic literature review to identify lifecycle-management challenges in Federated Learning.",
+        "Investigated how traditional CI/CD and MLOps frameworks can be adapted to decentralized machine-learning environments."
+      ],
+      "technologies": [
+        "Systematic Literature Review",
+        "Federated Learning",
+        "CI/CD",
+        "MLOps"
+      ]
+    },
+    {
+      "id": "local-business-admin-dashboard",
+      "name": "Local Business Admin Dashboard",
+      "type": "Freelance contribution",
+      "summary": "Contributed frontend and backend features to an administrative dashboard in collaboration with the core developer.",
+      "contributions": [
+        "Implemented features and bug fixes in a Vue.js frontend and NestJS backend while collaborating directly with the core developer."
+      ],
+      "technologies": [
+        "Vue.js",
+        "NestJS"
+      ]
+    },
+    {
+      "id": "green-mirage",
+      "name": "The Green Mirage: Uncovering the Blueprint of a Resilient City",
+      "type": "Data analysis project",
+      "summary": "An analysis of environmental and economic indicators for the Microsoft Fabric Community Contest.",
+      "contributions": [
+        "Analyzed environmental and economic datasets to identify factors associated with urban sustainability.",
+        "Used PySpark for data transformation and exploratory analysis to derive data-driven insights."
+      ],
+      "technologies": [
+        "Microsoft Fabric",
+        "PySpark",
+        "Exploratory Data Analysis"
+      ]
+    },
+    {
+      "id": "ebay-mobile-automation",
+      "name": "eBay Mobile Purchase Automation",
+      "type": "Test automation project",
+      "summary": "A mobile test-automation suite covering an end-to-end eBay purchase journey.",
+      "contributions": [
+        "Developed automated coverage for authentication, product search, and checkout.",
+        "Structured the test framework using the Page Object Model to separate test logic from UI elements.",
+        "Implemented dynamic waits and synchronization strategies to improve reliability across varying network conditions."
+      ],
+      "technologies": [
+        "Mobile test automation",
+        "Page Object Model",
+        "Dynamic waits"
+      ]
+    }
+  ]
+}

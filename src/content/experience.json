@@ -1,0 +1,219 @@
+{
+  "experiences": [
+    {
+      "id": "rumex",
+      "employer": "RUMEX Pvt Ltd",
+      "role": "Software Engineer (Associate)",
+      "employmentType": "Full-time",
+      "location": "Pelawatta, Colombo, Sri Lanka",
+      "startDate": "2026-06",
+      "endDate": null,
+      "current": true,
+      "projects": [
+        {
+          "id": "papergenius",
+          "name": "PaperGenius.ai",
+          "kind": "Product",
+          "url": "https://papergenius.ai/en",
+          "description": "An automated student assessment platform.",
+          "roleContext": "Backend engineering",
+          "contributions": [
+            {
+              "id": "papergenius-evaluation-engine",
+              "title": "Student-answer evaluation engine",
+              "description": "Developed the student-answer evaluation engine using the outbox pattern and background workers to process evaluation tasks asynchronously.",
+              "technologies": [
+                "Python",
+                "FastAPI",
+                "PostgreSQL",
+                "Outbox Pattern",
+                "Background Workers"
+              ]
+            },
+            {
+              "id": "papergenius-performance",
+              "title": "Evaluation processing performance",
+              "description": "Investigated CPU bottlenecks during high-volume evaluation requests and refactored concurrency and multithreading to reduce response latency.",
+              "technologies": ["Python", "Concurrency", "Multithreading"]
+            },
+            {
+              "id": "papergenius-observability",
+              "title": "Observability and deployment automation",
+              "description": "Implemented application monitoring with Prometheus and Grafana, and supported automated deployment workflows using GitHub Actions.",
+              "technologies": ["Prometheus", "Grafana", "GitHub Actions"]
+            }
+          ]
+        },
+        {
+          "id": "peo-mobile",
+          "name": "PEO Mobile",
+          "kind": "Product",
+          "url": "https://www.peomobile.com/",
+          "description": "A media streaming platform with access and content-licensing requirements.",
+          "roleContext": "Secure media delivery and infrastructure",
+          "contributions": [
+            {
+              "id": "peo-secure-media",
+              "title": "Secure media delivery",
+              "description": "Worked on secure media delivery using JWTs and signed cookies, including GeoIP-based restrictions to enforce content-licensing access rules.",
+              "technologies": ["JWT", "Signed Cookies", "GeoIP"]
+            },
+            {
+              "id": "peo-caching-cdn",
+              "title": "Media delivery optimization",
+              "description": "Worked with Varnish caching and CDN infrastructure to support low-latency media delivery.",
+              "technologies": ["Varnish", "CDN"]
+            },
+            {
+              "id": "peo-edge-security",
+              "title": "Edge security",
+              "description": "Worked with AWS WAF as part of the web application security layer.",
+              "technologies": ["AWS WAF", "AWS"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visonex-digital",
+      "employer": "Visonex Digital",
+      "role": "Software Engineer (Intern)",
+      "employmentType": "Internship",
+      "location": "Melbourne, Australia / Remote",
+      "startDate": "2025-04",
+      "endDate": "2026-03",
+      "current": false,
+      "projects": [
+        {
+          "id": "sas-connect",
+          "name": "SAS Connect",
+          "kind": "Product",
+          "url": "https://sasconnect.au/",
+          "description": "A project management application for the Australian construction industry.",
+          "roleContext": "Full-stack software engineering",
+          "contributions": [
+            {
+              "id": "sas-permission-management",
+              "title": "Application permission management",
+              "description": "Engineered frontend permission-management functionality that restricts access to specific areas of the application based on user entities and their assigned permissions.",
+              "technologies": ["React", "TypeScript", "Zustand", "Tailwind CSS", "Shadcn UI"]
+            },
+            {
+              "id": "sas-roster-calendar",
+              "title": "Australian roster calendar APIs",
+              "description": "Developed Java Spring Boot REST APIs for creating Australian roster calendars for construction teams, including support for holiday-related calendar information.",
+              "technologies": ["Java", "Spring Boot", "REST APIs"]
+            },
+            {
+              "id": "sas-activity-logging",
+              "title": "User activity logging service",
+              "description": "Developed REST API functionality for recording user activity as part of an independent microservice, following object-oriented design practices.",
+              "technologies": ["Java", "Spring Boot", "REST APIs", "Microservices"]
+            },
+            {
+              "id": "sas-quality",
+              "title": "Quality assurance and defect resolution",
+              "description": "Collaborated with QA to reproduce, investigate, and resolve more than 20 high-priority defects.",
+              "technologies": ["Debugging", "QA", "Agile"]
+            }
+          ]
+        },
+        {
+          "id": "clickup-productivity-extension",
+          "name": "ClickUp-integrated Productivity Browser Extension",
+          "kind": "Internal initiative",
+          "url": null,
+          "description": "An internal browser extension combining time management and Pomodoro-based productivity workflows with ClickUp integration.",
+          "roleContext": "Product-oriented technical lead",
+          "contributions": [
+            {
+              "id": "extension-end-to-end",
+              "title": "End-to-end product development",
+              "description": "Led the end-to-end development of an internal browser extension integrating with ClickUp for time management and Pomodoro-based productivity workflows, coordinating a UI/UX designer and a developer.",
+              "technologies": ["Browser Extension", "ClickUp API", "Product Development"]
+            },
+            {
+              "id": "extension-competitor-analysis",
+              "title": "AI-assisted competitor analysis",
+              "description": "Used Azure OpenAI for large-scale data extraction and thematic competitor analysis, using the findings to inform the extension's architecture and feature prioritization.",
+              "technologies": ["Azure OpenAI", "Data Extraction", "Thematic Analysis"]
+            },
+            {
+              "id": "extension-backend-architecture",
+              "title": "Backend architecture and authentication middleware",
+              "description": "Designed the extension's backend architecture and a middleware proxy to handle authentication between the extension and core backend services.",
+              "technologies": ["Backend Architecture", "Middleware", "Authentication"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ilabs",
+      "employer": "iLabs",
+      "role": "Data Scientist (Intern)",
+      "employmentType": "Internship",
+      "location": "Battaramulla, Sri Lanka",
+      "startDate": "2024-04",
+      "endDate": "2024-11",
+      "current": false,
+      "projects": [
+        {
+          "id": "cloud-of-goods",
+          "name": "Cloud of Goods",
+          "kind": "Product",
+          "url": "https://www.cloudofgoods.com/",
+          "description": "A rental marketplace platform.",
+          "roleContext": "Data science and analytics contributions",
+          "contributions": [
+            {
+              "id": "cog-dynamic-pricing",
+              "title": "Dynamic pricing model validation",
+              "description": "Worked with dynamic pricing formulas and validated the outputs of an ML-based dynamic pricing model against existing data to assess model outputs against established pricing information.",
+              "technologies": ["Python", "Machine Learning", "Data Analysis"]
+            },
+            {
+              "id": "cog-google-ads-revenue",
+              "title": "Google Ads revenue analysis",
+              "description": "Analysed Google Ads-related revenue data to examine advertising revenue performance.",
+              "technologies": ["Google Ads", "Data Analysis"]
+            },
+            {
+              "id": "cog-google-ads-optimization",
+              "title": "Search and keyword analysis",
+              "description": "Analysed Google Ads keywords and search-related data to support advertising optimization activities.",
+              "technologies": ["Google Ads", "Keyword Analysis", "Search Analytics"]
+            },
+            {
+              "id": "cog-ga4",
+              "title": "Web analytics",
+              "description": "Worked with Google Analytics 4 (GA4) data as part of the project's analytics activities.",
+              "technologies": ["Google Analytics 4", "Web Analytics"]
+            },
+            {
+              "id": "cog-data-pipelines",
+              "title": "Data preparation and quality",
+              "description": "Built Python-based data-cleaning workflows and supported data-quality checks for analytics and machine-learning workflows.",
+              "technologies": ["Python", "Pandas", "Data Cleaning", "Data Quality"]
+            },
+            {
+              "id": "cog-model-analysis",
+              "title": "Machine-learning output analysis",
+              "description": "Performed statistical analysis of machine-learning model outputs and used findings to support model-tuning activities.",
+              "technologies": ["Python", "Statistical Analysis", "Machine Learning"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contentGuidance": [
+    "Keep each contribution scoped to work actually performed.",
+    "The Cloud of Goods contribution describes validation of dynamic-pricing ML model outputs. Do not claim model development or training.",
+    "Cloud of Goods GA4 work is described generally because specific reports, metrics, and events have not been confirmed.",
+    "PaperGenius.ai contribution identifies the student-answer evaluation engine and the outbox pattern with background workers.",
+    "PEO Mobile work includes secure media delivery, CDN/Varnish caching, GeoIP licensing restrictions, and AWS WAF. Do not invent provider names, traffic volumes, latency metrics, or specific WAF rules.",
+    "At Visonex Digital, SAS Connect and the internal ClickUp-integrated browser extension are separate projects.",
+    "Employer spelling follows the supplied resume: Visonex Digital. Confirm the official spelling before publishing if necessary."
+  ]
+}

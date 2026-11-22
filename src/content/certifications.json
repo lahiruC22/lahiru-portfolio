@@ -1,0 +1,39 @@
+{
+  "certifications": [
+    {
+      "id": "digital-analytics-regression",
+      "name": "Digital Analytics and Regression",
+      "issuer": null,
+      "date": null,
+      "verificationUrl": null
+    },
+    {
+      "id": "computational-neuroscience",
+      "name": "Computational Neuroscience",
+      "issuer": null,
+      "date": null,
+      "verificationUrl": null
+    },
+    {
+      "id": "data-analysis-python",
+      "name": "Data Analysis with Python",
+      "issuer": null,
+      "date": null,
+      "verificationUrl": null
+    },
+    {
+      "id": "scientific-computing-python",
+      "name": "Scientific Computing with Python",
+      "issuer": null,
+      "date": null,
+      "verificationUrl": null
+    },
+    {
+      "id": "data-science-fundamentals",
+      "name": "Data Science Fundamentals",
+      "issuer": null,
+      "date": null,
+      "verificationUrl": null
+    }
+  ]
+}
