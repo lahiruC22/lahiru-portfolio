@@ -1,196 +1,166 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/sections/Footer.astro';
-import { fade } from 'astro:transitions';
 
-const homeTextTransition = fade({ duration: '0.55s' });
-const heroTitle = 'Building intelligent systems with quiet precision.';
-const heroSubtitle =
-  'Software Engineer focused on AI/ML, backend architecture, and distributed systems.';
-
-const researchInterests = [
+const capabilities = [
   {
-    title: 'Reliable AI Systems in Production',
-    summary:
-      'How to make model-backed services observable, testable, and failure-tolerant under real traffic.',
+    number: '01',
+    title: 'Backend systems',
+    description: 'APIs, data access, idempotency, concurrency, and fault-tolerant service design.',
   },
   {
-    title: 'Evaluation for LLM Applications',
-    summary:
-      'Designing practical evaluation loops that connect prompt quality, retrieval behavior, and user outcomes.',
+    number: '02',
+    title: 'Distributed infrastructure',
+    description: 'Containers, orchestration, messaging, tracing, and operational ownership.',
   },
   {
-    title: 'Distributed Systems for ML Workloads',
-    summary:
-      'Balancing latency, throughput, and consistency when inference and data pipelines operate at scale.',
+    number: '03',
+    title: 'Applied AI',
+    description: 'Model integration, retrieval, evaluation, and production model-serving patterns.',
   },
 ] as const;
 
-const currentQuestions = [
-  'What is the smallest evaluation suite that still catches most regressions in retrieval-augmented systems?',
-  'Which reliability patterns from event-driven backend systems transfer best to agentic workflows?',
-  'How should confidence and uncertainty be surfaced so teams can make safer product decisions?',
+const researchTracks = [
+  'Reliable AI systems in production',
+  'Evaluation and benchmark design',
+  'Distributed systems for ML workloads',
 ] as const;
-
-const heroTitleTokens = heroTitle.split(' ');
-const heroSubtitleTokens = heroSubtitle.split(' ');
 ---
 
 <Layout
   title="Home"
-  description="Building intelligent systems with quiet precision. Software Engineer specializing in AI/ML, backend architecture, and distributed systems."
+  description="Lahiru Wimalarathna is a software engineer working across backend systems, distributed infrastructure, and applied AI."
 >
-  <section class="flex min-h-[calc(100vh-6rem)] items-center justify-center py-20">
-    <div class="mx-auto max-w-170 text-center">
+  <section
+    class="grid min-h-[calc(100vh-6rem)] items-center gap-12 py-16 lg:grid-cols-[1.25fr_0.75fr] lg:py-24"
+  >
+    <div>
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase" data-fade-in>
+        Software Engineer · AI/ML · Backend
+      </p>
       <h1
-        class="font-heading text-primary text-5xl leading-tight font-medium sm:text-6xl lg:text-7xl"
-        transition:name="home-title"
-        transition:animate={homeTextTransition}
-        aria-label={heroTitle}
-        data-writing-text
-        style="--text-delay: 120ms; --token-stagger: 95ms"
+        class="font-heading text-primary mt-5 max-w-4xl text-5xl leading-[1.02] font-medium sm:text-6xl lg:text-[5.25rem]"
+        data-fade-in
+        style="--reveal-delay: 80ms"
       >
-        {
-          heroTitleTokens.map((token, index) => (
-            <span class="writing-token" style={`--token-index: ${index}`}>
-              {token}&nbsp;
-            </span>
-          ))
-        }
+        Building reliable intelligent systems.
       </h1>
       <p
-        class="font-body text-on-surface-variant mx-auto mt-8 max-w-120 text-lg leading-8"
-        transition:name="home-subtitle"
-        transition:animate={homeTextTransition}
-        aria-label={heroSubtitle}
-        data-writing-text
-        style="--text-delay: 780ms; --token-stagger: 62ms"
-      >
-        {
-          heroSubtitleTokens.map((token, index) => (
-            <span class="writing-token" style={`--token-index: ${index}`}>
-              {token}&nbsp;
-            </span>
-          ))
-        }
-      </p>
-
-      <div
-        class="mt-10 flex flex-wrap items-center justify-center gap-6"
+        class="font-body text-on-surface-variant mt-7 max-w-2xl text-lg leading-8"
         data-fade-in
-        style="--reveal-delay: 1380ms"
+        style="--reveal-delay: 160ms"
+      >
+        I work across backend architecture, distributed systems, and applied AI — with attention to
+        observability, evaluation, and production reliability.
+      </p>
+      <div
+        class="mt-9 flex flex-wrap items-center gap-3"
+        data-fade-in
+        style="--reveal-delay: 240ms"
       >
         <a
           href="/projects"
-          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          class="bg-primary text-background hover:bg-accent-bright rounded-md px-5 py-3 font-mono text-sm font-semibold transition-colors"
         >
-          Explore Case Studies
+          View projects
         </a>
         <a
-          href="/blog"
-          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          href="/experience"
+          class="border-outline text-primary hover:border-accent rounded-md border px-5 py-3 font-mono text-sm transition-colors"
         >
-          Read Engineering Notes
+          Experience
         </a>
         <a
           href="/contact"
-          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          class="text-on-surface-variant hover:text-primary px-2 py-3 font-mono text-sm transition-colors"
         >
-          Start a Conversation
-        </a>
-        <a
-          href="/research"
-          class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-        >
-          Current Research and Study Notes
+          Get in touch →
         </a>
       </div>
+    </div>
 
-      <p
-        class="font-body text-on-surface-dim mt-6 text-center text-sm"
-        data-fade-in
-        style="--reveal-delay: 1540ms"
-      >
-        Earlier work in data science:
-        <a
-          href="https://www.datascienceportfol.io/lahirucw"
-          target="_blank"
-          rel="noreferrer"
-          class="text-primary hover:text-accent ml-1 transition-colors duration-200"
-        >
-          Legacy portfolio
-        </a>
-      </p>
+    <aside
+      class="border-outline bg-surface rounded-lg border p-5 shadow-(--shadow-soft)"
+      data-reveal
+      style="--reveal-delay: 160ms"
+    >
+      <div class="border-outline flex items-center justify-between border-b pb-4">
+        <span class="text-on-surface-dim font-mono text-xs">system profile</span>
+        <span class="text-accent flex items-center gap-2 font-mono text-xs">
+          <span class="bg-accent size-1.5 rounded-full"></span>
+          active
+        </span>
+      </div>
+      <dl class="divide-outline mt-2 divide-y">
+        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
+          <dt class="text-on-surface-dim font-mono text-xs">focus</dt>
+          <dd class="text-on-surface text-sm">AI + infrastructure</dd>
+        </div>
+        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
+          <dt class="text-on-surface-dim font-mono text-xs">based in</dt>
+          <dd class="text-on-surface text-sm">Sri Lanka</dd>
+        </div>
+        <div class="grid grid-cols-[7rem_1fr] gap-4 py-4">
+          <dt class="text-on-surface-dim font-mono text-xs">open to</dt>
+          <dd class="text-on-surface text-sm">Engineering + research</dd>
+        </div>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="border-outline border-t py-16" data-reveal>
+    <div class="mb-8 flex items-end justify-between gap-6">
+      <div>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Capabilities</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          What I build
+        </h2>
+      </div>
+    </div>
+    <div
+      class="border-outline bg-outline grid gap-px overflow-hidden rounded-lg border md:grid-cols-3"
+    >
+      {
+        capabilities.map((item) => (
+          <article class="bg-surface p-6 sm:p-8" data-hover-lift>
+            <p class="text-accent font-mono text-xs">{item.number}</p>
+            <h3 class="font-heading text-primary mt-8 text-xl font-medium">{item.title}</h3>
+            <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+              {item.description}
+            </p>
+          </article>
+        ))
+      }
     </div>
   </section>
 
-  <section class="py-8 md:py-14" data-reveal style="--reveal-delay: 120ms">
-    <div class="border-outline bg-surface rounded-xl border p-7 shadow-(--shadow-soft) md:p-9">
-      <div class="max-w-3xl">
-        <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">Research Focus</p>
-        <h2 class="font-heading text-primary mt-3 text-3xl leading-tight font-medium md:text-4xl">
-          Building research-driven software systems
-        </h2>
-        <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-          My engineering work is guided by explicit questions, not only implementation speed. I
-          focus on applied research topics that improve reliability, decision quality, and
-          real-world AI system behavior.
-        </p>
-      </div>
-
-      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+  <section class="grid gap-10 py-16 lg:grid-cols-[1fr_0.65fr]" data-reveal>
+    <div>
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Research direction</p>
+      <h2 class="font-heading text-primary mt-3 max-w-2xl text-3xl font-medium sm:text-4xl">
+        Questions that shape the work
+      </h2>
+      <ul class="border-outline mt-7 divide-y border-y">
         {
-          researchInterests.map((interest) => (
-            <article class="border-outline-variant/70 rounded-lg border p-4" data-hover-lift>
-              <h3 class="font-heading text-primary text-xl leading-tight font-medium">
-                {interest.title}
-              </h3>
-              <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-                {interest.summary}
-              </p>
-            </article>
+          researchTracks.map((track, index) => (
+            <li class="grid grid-cols-[2.5rem_1fr] items-center gap-3 py-5">
+              <span class="text-on-surface-dim font-mono text-xs">0{index + 1}</span>
+              <span class="text-on-surface text-base">{track}</span>
+            </li>
           ))
         }
-      </div>
-
-      <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <div>
-          <h3 class="font-heading text-primary text-2xl font-medium">Current questions</h3>
-          <ul class="mt-4 space-y-3">
-            {
-              currentQuestions.map((question) => (
-                <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
-                  <span class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
-                  <span>{question}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <aside class="border-outline-variant/70 bg-background rounded-lg border p-5">
-          <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">Collaboration</p>
-          <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-            Open to applied research collaboration, paper-to-production work, and experimentation on
-            evaluation and system reliability.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-4">
-            <a
-              href="/research"
-              class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-            >
-              View research roadmap
-            </a>
-            <a
-              href="/contact"
-              class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-            >
-              Discuss collaboration
-            </a>
-          </div>
-        </aside>
-      </div>
+      </ul>
     </div>
+    <aside class="border-outline bg-surface-raised rounded-lg border p-7">
+      <p class="text-terminal font-mono text-xs tracking-[0.16em] uppercase">Collaboration</p>
+      <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+        Open to applied research, engineering collaborations, and roles focused on AI systems,
+        backend infrastructure, or distributed platforms.
+      </p>
+      <a href="/contact" class="text-primary hover:text-accent mt-6 inline-block font-mono text-sm">
+        Start a conversation →
+      </a>
+    </aside>
   </section>
 
   <Footer />

@@ -1,22 +1,18 @@
-<footer class="border-outline border-t py-12">
+---
+import TextLink from '../ui/TextLink.astro';
+---
+
+<footer class="border-outline mt-20 border-t py-10">
   <div
-    class="text-on-surface-dim mx-auto flex max-w-5xl flex-col gap-4 px-6 text-sm md:flex-row md:items-center md:justify-between"
+    class="text-on-surface-dim mx-auto flex max-w-6xl flex-col gap-4 px-5 text-sm sm:px-8 md:flex-row md:items-center md:justify-between"
   >
     <p class="font-body">© 2026 Lahiru Wimalarathna</p>
     <p class="font-body">Built with Astro and thoughtful systems design.</p>
     <nav aria-label="Footer links" class="flex items-center gap-6">
-      <a
-        href="https://github.com/lahiruC22"
-        target="_blank"
-        rel="noreferrer"
-        class="font-body hover:text-accent transition-colors duration-200">GitHub</a
-      >
-      <a
-        href="https://www.linkedin.com/in/lahiru-wimalarathna"
-        target="_blank"
-        rel="noreferrer"
-        class="font-body hover:text-accent transition-colors duration-200">LinkedIn</a
-      >
+      <TextLink href="https://github.com/lahiruC22" external> GitHub </TextLink>
+      <TextLink href="https://www.linkedin.com/in/lahiru-wimalarathna" external>
+        LinkedIn
+      </TextLink>
     </nav>
   </div>
 </footer>

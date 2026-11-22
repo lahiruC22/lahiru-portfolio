@@ -79,6 +79,7 @@ const { post } = Astro.props as { post: BlogPost };
 <Layout title={post.title} description={post.summary} ogType="article">
   <section class="py-20">
     <article class="mx-auto max-w-3xl" data-reveal>
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Technical note</p>
       <p class="font-body text-on-surface-dim text-sm">{post.date} · {post.readingTime}</p>
       <h1 class="font-heading text-primary mt-3 text-5xl leading-tight font-medium">
         {post.title}
