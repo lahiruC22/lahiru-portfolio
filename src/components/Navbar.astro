@@ -1,11 +1,12 @@
 ---
+import { profile } from '../lib/content';
+
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/research', label: 'Research' },
   { href: '/blog', label: 'Writing' },
   { href: '/experience', label: 'About' },
-  { href: '/contact', label: 'Contact' },
 ] as const;
 
 const currentPath = Astro.url.pathname;
@@ -20,9 +21,9 @@ const isActive = (href: string) =>
     <a
       href="/"
       class="text-primary hover:text-accent font-mono text-sm font-semibold tracking-tight transition-colors"
-      aria-label="Lahiru Wimalarathna - Home"
+      aria-label={`${profile.name} - Home`}
     >
-      lahiru<span class="text-accent">.</span>dev
+      {profile.name.split(' ')[0].toLowerCase()}<span class="text-accent">.</span>dev
     </a>
 
     <nav aria-label="Primary navigation" class="hidden items-center gap-1 lg:flex">
@@ -146,7 +147,7 @@ const isActive = (href: string) =>
       }
     };
 
-    setMenuOpen(false);
+    setMenuOpen(false, false);
   };
 
   setupMobileNavigation();
