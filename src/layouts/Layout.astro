@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/sections/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -77,11 +78,12 @@ const structuredData = {
     <slot name="head" />
   </head>
 
-  <body>
+  <body class="flex min-h-dvh flex-col">
     <Navbar />
-    <main class="ds-container pt-24">
+    <main class="ds-container flex-1 pt-16">
       <slot />
     </main>
+    <Footer />
 
     <script>
       const setupRevealAnimations = () => {
