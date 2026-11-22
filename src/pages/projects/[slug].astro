@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/sections/Footer.astro';
 
 interface ProjectDetail {
   slug: string;
@@ -178,6 +177,4 @@ const { project } = Astro.props as { project: ProjectDetail };
       </article>
     </div>
   </section>
-
-  <Footer />
 </Layout>

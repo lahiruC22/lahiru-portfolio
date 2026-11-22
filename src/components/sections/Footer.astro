@@ -3,16 +3,34 @@ import TextLink from '../ui/TextLink.astro';
 ---
 
 <footer class="border-outline mt-20 border-t py-10">
-  <div
-    class="text-on-surface-dim mx-auto flex max-w-6xl flex-col gap-4 px-5 text-sm sm:px-8 md:flex-row md:items-center md:justify-between"
-  >
-    <p class="font-body">© 2026 Lahiru Wimalarathna</p>
-    <p class="font-body">Built with Astro and thoughtful systems design.</p>
-    <nav aria-label="Footer links" class="flex items-center gap-6">
-      <TextLink href="https://github.com/lahiruC22" external> GitHub </TextLink>
-      <TextLink href="https://www.linkedin.com/in/lahiru-wimalarathna" external>
-        LinkedIn
-      </TextLink>
+  <div class="mx-auto grid max-w-[72rem] gap-8 px-5 text-sm sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <p class="text-primary font-heading text-lg font-medium">Lahiru Wimalarathna</p>
+      <p class="text-on-surface-dim mt-2 max-w-sm leading-6">
+        Software engineer working across backend systems, distributed infrastructure, and applied
+        AI.
+      </p>
+    </div>
+
+    <nav aria-label="Footer navigation" class="grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-1">
+      <TextLink href="/">Home</TextLink>
+      <TextLink href="/projects">Projects</TextLink>
+      <TextLink href="/research">Research</TextLink>
+      <TextLink href="/blog">Writing</TextLink>
+      <TextLink href="/experience">About</TextLink>
+      <TextLink href="/contact">Contact</TextLink>
     </nav>
+
+    <nav aria-label="Footer external links" class="flex flex-col items-start gap-2">
+      <TextLink href="https://github.com/lahiruC22" external>GitHub</TextLink>
+      <TextLink href="https://www.linkedin.com/in/lahiru-wimalarathna" external>LinkedIn</TextLink>
+      <TextLink href="mailto:lahirucwofficial@gmail.com">Email</TextLink>
+    </nav>
+  </div>
+  <div
+    class="text-on-surface-dim border-outline mx-auto mt-8 flex max-w-[72rem] flex-col gap-2 border-t px-5 pt-6 text-xs sm:px-8 md:flex-row md:items-center md:justify-between"
+  >
+    <p>© 2026 Lahiru Wimalarathna</p>
+    <p>Built with Astro</p>
   </div>
 </footer>

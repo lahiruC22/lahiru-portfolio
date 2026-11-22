@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/sections/Footer.astro';
 
 interface BlogPost {
   slug: string;
@@ -101,6 +100,4 @@ const { post } = Astro.props as { post: BlogPost };
       </div>
     </article>
   </section>
-
-  <Footer />
 </Layout>

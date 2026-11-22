@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Footer from '../components/sections/Footer.astro';
 ---
 
 <Layout
@@ -9,26 +8,34 @@ import Footer from '../components/sections/Footer.astro';
 >
   <section class="py-20">
     <div class="mx-auto w-full max-w-3xl">
-      <div class="bg-surface border-outline rounded-lg border p-8 shadow-(--shadow-soft)" data-fade-in style="--reveal-delay: 60ms">
+      <div
+        class="bg-surface border-outline rounded-lg border p-8 shadow-(--shadow-soft)"
+        data-fade-in
+        style="--reveal-delay: 60ms"
+      >
         <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">Moved</p>
         <h1 class="font-heading text-primary mt-3 text-4xl leading-tight font-medium">
           Learning notes now live on the Research page
         </h1>
         <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-          I merged the certifications, books, and study log into the Research page so the site keeps a
-          tighter structure.
+          I merged the certifications, books, and study log into the Research page so the site keeps
+          a tighter structure.
         </p>
         <div class="mt-6 flex flex-wrap gap-4">
-          <a href="/research" class="font-body text-primary hover:text-accent text-sm transition-colors duration-200">
+          <a
+            href="/research"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
             Go to Research
           </a>
-          <a href="/blog" class="font-body text-primary hover:text-accent text-sm transition-colors duration-200">
+          <a
+            href="/blog"
+            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
+          >
             Go to Writing
           </a>
         </div>
       </div>
     </div>
   </section>
-
-  <Footer />
 </Layout>
