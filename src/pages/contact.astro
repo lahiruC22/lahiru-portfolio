@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
 <Layout
@@ -10,6 +11,7 @@ import Footer from '../components/sections/Footer.astro';
   <section class="py-20">
     <div class="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2">
       <div class="space-y-8" data-fade-in style="--reveal-delay: 40ms">
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Contact</p>
         <h1
           class="font-heading text-primary text-5xl leading-tight font-medium"
           transition:name="page-title"
@@ -52,40 +54,21 @@ import Footer from '../components/sections/Footer.astro';
         </p>
         <label class="block">
           <span class="font-body text-on-surface-dim mb-2 block text-sm">Name</span>
-          <input
-            type="text"
-            name="name"
-            required
-            class="font-body text-primary border-muted focus:border-primary w-full border-b bg-transparent px-0 py-2 transition-colors outline-none"
-          />
+          <input type="text" name="name" required class="ds-form-field px-3 py-2" />
         </label>
 
         <label class="block">
           <span class="font-body text-on-surface-dim mb-2 block text-sm">Email</span>
-          <input
-            type="email"
-            name="email"
-            required
-            class="font-body text-primary border-muted focus:border-primary w-full border-b bg-transparent px-0 py-2 transition-colors outline-none"
-          />
+          <input type="email" name="email" required class="ds-form-field px-3 py-2" />
         </label>
 
         <label class="block">
           <span class="font-body text-on-surface-dim mb-2 block text-sm">Message</span>
-          <textarea
-            name="message"
-            rows="4"
-            required
-            class="font-body text-primary border-muted focus:border-primary w-full resize-none border-b bg-transparent px-0 py-2 transition-colors outline-none"
+          <textarea name="message" rows="4" required class="ds-form-field resize-none px-3 py-2"
           ></textarea>
         </label>
 
-        <button
-          type="submit"
-          class="font-body bg-primary hover:bg-accent h-12 rounded-md px-6 text-white transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        >
-          Send Message
-        </button>
+        <Button type="submit" size="md"> Send Message </Button>
       </form>
     </div>
   </section>

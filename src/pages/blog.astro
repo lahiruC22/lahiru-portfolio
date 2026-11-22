@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/Button.astro';
 
 const posts = [
   {
@@ -48,8 +49,9 @@ const learningPathPrompt =
   <section class="py-20">
     <div class="mx-auto w-full max-w-5xl">
       <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Engineering archive</p>
         <h1
-          class="font-heading text-primary text-5xl leading-tight font-medium"
+          class="font-heading text-primary mt-3 text-5xl leading-tight font-medium"
           transition:name="page-title"
         >
           Writing
@@ -132,7 +134,7 @@ const learningPathPrompt =
                 id="topic"
                 name="topic"
                 placeholder="e.g., distributed systems, mlops, performance optimization"
-                class="border-outline bg-background text-on-surface placeholder-on-surface-dim focus:border-accent focus:ring-accent/20 mt-2 w-full rounded-lg border px-4 py-3 text-base transition-all duration-300 focus:ring-2 focus:outline-none"
+                class="ds-form-field mt-2 px-4 py-3 text-base"
                 required
               />
               <p class="font-body text-on-surface-dim mt-2 text-xs">
@@ -141,16 +143,10 @@ const learningPathPrompt =
               </p>
             </div>
 
-            <button
-              type="submit"
-              class="bg-accent hover:bg-primary mt-4 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-300 disabled:opacity-50"
-              id="submit-btn"
-            >
-              Generate Path
-            </button>
+            <Button id="submit-btn" type="submit" size="md" class="mt-4"> Generate Path </Button>
           </form>
 
-          <div id="loading" class="mt-6 hidden">
+          <div id="loading" class="mt-6 hidden" aria-live="polite">
             <div class="flex items-center gap-3">
               <div
                 class="border-accent size-4 animate-spin rounded-full border-2 border-t-transparent"
@@ -162,9 +158,9 @@ const learningPathPrompt =
             </div>
           </div>
 
-          <div id="error" class="mt-6 hidden">
-            <div class="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
-              <p class="font-body text-sm text-red-500" id="error-text"></p>
+          <div id="error" class="mt-6 hidden" role="alert">
+            <div class="border-error/30 bg-error-bg rounded-lg border p-4">
+              <p class="font-body text-error text-sm" id="error-text"></p>
             </div>
           </div>
         </div>

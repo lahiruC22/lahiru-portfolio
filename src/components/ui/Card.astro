@@ -1,0 +1,21 @@
+---
+interface Props {
+  interactive?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const { interactive = false, class: className = '', id } = Astro.props;
+---
+
+<article
+  id={id}
+  class:list={[
+    'border-outline bg-surface rounded-lg border shadow-(--shadow-card)',
+    interactive &&
+      'hover:border-accent/50 transition-[transform,border-color,box-shadow] duration-220 hover:-translate-y-0.5',
+    className,
+  ]}
+>
+  <slot />
+</article>

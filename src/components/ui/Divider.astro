@@ -1,0 +1,20 @@
+---
+interface Props {
+  class?: string;
+  label?: string;
+}
+
+const { class: className = '', label } = Astro.props;
+---
+
+{
+  label ? (
+    <div class={`flex items-center gap-3 ${className}`.trim()} aria-hidden="true">
+      <hr class="ds-divider flex-1" />
+      <span class="ds-meta text-on-surface-dim">{label}</span>
+      <hr class="ds-divider flex-1" />
+    </div>
+  ) : (
+    <hr class={`ds-divider ${className}`.trim()} />
+  )
+}
