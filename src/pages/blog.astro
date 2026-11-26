@@ -1,45 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/ui/Button.astro';
-import { blogMetadata } from '../lib/blogMetadata';
+import { writingArticles } from '../lib/content';
 
-const posts = [
-  {
-    slug: 'idempotency-patterns-event-driven-services',
-    date: '2026-04-10',
-    readingTime: '7 min read',
-  },
-  {
-    slug: 'diagnosing-slow-api-paths-incremental-profiling',
-    date: '2026-03-28',
-    readingTime: '6 min read',
-  },
-  {
-    slug: 'practical-trade-offs-kubernetes-autoscaling',
-    date: '2026-03-14',
-    readingTime: '8 min read',
-  },
-  {
-    slug: 'prototype-to-production-serving-ml-models-safely',
-    date: '2026-02-25',
-    readingTime: '9 min read',
-  },
-].map((post) => ({
-  ...post,
-  ...blogMetadata.find((entry) => entry.slug === post.slug)!,
-}));
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${date}T00:00:00Z`));
 ---
 
 <Layout
   title="Writing"
-  description="Essays and engineering notes on backend architecture, distributed systems, and applied AI."
+  description="A curated index of my published Medium articles on software engineering, backend systems, and applied AI."
 >
   <section class="py-12 sm:py-16">
     <div class="mx-auto w-full max-w-6xl">
       <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          01 / Engineering archive
-        </p>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Engineering writing</p>
         <h1
           class="font-heading text-primary mt-3 text-5xl leading-tight font-medium"
           transition:name="page-title"
@@ -50,56 +29,69 @@ const posts = [
           class="font-body text-on-surface-variant mt-4 text-base leading-7"
           transition:name="page-subtitle"
         >
-          Essays, experiments, and technical notes that sit between research thinking and shipped
-          systems.
+          A curated index of my published Medium articles. Summaries live here; the full articles
+          are published on Medium.
         </p>
       </header>
 
-      <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
-        {
-          posts.map((post, index) => (
-            <a
-              href={`/blog/${post.slug}`}
-              id={post.slug}
-              data-reveal
-              style={`--reveal-delay: ${index * 110}ms`}
-              class="group border-outline bg-surface hover:border-accent/50 flex min-h-72 flex-col rounded-lg border p-6 transition-all duration-300"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-3">
-                <time datetime={post.date} class="text-on-surface-dim font-mono text-xs">
-                  {new Intl.DateTimeFormat('en', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    timeZone: 'UTC',
-                  }).format(new Date(`${post.date}T00:00:00Z`))}
-                </time>
-                <span class="text-accent font-mono text-xs">{post.readingTime}</span>
-              </div>
-              <h2 class="font-heading text-primary group-hover:text-accent mt-6 text-2xl leading-tight font-medium transition-colors">
-                {post.title}
-              </h2>
-              <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">{post.summary}</p>
-              <div class="mt-5 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <span class="text-primary mt-auto inline-flex pt-6 font-mono text-xs">
-                Read article{' '}
-                <span
-                  class="ml-2 transition-transform group-hover:translate-x-1"
-                  aria-hidden="true"
+      {
+        writingArticles.length ? (
+          <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+            {writingArticles.map((post, index) => (
+              <article
+                id={post.slug}
+                data-reveal
+                style={`--reveal-delay: ${index * 110}ms`}
+                class="border-outline bg-surface flex min-h-72 flex-col rounded-lg border p-6"
+              >
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  {post.publishedAt && (
+                    <time datetime={post.publishedAt} class="text-on-surface-dim font-mono text-xs">
+                      {formatDate(post.publishedAt)}
+                    </time>
+                  )}
+                  {post.readingTime && (
+                    <span class="text-accent font-mono text-xs">{post.readingTime}</span>
+                  )}
+                </div>
+                <h2 class="font-heading text-primary mt-6 text-2xl leading-tight font-medium">
+                  {post.title}
+                </h2>
+                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                  {post.summary}
+                </p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={post.mediumUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:text-accent mt-auto inline-flex pt-6 font-mono text-xs"
                 >
-                  →
-                </span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
+                  Read on Medium{' '}
+                  <span class="ml-2" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="border-outline bg-surface mt-10 max-w-3xl rounded-lg border p-6 sm:p-8">
+            <h2 class="font-heading text-primary text-2xl font-medium">
+              No articles published yet
+            </h2>
+            <p class="font-body text-on-surface-variant mt-3 text-base leading-7">
+              This page will feature selected Medium publications once they are live.
+            </p>
+          </div>
+        )
+      }
 
       <section class="mt-14 max-w-3xl" data-reveal style="--reveal-delay: 180ms">
         <h2 class="font-heading text-primary text-2xl font-medium">Related pages</h2>
@@ -108,7 +100,7 @@ const posts = [
             href="/research"
             class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
           >
-            Research roadmap
+            Research
           </a>
           <a
             href="/projects"
@@ -118,212 +110,6 @@ const posts = [
           </a>
         </div>
       </section>
-
-      <section
-        class="border-outline mt-16 border-t pt-12"
-        data-reveal
-        style="--reveal-delay: 240ms"
-      >
-        <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">
-          02 / Learning Path Generator
-        </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium">
-          Generate a reading path from the writing archive
-        </h2>
-        <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-          Enter a topic or skill you want to learn. The generator selects and sequences relevant
-          articles from this archive, explains why each article belongs in the path, and suggests
-          what to explore after reading.
-        </p>
-
-        <div class="border-outline bg-surface-dim mt-8 max-w-3xl rounded-lg border p-5 sm:p-8">
-          <form id="path-form" class="flex flex-col gap-4">
-            <div>
-              <label for="topic" class="font-body text-on-surface block text-sm font-medium">
-                Topic or technical goal
-              </label>
-              <input
-                type="text"
-                id="topic"
-                name="topic"
-                aria-describedby="topic-help"
-                placeholder="e.g., distributed systems, mlops, performance optimization"
-                class="ds-form-field mt-2 px-4 py-3 text-base"
-                required
-              />
-              <p id="topic-help" class="font-body text-on-surface-dim mt-2 text-xs">
-                Accepts a concept or skill, such as distributed systems, MLOps, event-driven
-                architecture, performance optimization, or Kubernetes. It generates 2–4 existing
-                articles in reading order.
-              </p>
-            </div>
-
-            <Button id="submit-btn" type="submit" size="md" class="mt-4"> Generate Path </Button>
-          </form>
-
-          <div id="loading" class="mt-6 hidden" aria-live="polite">
-            <div class="flex items-center gap-3">
-              <div
-                class="border-accent size-4 animate-spin rounded-full border-2 border-t-transparent"
-              >
-              </div>
-              <p class="font-body text-on-surface-variant text-sm">
-                Reasoning about the best learning sequence...
-              </p>
-            </div>
-          </div>
-
-          <div id="error" class="mt-6 hidden" role="alert">
-            <div class="border-error/30 bg-error-bg rounded-lg border p-4">
-              <p class="font-body text-error text-sm" id="error-text"></p>
-            </div>
-          </div>
-        </div>
-
-        <div id="results" class="mt-12 hidden">
-          <div data-fade-in style="--reveal-delay: 120ms">
-            <div class="mb-8">
-              <h3 id="path-title" class="font-heading text-primary text-3xl font-medium"></h3>
-              <p id="path-description" class="font-body text-on-surface-variant mt-2 text-base"></p>
-              <p id="reading-time" class="font-body text-accent mt-2 text-sm font-semibold"></p>
-            </div>
-
-            <div id="path-steps" class="space-y-6"></div>
-
-            <div class="border-outline bg-surface-dim mt-10 rounded-lg border p-6">
-              <h3 class="font-heading text-primary mb-3 text-lg font-medium">After This Path</h3>
-              <ul id="next-steps-list" class="font-body text-on-surface space-y-2 text-sm"></ul>
-            </div>
-
-            <button
-              onclick="location.reload()"
-              class="bg-surface-dim text-accent hover:bg-surface border-outline mt-8 rounded-lg border px-6 py-3 font-semibold transition-all duration-300"
-            >
-              Try Another Topic
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   </section>
 </Layout>
-
-<script>
-  interface LearningPathStep {
-    position: number;
-    title: string;
-    slug: string;
-    summary: string;
-    whyThisStep: string;
-    keyTakeaways: string[];
-    relatedProjects: string[];
-    readingTime: string;
-    tags: string[];
-  }
-
-  interface LearningPathResponse {
-    topic: string;
-    pathTitle: string;
-    pathDescription: string;
-    steps: LearningPathStep[];
-    totalReadingTime: string;
-    nextSteps: string[];
-  }
-
-  const form = document.getElementById('path-form') as HTMLFormElement | null;
-  const loadingEl = document.getElementById('loading') as HTMLElement | null;
-  const errorEl = document.getElementById('error') as HTMLElement | null;
-  const errorText = document.getElementById('error-text') as HTMLElement | null;
-  const resultsEl = document.getElementById('results') as HTMLElement | null;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-  const pathStepsEl = document.getElementById('path-steps') as HTMLElement | null;
-
-  if (form && loadingEl && errorEl && errorText && resultsEl && submitBtn && pathStepsEl) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      const topic = (document.getElementById('topic') as HTMLInputElement | null)?.value.trim();
-      if (!topic) return;
-
-      errorEl.classList.add('hidden');
-      resultsEl.classList.add('hidden');
-      loadingEl.classList.remove('hidden');
-      submitBtn.disabled = true;
-
-      try {
-        const response = await fetch('/api/learning-path', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ topic }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to generate learning path');
-        }
-
-        const data = (await response.json()) as LearningPathResponse;
-
-        (document.getElementById('path-title') as HTMLElement).textContent = data.pathTitle;
-        (document.getElementById('path-description') as HTMLElement).textContent =
-          data.pathDescription;
-        (document.getElementById('reading-time') as HTMLElement).textContent =
-          `Total reading time: ${data.totalReadingTime}`;
-
-        pathStepsEl.innerHTML = data.steps
-          .map(
-            (step, index) => `
-              <a
-                href="/blog/${step.slug}"
-                class="group block rounded-lg border border-outline p-6 transition-all duration-300 hover:border-accent hover:bg-surface-dim"
-                data-reveal
-                style="--reveal-delay: ${(index + 1) * 100}ms"
-              >
-                <div class="flex items-start justify-between gap-4">
-                  <div class="flex-1">
-                    <div class="flex items-center gap-3">
-                      <span class="bg-accent text-on-accent size-8 flex items-center justify-center rounded-full font-semibold">
-                        ${step.position}
-                      </span>
-                      <h3 class="font-heading text-primary group-hover:text-accent text-lg font-medium transition-colors">
-                        ${step.title}
-                      </h3>
-                    </div>
-                    <p class="text-on-surface-variant mt-2 text-sm">${step.summary}</p>
-                    <p class="text-accent mt-3 text-sm font-semibold italic">${step.whyThisStep}</p>
-                    <div class="mt-4">
-                      <p class="font-body text-on-surface text-xs font-semibold">Key Takeaways:</p>
-                      <ul class="text-on-surface-dim mt-2 space-y-1 text-xs">
-                        ${step.keyTakeaways.map((take) => `<li class="flex gap-2"><span>•</span> <span>${take}</span></li>`).join('')}
-                      </ul>
-                    </div>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      ${step.tags.map((tag) => `<span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-xs">${tag}</span>`).join('')}
-                    </div>
-                  </div>
-                  <div class="text-on-surface-dim shrink-0 text-xs">${step.readingTime}</div>
-                </div>
-              </a>
-            `
-          )
-          .join('');
-
-        const nextStepsList = document.getElementById('next-steps-list') as HTMLElement | null;
-        if (nextStepsList) {
-          nextStepsList.innerHTML = data.nextSteps
-            .map((step) => `<li class="flex gap-2"><span>→</span> <span>${step}</span></li>`)
-            .join('');
-        }
-
-        loadingEl.classList.add('hidden');
-        resultsEl.classList.remove('hidden');
-      } catch (error) {
-        errorText.textContent =
-          error instanceof Error ? error.message : 'Failed to generate learning path';
-        loadingEl.classList.add('hidden');
-        errorEl.classList.remove('hidden');
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-  }
-</script>
