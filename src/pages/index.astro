@@ -7,6 +7,7 @@ import {
   experiences,
   education,
   formatPeriod,
+  writingArticles,
 } from '../lib/content';
 
 const featuredProjects = portfolioProjects.slice(0, 3);
@@ -17,28 +18,6 @@ const researchAreas = [
   'Reliable AI systems in production',
   'Evaluation and benchmark design',
   'Distributed systems for ML workloads',
-] as const;
-
-const writing = [
-  {
-    title: 'Idempotency Patterns for Event-Driven Services',
-    summary:
-      'Correct retry behavior across duplicates, partial failures, and repeated event delivery.',
-    tags: ['Event-driven', 'Reliability'],
-    href: '/blog/idempotency-patterns-event-driven-services',
-  },
-  {
-    title: 'Diagnosing Slow API Paths with Incremental Profiling',
-    summary: 'A trace-first method for finding latency across application and database boundaries.',
-    tags: ['Performance', 'Go'],
-    href: '/blog/diagnosing-slow-api-paths-incremental-profiling',
-  },
-  {
-    title: 'Practical Trade-offs in Kubernetes Autoscaling',
-    summary: 'How workload characteristics and control-system behavior shape scaling decisions.',
-    tags: ['Kubernetes', 'SRE'],
-    href: '/blog/practical-trade-offs-kubernetes-autoscaling',
-  },
 ] as const;
 ---
 
@@ -324,7 +303,7 @@ const writing = [
           id="writing-heading"
           class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
         >
-          Selected notes
+          Engineering writing
         </h2>
       </div>
       <a
@@ -334,35 +313,47 @@ const writing = [
         All writing →
       </a>
     </div>
-    <div class="divide-outline border-outline divide-y border-y">
-      {
-        writing.map((post) => (
-          <a
-            href={post.href}
-            class="group grid gap-4 py-6 sm:grid-cols-[1.25fr_0.75fr] sm:items-start"
-          >
-            <div>
-              <h3 class="font-heading text-primary group-hover:text-accent text-xl font-medium transition-colors">
-                {post.title}
-              </h3>
-              <p class="font-body text-on-surface-variant mt-2 max-w-xl text-sm leading-6">
-                {post.summary}
-              </p>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 sm:justify-end">
-              {post.tags.map((tag) => (
-                <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-[0.68rem]">
-                  {tag}
+    {
+      writingArticles.length ? (
+        <div class="divide-outline border-outline divide-y border-y">
+          {writingArticles.slice(0, 3).map((post) => (
+            <a
+              href={post.mediumUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group grid gap-4 py-6 sm:grid-cols-[1.25fr_0.75fr] sm:items-start"
+            >
+              <div>
+                <h3 class="font-heading text-primary group-hover:text-accent text-xl font-medium transition-colors">
+                  {post.title}
+                </h3>
+                <p class="font-body text-on-surface-variant mt-2 max-w-xl text-sm leading-6">
+                  {post.summary}
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 sm:justify-end">
+                {post.tags.map((tag) => (
+                  <span class="text-accent bg-background rounded-sm px-2 py-1 font-mono text-[0.68rem]">
+                    {tag}
+                  </span>
+                ))}
+                <span class="text-primary ml-2 font-mono text-xs" aria-hidden="true">
+                  ↗
                 </span>
-              ))}
-              <span class="text-primary ml-2 font-mono text-xs" aria-hidden="true">
-                →
-              </span>
-            </div>
-          </a>
-        ))
-      }
-    </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="border-outline text-on-surface-variant border-y py-6 text-sm leading-6">
+          No Medium articles published yet. Visit the{' '}
+          <a href="/blog" class="text-primary hover:text-accent underline underline-offset-4">
+            Writing page
+          </a>{' '}
+          for updates.
+        </p>
+      )
+    }
   </section>
 
   <section

@@ -1,15 +1,16 @@
 import type { APIRoute } from 'astro';
-import { blogMetadata } from '../../lib/blogMetadata';
+import { writingArticles } from '../../lib/content';
 
 interface PathStep {
   position: number;
   title: string;
   slug: string;
+  mediumUrl: string;
   summary: string;
   whyThisStep: string;
   keyTakeaways: string[];
   relatedProjects: string[];
-  readingTime: string;
+  readingTime?: string;
   tags: string[];
 }
 
@@ -18,7 +19,7 @@ interface LearningPathResponse {
   pathTitle: string;
   pathDescription: string;
   steps: PathStep[];
-  totalReadingTime: string;
+  totalReadingTime: string | null;
   nextSteps: string[];
 }
 
@@ -41,6 +42,16 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    if (writingArticles.length === 0) {
+      return new Response(
+        JSON.stringify({ error: 'No published articles are available for a learning path yet.' }),
+        {
+          status: 503,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
     const apiKey = import.meta.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       console.error('ANTHROPIC_API_KEY not set in environment');
@@ -55,17 +66,17 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Prepare blog data for Claude
-    const blogSummary = blogMetadata
+    // Prepare published Medium article metadata for Claude.
+    const blogSummary = writingArticles
       .map(
         (post) =>
           `- "${post.title}" (slug: ${post.slug}): ${post.summary}\n  Topics: ${post.topics.join(', ')}\n  Related projects: ${post.relatedProjects.join(', ')}`
       )
       .join('\n');
 
-    const prompt = `You are an expert learning path curator. Given a topic or skill a user wants to learn, create an optimal learning sequence from these available blog posts.
+    const prompt = `You are an expert learning path curator. Given a topic or skill a user wants to learn, create an optimal learning sequence from these published Medium articles.
 
-Available Blog Posts:
+Available Published Medium Articles:
 ${blogSummary}
 
 User's Learning Goal: "${topic}"
@@ -76,7 +87,7 @@ Your task:
 3. Explain WHY each post is in this sequence (prerequisite knowledge, building on concepts, etc.).
 4. Suggest what they should explore next after finishing this path.
 
-IMPORTANT: Only include posts from the "Available Blog Posts" list above. Do not make up posts.
+IMPORTANT: Only include articles from the "Available Published Medium Articles" list above. Do not make up articles.
 
 Respond ONLY with valid JSON in this exact format (no markdown, no code blocks):
 {
@@ -142,10 +153,10 @@ Respond ONLY with valid JSON in this exact format (no markdown, no code blocks):
       });
     }
 
-    // Enrich the path with full blog data
+    // Enrich the path with curated Medium metadata.
     const enrichedSteps: PathStep[] = parsedPath.steps.map(
       (step: { position: number; slug: string; whyThisStep: string }) => {
-        const blogPost = blogMetadata.find((p) => p.slug === step.slug);
+        const blogPost = writingArticles.find((p) => p.slug === step.slug);
         if (!blogPost) {
           throw new Error(`Blog post not found: ${step.slug}`);
         }
@@ -154,29 +165,32 @@ Respond ONLY with valid JSON in this exact format (no markdown, no code blocks):
           position: step.position,
           title: blogPost.title,
           slug: blogPost.slug,
+          mediumUrl: blogPost.mediumUrl,
           summary: blogPost.summary,
           whyThisStep: step.whyThisStep,
           keyTakeaways: blogPost.keyTakeaways,
           relatedProjects: blogPost.relatedProjects,
-          readingTime:
-            ['7 min', '6 min', '8 min', '9 min'][blogMetadata.indexOf(blogPost)] || '7 min',
+          readingTime: blogPost.readingTime,
           tags: blogPost.tags,
         };
       }
     );
 
     // Calculate total reading time (rough estimate)
-    const totalMinutes = enrichedSteps.reduce((sum, step) => {
-      const match = (step.readingTime || '5 min').match(/\d+/);
-      return sum + (match ? parseInt(match[0]) : 5);
-    }, 0);
+    const readingMinutes = enrichedSteps.map((step) => {
+      const match = step.readingTime?.match(/\d+/);
+      return match ? Number.parseInt(match[0], 10) : null;
+    });
+    const totalReadingTime = readingMinutes.every((minutes) => minutes !== null)
+      ? `${readingMinutes.reduce((sum, minutes) => sum + (minutes ?? 0), 0)} min`
+      : null;
 
     const result: LearningPathResponse = {
       topic,
       pathTitle: parsedPath.pathTitle || 'Learning Path',
       pathDescription: parsedPath.pathDescription || '',
       steps: enrichedSteps,
-      totalReadingTime: `${totalMinutes} min`,
+      totalReadingTime,
       nextSteps: parsedPath.nextSteps || [],
     };
 

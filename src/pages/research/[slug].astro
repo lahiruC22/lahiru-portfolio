@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { CompletedResearch } from '../../lib/content';
+import { completedResearch } from '../../lib/content';
+
+export function getStaticPaths() {
+  return completedResearch.map((research) => ({
+    params: { slug: research.id },
+    props: { research },
+  }));
+}
+
+const { research } = Astro.props as { research: CompletedResearch };
+const { caseStudy } = research;
+
+interface CaseStudySection {
+  title: string;
+  content?: string;
+  items?: string[];
+}
+
+const sections: CaseStudySection[] = [
+  { title: 'Motivation', content: caseStudy.motivation },
+  { title: 'Problem statement', content: caseStudy.problemStatement },
+  { title: 'Research question', content: caseStudy.researchQuestion },
+  { title: 'Objectives', items: caseStudy.objectives },
+  { title: 'Methodology', content: caseStudy.methodology },
+  { title: 'Evidence collection', content: caseStudy.evidenceCollection },
+  { title: 'Study selection', content: caseStudy.studySelection },
+  { title: 'Quality assessment', content: caseStudy.qualityAssessment },
+  { title: 'Findings', content: caseStudy.findings },
+  { title: 'Discussion', content: caseStudy.discussion },
+  { title: 'Limitations', content: caseStudy.limitations },
+  { title: 'Conclusion', content: caseStudy.conclusion },
+];
+---
+
+<Layout title={research.title} description={research.summary} ogType="article">
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl">
+      <nav aria-label="Breadcrumb" class="text-on-surface-dim font-mono text-xs">
+        <a href="/research" class="hover:text-primary transition-colors">Research</a>
+        <span aria-hidden="true"> / </span>
+        <span>Completed research</span>
+      </nav>
+
+      <header class="mt-7" data-fade-in>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          Completed academic research
+        </p>
+        <h1
+          class="font-heading text-primary mt-4 text-4xl leading-[1.02] font-medium sm:text-5xl lg:text-6xl"
+          transition:name="page-title"
+        >
+          {research.title}
+        </h1>
+        <p
+          class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
+          transition:name="page-subtitle"
+        >
+          {research.summary}
+        </p>
+      </header>
+
+      <article class="mt-12" aria-label="Research case study">
+        <section class="border-outline bg-surface rounded-lg border p-6 sm:p-8">
+          <h2 class="font-heading text-primary text-2xl font-medium">Research overview</h2>
+          <dl class="mt-5 grid gap-5 sm:grid-cols-2">
+            <div>
+              <dt class="text-accent font-mono text-[0.68rem] uppercase">Research domain</dt>
+              <dd class="text-on-surface mt-2 text-sm">{caseStudy.domain.join(' · ')}</dd>
+            </div>
+            <div>
+              <dt class="text-accent font-mono text-[0.68rem] uppercase">Status</dt>
+              <dd class="text-on-surface mt-2 text-sm">Completed</dd>
+            </div>
+          </dl>
+        </section>
+
+        <div class="divide-outline border-outline mt-8 divide-y border-y">
+          {
+            sections.map((section) => (
+              <section class="py-6" aria-label={section.title}>
+                <h2 class="font-heading text-primary text-xl font-medium">{section.title}</h2>
+                {section.content && (
+                  <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                    {section.content}
+                  </p>
+                )}
+                {section.items && (
+                  <ul class="mt-3 space-y-2">
+                    {section.items.map((item) => (
+                      <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
+                        <span class="bg-accent mt-2 size-1.5 shrink-0 rounded-full" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            ))
+          }
+
+          <section class="py-6" aria-labelledby="supporting-material-heading">
+            <h2
+              id="supporting-material-heading"
+              class="font-heading text-primary text-xl font-medium"
+            >
+              Supporting material
+            </h2>
+            {
+              caseStudy.supportingMaterials.length > 0 ? (
+                <ul class="mt-3 space-y-2">
+                  {caseStudy.supportingMaterials.map((material) => (
+                    <li>
+                      <a
+                        href={material.url}
+                        class="text-primary hover:text-accent font-mono text-xs"
+                      >
+                        {material.title} →
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
+                  [Add links to the thesis, presentation, or related resources.]
+                </p>
+              )
+            }
+          </section>
+        </div>
+      </article>
+
+      <footer class="border-outline mt-14 flex flex-wrap gap-5 border-t pt-8">
+        <a href="/research" class="text-primary hover:text-accent font-mono text-xs">
+          ← Back to research
+        </a>
+        <a href="/contact" class="text-primary hover:text-accent font-mono text-xs">
+          Discuss this work →
+        </a>
+      </footer>
+    </div>
+  </section>
+</Layout>
