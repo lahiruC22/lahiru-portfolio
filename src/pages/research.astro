@@ -1,148 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { certifications } from '../lib/content';
-
-const interests = [
-  {
-    title: 'Reliable AI systems',
-    description:
-      'Making model-backed services resilient, observable, and understandable under real production constraints.',
-  },
-  {
-    title: 'Evaluation and benchmarks',
-    description:
-      'Using lightweight, repeatable tests to detect quality regressions in retrieval and AI-assisted workflows.',
-  },
-  {
-    title: 'Distributed systems for ML',
-    description:
-      'Studying latency, consistency, throughput, and infrastructure trade-offs at the AI/backend boundary.',
-  },
-  {
-    title: 'Human-AI developer workflows',
-    description:
-      'Exploring how AI-assisted development can preserve technical rigor, accountability, and reviewability.',
-  },
-] as const;
-
-const researchProjects = [
-  {
-    status: 'Active',
-    title: 'Evaluation foundations for AI features',
-    question:
-      'How can retrieval-backed and LLM-assisted features be evaluated consistently across prompt and model changes?',
-    problem:
-      'Ad hoc demonstrations can miss correctness, relevance, and failure-mode regressions that affect real workflows.',
-    objectives: [
-      'Create a small benchmark set with explicit correctness and relevance criteria.',
-      'Compare prompt and retrieval strategies with measurable acceptance thresholds.',
-      'Track evaluation drift as content and model versions change.',
-    ],
-    methodology:
-      'Incremental benchmark design: start with representative cases, define failure modes, compare variants, and retain the evidence for later runs.',
-    progress:
-      'The evaluation framework is an active research direction. A published benchmark corpus and recorded experimental runs are not yet available.',
-    findings: 'No formal findings or publication results are currently listed.',
-  },
-  {
-    status: 'Planned',
-    title: 'Reliability patterns for agentic systems',
-    question:
-      'Which backend reliability patterns are useful when a system executes multi-step AI workflows and external tools?',
-    problem:
-      'Retries, tool failures, partial execution, and timeout behavior need explicit workflow states rather than single-request assumptions.',
-    objectives: [
-      'Study idempotent tool execution and retry-safe state transitions.',
-      'Compare timeout and fallback strategies under controlled failures.',
-      'Map observability practices to traces across agent actions.',
-    ],
-    methodology:
-      'Planned experiments will use controlled service and tool failures, explicit workflow states, and trace-based analysis.',
-    progress:
-      'This is a planned research direction based on backend reliability concepts; implementation and experimental results are not yet published.',
-    findings: 'No findings are currently listed.',
-  },
-  {
-    status: 'Planned',
-    title: 'Decision-aware AI infrastructure',
-    question:
-      'How can confidence and uncertainty become useful runtime signals for model and tool selection?',
-    problem:
-      'Infrastructure decisions often treat every request as equally certain, even when model confidence or latency budgets vary.',
-    objectives: [
-      'Prototype confidence-aware routing for model and tool selection.',
-      'Study uncertainty communication for engineering teams.',
-      'Compare conservative and aggressive automation trade-offs.',
-    ],
-    methodology:
-      'System experiments would compare routing policies against latency budgets, fallback behavior, and defined success criteria.',
-    progress:
-      'This is a planned direction informed by experimental project work. Reproducible infrastructure benchmarks are not yet published.',
-    findings: 'No findings are currently listed.',
-  },
-] as const;
-
-const methodology = [
-  {
-    title: 'Define the question',
-    description: 'Translate an engineering concern into a measurable question and explicit scope.',
-  },
-  {
-    title: 'Establish a baseline',
-    description: 'Record the current behavior before comparing changes or proposed alternatives.',
-  },
-  {
-    title: 'Design controlled experiments',
-    description:
-      'Use repeatable inputs, failure cases, and comparable output criteria where possible.',
-  },
-  {
-    title: 'Report evidence and limits',
-    description:
-      'Separate measured findings from assumptions and publish the boundaries of the experiment.',
-  },
-] as const;
-
-const roadmap = [
-  {
-    horizon: 'Near term',
-    status: 'Active',
-    title: 'Evaluation foundations',
-    detail: 'Build repeatable cases and acceptance criteria for retrieval-backed AI features.',
-  },
-  {
-    horizon: 'Mid term',
-    status: 'Planned',
-    title: 'Agent workflow reliability',
-    detail: 'Explore retry-safe states, tool failures, fallbacks, and execution traces.',
-  },
-  {
-    horizon: 'Long term',
-    status: 'Planned',
-    title: 'Decision-aware infrastructure',
-    detail: 'Study confidence-aware routing and uncertainty under real workload constraints.',
-  },
-] as const;
-
-const books = [
-  'Designing Data-Intensive Applications',
-  'System Design Interview, Volume 1',
-  'Building Microservices (2nd Edition)',
-  'Clean Architecture',
-] as const;
+import {
+  activeResearch,
+  completedResearch,
+  plannedResearch,
+  researchInterests as interests,
+  researchPublications as publications,
+} from '../lib/content';
 ---
 
 <Layout
   title="Research"
-  description="Research interests, active and planned work, methodology, and technical development."
+  description="Completed academic research, publications, current interests, and active and planned research."
 >
   <section class="py-12 sm:py-16">
     <div class="mx-auto max-w-6xl">
       <header class="grid gap-8 lg:grid-cols-[1fr_18rem]" data-fade-in>
         <div>
-          <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-            01 / Research program
-          </p>
+          <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Research</p>
           <h1
             class="font-heading text-primary mt-4 max-w-4xl text-5xl leading-[0.98] font-medium sm:text-6xl"
             transition:name="page-title"
@@ -153,44 +28,146 @@ const books = [
             class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
             transition:name="page-subtitle"
           >
-            My current research interests focus on evaluation, reliability, and infrastructure
-            decisions for intelligent systems.
+            Completed academic work comes first, followed by the formal publication record, current
+            interests, and ongoing directions.
           </p>
         </div>
         <aside class="border-outline bg-surface h-fit rounded-lg border p-5">
-          <p class="text-on-surface-dim font-mono text-xs">Research status</p>
+          <p class="text-on-surface-dim font-mono text-xs">Research record</p>
           <dl class="divide-outline mt-4 divide-y">
             <div class="py-3">
-              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Active</dt>
-              <dd class="text-on-surface mt-1 text-sm">1 research direction</dd>
-            </div>
-            <div class="py-3">
-              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Planned</dt>
-              <dd class="text-on-surface mt-1 text-sm">2 research directions</dd>
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Completed</dt>
+              <dd class="text-on-surface mt-1 text-sm">
+                {completedResearch.length} academic research project{
+                  completedResearch.length === 1 ? '' : 's'
+                }
+              </dd>
             </div>
             <div class="py-3">
               <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Publications</dt>
-              <dd class="text-on-surface mt-1 text-sm">No formal publications listed</dd>
+              <dd class="text-on-surface mt-1 text-sm">
+                {publications.length ? publications.length : 'None listed'}
+              </dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Active</dt>
+              <dd class="text-on-surface mt-1 text-sm">{activeResearch.length} direction</dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Planned</dt>
+              <dd class="text-on-surface mt-1 text-sm">{plannedResearch.length} directions</dd>
             </div>
           </dl>
         </aside>
       </header>
 
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+      <section
+        class="border-outline mt-16 border-t pt-12"
+        aria-labelledby="completed-research-heading"
+        data-reveal
+      >
         <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          02 / Research interests
+          01 / Completed academic research
         </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          Areas of inquiry
+        <h2
+          id="completed-research-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Completed research
+        </h2>
+        <div class="mt-8 space-y-5">
+          {
+            completedResearch.map((project, index) => (
+              <article class="border-outline bg-surface rounded-lg border p-6 sm:p-8">
+                <p class="text-accent font-mono text-xs">Research 0{index + 1} · Completed</p>
+                <h3 class="font-heading text-primary mt-4 text-2xl font-medium">{project.title}</h3>
+                <p class="font-body text-on-surface-variant mt-3 max-w-4xl text-sm leading-6">
+                  {project.summary}
+                </p>
+                {project.caseStudy && (
+                  <dl class="mt-5 grid gap-5 md:grid-cols-2">
+                    <div>
+                      <dt class="text-accent font-mono text-[0.68rem] uppercase">Research focus</dt>
+                      <dd class="font-body text-on-surface mt-2 text-sm leading-6">
+                        {project.caseStudy.problemStatement}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="text-accent font-mono text-[0.68rem] uppercase">Approach</dt>
+                      <dd class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                        {project.caseStudy.methodology}
+                      </dd>
+                    </div>
+                  </dl>
+                )}
+                <a
+                  href={`/research/${project.id}`}
+                  class="text-primary hover:text-accent mt-5 inline-block font-mono text-xs"
+                >
+                  Read research write-up →
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section
+        class="border-outline mt-16 border-t pt-12"
+        aria-labelledby="publications-heading"
+        data-reveal
+      >
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          02 / Formal publications
+        </p>
+        <h2
+          id="publications-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Publications
+        </h2>
+        {
+          publications.length > 0 ? (
+            <ul class="mt-8 space-y-4">
+              {publications.map((publication) => (
+                <li class="border-outline bg-surface rounded-lg border p-6">
+                  <h3 class="font-heading text-primary text-xl font-medium">{publication.title}</h3>
+                  <p class="text-on-surface-variant mt-2 text-sm">
+                    {publication.authors} · {publication.venue} · {publication.year}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="font-body text-on-surface-variant border-outline bg-surface mt-8 rounded-lg border p-6 text-sm leading-6">
+              No formal publications are currently listed.
+            </p>
+          )
+        }
+      </section>
+
+      <section
+        class="border-outline mt-16 border-t pt-12"
+        aria-labelledby="interests-heading"
+        data-reveal
+      >
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          03 / Research interests
+        </p>
+        <h2
+          id="interests-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
+        >
+          Current areas of inquiry
         </h2>
         <div
           class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border md:grid-cols-2"
         >
           {
             interests.map((interest, index) => (
-              <article class="bg-surface p-6 sm:p-8" data-hover-lift>
+              <article class="bg-surface p-6 sm:p-8">
                 <p class="text-accent font-mono text-xs">0{index + 1}</p>
-                <h3 class="font-heading text-primary mt-8 text-xl font-medium">{interest.title}</h3>
+                <h3 class="font-heading text-primary mt-6 text-xl font-medium">{interest.title}</h3>
                 <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
                   {interest.description}
                 </p>
@@ -200,223 +177,54 @@ const books = [
         </div>
       </section>
 
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+      <section
+        class="border-outline mt-16 border-t pt-12"
+        aria-labelledby="active-research-heading"
+        data-reveal
+      >
         <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          03 / Active and planned research
+          04 / Ongoing directions
         </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          Research projects
-        </h2>
-        <div class="mt-8 space-y-5">
-          {
-            researchProjects.map((project, index) => (
-              <article class="border-outline bg-surface rounded-lg border p-6 sm:p-8">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <p class="text-on-surface-dim font-mono text-xs">Research 0{index + 1}</p>
-                  <span
-                    class:list={[
-                      'rounded-full border px-2.5 py-1 font-mono text-[0.68rem]',
-                      project.status === 'Active'
-                        ? 'border-accent/30 bg-accent/10 text-accent'
-                        : 'border-outline bg-background text-on-surface-dim',
-                    ]}
-                  >
-                    {project.status}
-                  </span>
-                </div>
-                <h3 class="font-heading text-primary mt-5 text-2xl font-medium">{project.title}</h3>
-
-                <dl class="mt-6 grid gap-6 md:grid-cols-2">
-                  <div>
-                    <dt class="text-accent font-mono text-[0.68rem] uppercase">
-                      Research question
-                    </dt>
-                    <dd class="font-body text-on-surface mt-2 text-sm leading-6">
-                      {project.question}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt class="text-accent font-mono text-[0.68rem] uppercase">
-                      Problem statement
-                    </dt>
-                    <dd class="font-body text-on-surface-variant mt-2 text-sm leading-6">
-                      {project.problem}
-                    </dd>
-                  </div>
-                </dl>
-
-                <div class="mt-6 grid gap-6 md:grid-cols-2">
-                  <div>
-                    <p class="text-accent font-mono text-[0.68rem] uppercase">Objectives</p>
-                    <ul class="mt-3 space-y-2">
-                      {project.objectives.map((objective) => (
-                        <li class="font-body text-on-surface-variant flex items-start gap-3 text-sm leading-6">
-                          <span class="bg-accent mt-2 size-1.5 shrink-0 rounded-full" />
-                          <span>{objective}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="text-accent font-mono text-[0.68rem] uppercase">Methodology</p>
-                    <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-                      {project.methodology}
-                    </p>
-                  </div>
-                </div>
-
-                <div class="border-outline mt-6 grid gap-4 border-t pt-5 md:grid-cols-2">
-                  <div>
-                    <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
-                      Current progress
-                    </p>
-                    <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">
-                      {project.progress}
-                    </p>
-                  </div>
-                  <div>
-                    <p class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Findings</p>
-                    <p class="font-body text-on-surface-variant mt-2 text-sm leading-6">
-                      {project.findings}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          04 / Published and academic work
-        </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          Publications and resources
-        </h2>
-        <div class="border-outline bg-surface mt-8 rounded-lg border p-6 sm:p-8">
-          <p class="text-on-surface-dim font-mono text-xs">Publication status</p>
-          <p class="font-body text-on-surface mt-3 max-w-3xl text-base leading-7">
-            No formal research publications or academic papers are currently listed on this site.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-5">
-            <a href="/projects" class="text-primary hover:text-accent font-mono text-xs">
-              Experimental project work →
-            </a>
-            <a href="/blog" class="text-primary hover:text-accent font-mono text-xs">
-              Engineering writing →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          05 / Research methodology
-        </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          How experiments are structured
-        </h2>
-        <div
-          class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4"
+        <h2
+          id="active-research-heading"
+          class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl"
         >
-          {
-            methodology.map((step, index) => (
-              <article class="bg-surface p-5 sm:p-6">
-                <p class="text-accent font-mono text-xs">0{index + 1}</p>
-                <h3 class="font-heading text-primary mt-8 text-lg font-medium">{step.title}</h3>
-                <p class="font-body text-on-surface-variant mt-3 text-sm leading-6">
-                  {step.description}
-                </p>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          06 / Research roadmap
-        </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          Current and future direction
+          Active and planned research
         </h2>
-        <div class="divide-outline border-outline mt-8 divide-y border-y">
+        <div class="mt-8 space-y-12">
           {
-            roadmap.map((item) => (
-              <article class="grid gap-3 py-6 md:grid-cols-[9rem_1fr_1.4fr] md:gap-8">
-                <div>
-                  <p class="text-on-surface-dim font-mono text-xs">{item.horizon}</p>
-                  <p class="text-accent mt-2 font-mono text-[0.68rem] uppercase">{item.status}</p>
+            [
+              { title: 'Active research', projects: activeResearch },
+              { title: 'Planned research', projects: plannedResearch },
+            ].map((group) => (
+              <section aria-label={group.title}>
+                <h3 class="font-heading text-primary text-2xl font-medium">{group.title}</h3>
+                <div class="mt-5 space-y-5">
+                  {group.projects.map((project) => (
+                    <article class="border-outline bg-surface rounded-lg border p-6 sm:p-8">
+                      <h4 class="font-heading text-primary text-xl font-medium">{project.title}</h4>
+                      <dl class="mt-5 grid gap-5 md:grid-cols-2">
+                        <div>
+                          <dt class="text-accent font-mono text-[0.68rem] uppercase">
+                            Research focus
+                          </dt>
+                          <dd class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                            {project.problem}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt class="text-accent font-mono text-[0.68rem] uppercase">Approach</dt>
+                          <dd class="font-body text-on-surface-variant mt-2 text-sm leading-6">
+                            {project.methodology}
+                          </dd>
+                        </div>
+                      </dl>
+                    </article>
+                  ))}
                 </div>
-                <h3 class="font-heading text-primary text-xl font-medium">{item.title}</h3>
-                <p class="font-body text-on-surface-variant text-sm leading-6">{item.detail}</p>
-              </article>
+              </section>
             ))
           }
-        </div>
-      </section>
-
-      <section class="border-outline mt-16 border-t pt-12" data-reveal>
-        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
-          07 / Technical development
-        </p>
-        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
-          Certifications and study
-        </h2>
-        <div class="mt-8 grid gap-6 lg:grid-cols-2">
-          <div class="border-outline bg-surface rounded-lg border p-6">
-            <h3 class="font-heading text-primary text-xl font-medium">Certifications</h3>
-            <div class="divide-outline mt-5 divide-y">
-              {
-                certifications.map((cert) => (
-                  <article class="py-5 first:pt-0 last:pb-0">
-                    <div class="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <h4 class="font-heading text-primary text-lg font-medium">{cert.name}</h4>
-                        {cert.issuer && (
-                          <p class="text-on-surface-dim mt-1 text-sm">{cert.issuer}</p>
-                        )}
-                      </div>
-                      <span
-                        class:list={[
-                          'rounded-full border px-2 py-1 font-mono text-[0.68rem]',
-                          'border-accent/30 bg-accent/10 text-accent',
-                        ]}
-                      >
-                        Certification
-                      </span>
-                    </div>
-                    {cert.date && (
-                      <p class="text-on-surface-dim mt-3 font-mono text-xs">{cert.date}</p>
-                    )}
-                    {cert.verificationUrl && (
-                      <a
-                        href={cert.verificationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-primary hover:text-accent mt-3 inline-block font-mono text-xs"
-                      >
-                        Verify credential ↗
-                      </a>
-                    )}
-                  </article>
-                ))
-              }
-            </div>
-          </div>
-          <div class="border-outline bg-surface rounded-lg border p-6">
-            <h3 class="font-heading text-primary text-xl font-medium">Currently reading</h3>
-            <ul class="divide-outline mt-5 divide-y">
-              {
-                books.map((book) => (
-                  <li class="font-body text-on-surface-variant py-4 text-sm leading-6 first:pt-0 last:pb-0">
-                    {book}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
         </div>
       </section>
 

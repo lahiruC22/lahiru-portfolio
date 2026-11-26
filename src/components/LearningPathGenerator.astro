@@ -1,0 +1,194 @@
+---
+import Button from './ui/Button.astro';
+import { writingArticles } from '../lib/content';
+---
+
+<section class="border-outline border-t py-12" aria-labelledby="generator-heading">
+  <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">Learning Path Generator</p>
+  <h2 id="generator-heading" class="font-heading text-primary mt-3 text-3xl font-medium">
+    Build a reading path from published articles
+  </h2>
+  <p class="font-body text-on-surface-variant mt-4 max-w-3xl text-base leading-7">
+    Enter a topic or technical goal. The generator selects relevant published articles, orders them
+    into a reading path, and explains what to explore next.
+  </p>
+
+  {
+    writingArticles.length ? (
+      <>
+        <div class="border-outline bg-surface-dim mt-8 max-w-3xl rounded-lg border p-5 sm:p-8">
+          <form id="path-form" class="flex flex-col gap-4">
+            <div>
+              <label for="topic" class="font-body text-on-surface block text-sm font-medium">
+                Topic or technical goal
+              </label>
+              <input
+                type="text"
+                id="topic"
+                name="topic"
+                aria-describedby="topic-help"
+                placeholder="e.g., distributed systems, MLOps, performance optimization"
+                class="ds-form-field mt-2 px-4 py-3 text-base"
+                required
+              />
+              <p id="topic-help" class="font-body text-on-surface-dim mt-2 text-xs">
+                Enter a concept or skill to receive a sequence of relevant Medium articles.
+              </p>
+            </div>
+            <Button id="submit-btn" type="submit" size="md" class="mt-4">
+              Generate Path
+            </Button>
+          </form>
+
+          <div id="loading" class="mt-6 hidden" aria-live="polite">
+            <p class="font-body text-on-surface-variant text-sm">Building your reading sequence…</p>
+          </div>
+          <div id="error" class="mt-6 hidden" role="alert">
+            <div class="border-error/30 bg-error-bg rounded-lg border p-4">
+              <p class="font-body text-error text-sm" id="error-text" />
+            </div>
+          </div>
+        </div>
+
+        <div id="results" class="mt-12 hidden" aria-live="polite">
+          <h3 id="path-title" class="font-heading text-primary text-3xl font-medium" />
+          <p id="path-description" class="font-body text-on-surface-variant mt-2 text-base" />
+          <p id="reading-time" class="font-body text-accent mt-2 text-sm font-semibold" />
+          <div id="path-steps" class="mt-8 space-y-6" />
+          <div class="border-outline bg-surface-dim mt-10 rounded-lg border p-6">
+            <h3 class="font-heading text-primary mb-3 text-lg font-medium">After this path</h3>
+            <ul id="next-steps-list" class="font-body text-on-surface space-y-2 text-sm" />
+          </div>
+        </div>
+      </>
+    ) : (
+      <p class="border-outline bg-surface font-body text-on-surface-variant mt-8 max-w-3xl rounded-lg border p-6 text-sm leading-6">
+        The generator will be available after published Medium articles have been added to the
+        writing index.
+      </p>
+    )
+  }
+</section>
+
+<script>
+  interface LearningPathStep {
+    position: number;
+    title: string;
+    slug: string;
+    mediumUrl: string;
+    summary: string;
+    whyThisStep: string;
+    keyTakeaways: string[];
+    relatedProjects: string[];
+    readingTime?: string;
+    tags: string[];
+  }
+
+  interface LearningPathResponse {
+    topic: string;
+    pathTitle: string;
+    pathDescription: string;
+    steps: LearningPathStep[];
+    totalReadingTime: string | null;
+    nextSteps: string[];
+  }
+
+  const form = document.getElementById('path-form');
+  const loading = document.getElementById('loading');
+  const error = document.getElementById('error');
+  const errorText = document.getElementById('error-text');
+  const results = document.getElementById('results');
+  const submitButton = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const stepsContainer = document.getElementById('path-steps');
+
+  if (
+    form instanceof HTMLFormElement &&
+    loading &&
+    error &&
+    errorText &&
+    results &&
+    submitButton &&
+    stepsContainer
+  ) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const topic = new FormData(form).get('topic')?.toString().trim();
+      if (!topic) return;
+
+      error.classList.add('hidden');
+      results.classList.add('hidden');
+      loading.classList.remove('hidden');
+      submitButton.disabled = true;
+
+      try {
+        const response = await fetch('/api/learning-path', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic }),
+        });
+        const data = (await response.json()) as LearningPathResponse | { error: string };
+        if (!response.ok || 'error' in data) {
+          throw new Error('error' in data ? data.error : 'Failed to generate learning path');
+        }
+
+        document.getElementById('path-title')!.textContent = data.pathTitle;
+        document.getElementById('path-description')!.textContent = data.pathDescription;
+        document.getElementById('reading-time')!.textContent = data.totalReadingTime
+          ? `Total reading time: ${data.totalReadingTime}`
+          : '';
+        stepsContainer.replaceChildren(
+          ...data.steps.map((step) => {
+            const link = document.createElement('a');
+            link.href = step.mediumUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.className =
+              'group block rounded-lg border border-outline p-6 transition-colors hover:border-accent hover:bg-surface-dim';
+
+            const title = document.createElement('h3');
+            title.className =
+              'font-heading text-primary group-hover:text-accent text-lg font-medium';
+            title.textContent = `${step.position}. ${step.title}`;
+            link.append(title);
+
+            const summary = document.createElement('p');
+            summary.className = 'text-on-surface-variant mt-2 text-sm';
+            summary.textContent = step.summary;
+            link.append(summary);
+
+            const rationale = document.createElement('p');
+            rationale.className = 'text-accent mt-3 text-sm font-semibold';
+            rationale.textContent = step.whyThisStep;
+            link.append(rationale);
+
+            if (step.readingTime) {
+              const readingTime = document.createElement('p');
+              readingTime.className = 'text-on-surface-dim mt-3 text-xs';
+              readingTime.textContent = step.readingTime;
+              link.append(readingTime);
+            }
+            return link;
+          })
+        );
+
+        const nextStepsList = document.getElementById('next-steps-list')!;
+        nextStepsList.replaceChildren(
+          ...data.nextSteps.map((nextStep) => {
+            const item = document.createElement('li');
+            item.textContent = nextStep;
+            return item;
+          })
+        );
+        loading.classList.add('hidden');
+        results.classList.remove('hidden');
+      } catch (requestError) {
+        errorText.textContent =
+          requestError instanceof Error ? requestError.message : 'Failed to generate learning path';
+        loading.classList.add('hidden');
+        error.classList.remove('hidden');
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  }
+</script>

@@ -1,41 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LearningPathGenerator from '../components/LearningPathGenerator.astro';
 ---
 
 <Layout
-  title="Blog Learning Path Generator"
-  description="This tool has moved into the Writing page."
+  title="Learning Path Generator"
+  description="Generate a reading path from published Medium articles."
 >
-  <section class="py-20">
-    <div class="mx-auto w-full max-w-3xl">
-      <div
-        class="bg-surface border-outline rounded-lg border p-8 shadow-(--shadow-soft)"
-        data-fade-in
-        style="--reveal-delay: 60ms"
-      >
-        <p class="text-accent font-mono text-xs tracking-[0.2em] uppercase">Moved</p>
-        <h1 class="font-heading text-primary mt-3 text-4xl leading-tight font-medium">
-          Learning Path Generator now lives on Writing
-        </h1>
-        <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
-          I merged the generator into the Writing page so the content stays with the essays and
-          notes it uses.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-4">
-          <a
-            href="/blog"
-            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-          >
-            Go to Writing
-          </a>
-          <a
-            href="/research"
-            class="font-body text-primary hover:text-accent text-sm transition-colors duration-200"
-          >
-            Go to Research
-          </a>
-        </div>
-      </div>
+  <div class="mx-auto w-full max-w-6xl py-12 sm:py-16">
+    <header class="max-w-3xl" data-fade-in style="--reveal-delay: 60ms">
+      <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Interactive tool</p>
+      <h1 class="font-heading text-primary mt-3 text-5xl leading-tight font-medium">
+        Learning Path Generator
+      </h1>
+      <p class="font-body text-on-surface-variant mt-4 text-base leading-7">
+        Choose a topic or engineering goal to build a focused reading sequence from published
+        articles.
+      </p>
+    </header>
+    <div class="mt-10">
+      <LearningPathGenerator />
     </div>
-  </section>
+  </div>
 </Layout>

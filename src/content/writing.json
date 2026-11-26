@@ -1,0 +1,31 @@
+{
+  "articles": [
+    {
+      "slug": "prime-factorization-and-identifying-numbers-with-limited-prime-factors",
+      "title": "Prime Factorization and Identifying Numbers with Limited Prime Factors",
+      "summary": "A coding-challenge walkthrough for determining whether a positive integer has prime factors only from 2, 3, and 5.",
+      "mediumUrl": "https://medium.com/@lahirucw/prime-factorization-and-identifying-numbers-with-limited-prime-factors-9addb82538b9",
+      "publishedAt": "2024-04-07",
+      "tags": ["Algorithms", "Number theory", "JavaScript"],
+      "topics": ["number theory", "prime factorization", "JavaScript", "coding interviews"],
+      "prerequisites": ["basic programming"],
+      "relatedProjects": [],
+      "keyTakeaways": [
+        "Reduce the input by checking divisibility by 2, 3, and 5.",
+        "A remaining quotient greater than 1 indicates a prime factor above 5.",
+        "Return a boolean indicating whether all prime factors meet the limit."
+      ]
+    },
+    {
+      "slug": "the-future-of-drug-discovery-ai-powered-medicine",
+      "title": "The Future of Drug Discovery: AI-Powered Medicine",
+      "summary": "An article about the role of artificial intelligence in medicine and drug discovery.",
+      "mediumUrl": "https://csa-usj.medium.com/the-future-of-drug-discovery-ai-powered-medicine-a0e136649267",
+      "tags": ["Artificial intelligence", "Drug discovery", "Medicine"],
+      "topics": ["artificial intelligence", "drug discovery", "medicine"],
+      "prerequisites": [],
+      "relatedProjects": [],
+      "keyTakeaways": []
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { credentials, education, profile, skillCategories, formatPeriod } from '../lib/content';
+
+const credentialTypeLabels = {
+  'formal-certification': 'Formal certification',
+  'course-completion-certificate': 'Course-completion certificate',
+} as const;
+---
+
+<Layout
+  title="About"
+  description="Professional profile, academic background, skills, research interests, and credentials."
+>
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-6xl">
+      <header class="grid w-full min-w-0 gap-8 lg:grid-cols-[1fr_18rem]" data-fade-in>
+        <div class="min-w-0">
+          <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+            01 / Professional profile
+          </p>
+          <h1
+            class="font-heading text-primary mt-4 max-w-4xl text-4xl leading-[0.98] font-medium sm:text-5xl lg:text-6xl"
+            transition:name="page-title"
+          >
+            About Me
+          </h1>
+          <p
+            class="font-body text-on-surface-variant mt-6 max-w-3xl text-lg leading-8"
+            transition:name="page-subtitle"
+          >
+            {profile.summary}
+          </p>
+        </div>
+        <aside class="border-outline bg-surface h-fit rounded-lg border p-5">
+          <p class="text-on-surface-dim font-mono text-xs">Profile</p>
+          <dl class="divide-outline mt-4 divide-y">
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Location</dt>
+              <dd class="text-on-surface mt-1 text-sm">{profile.location}</dd>
+            </div>
+            <div class="py-3">
+              <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">Headline</dt>
+              <dd class="text-on-surface mt-1 text-sm">{profile.headline}</dd>
+            </div>
+          </dl>
+        </aside>
+      </header>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          02 / Academic background
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">Education</h2>
+        <div class="mt-8 space-y-5">
+          {
+            education.map((entry) => (
+              <article
+                id={entry.id}
+                class="border-outline bg-surface grid gap-5 rounded-lg border p-6 sm:p-8 md:grid-cols-[12rem_1fr]"
+              >
+                <div>
+                  <p class="text-on-surface-dim font-mono text-xs">
+                    {formatPeriod(entry.startDate, entry.endDate)}
+                  </p>
+                  <p class="text-accent mt-2 font-mono text-[0.68rem] uppercase">Degree</p>
+                </div>
+                <div>
+                  <h3 class="font-heading text-primary text-2xl font-medium">
+                    {entry.qualification}
+                  </h3>
+                  <p class="text-on-surface-variant mt-2 text-sm">
+                    {entry.institution} · {entry.location}
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-5">
+                    <p class="text-on-surface text-sm">
+                      <span class="text-on-surface-dim">GPA</span> · {entry.gpa}
+                    </p>
+                    <p class="text-on-surface text-sm">
+                      <span class="text-on-surface-dim">Classification</span> ·{' '}
+                      {entry.classification}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          03 / Technical skills
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Tools and technologies
+        </h2>
+        <div class="divide-outline border-outline mt-8 divide-y border-y">
+          {
+            skillCategories.map((category) => (
+              <article class="grid gap-4 py-6 md:grid-cols-[14rem_1fr] md:gap-8">
+                <h3 class="font-heading text-primary text-xl font-medium">{category.name}</h3>
+                <ul class="flex flex-wrap gap-2">
+                  {category.items.map((item) => (
+                    <li class="text-accent bg-surface border-outline rounded-md border px-2.5 py-1.5 font-mono text-xs">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">
+          04 / Areas of interest
+        </p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Ongoing interests
+        </h2>
+        <div
+          class="border-outline bg-outline mt-8 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+        >
+          {
+            profile.interests.map((interest, index) => (
+              <article class="bg-surface p-5 sm:p-6">
+                <p class="text-accent font-mono text-xs">0{index + 1}</p>
+                <p class="font-heading text-primary mt-5 text-lg font-medium">{interest}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline mt-16 border-t pt-12" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">05 / Credentials</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium sm:text-4xl">
+          Credentials and courses
+        </h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {
+            credentials.map((credential) => (
+              <article class="border-outline bg-surface rounded-lg border p-6">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                  <h3 class="font-heading text-primary text-xl font-medium">{credential.name}</h3>
+                  <span class="text-on-surface-dim border-outline rounded-full border px-2.5 py-1 font-mono text-[0.68rem]">
+                    {credential.credentialType
+                      ? credentialTypeLabels[credential.credentialType]
+                      : 'Type not verified'}
+                  </span>
+                </div>
+                <dl class="mt-5 grid gap-4 sm:grid-cols-2">
+                  {credential.issuer && (
+                    <div>
+                      <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
+                        Issuing organization
+                      </dt>
+                      <dd class="text-on-surface mt-1 text-sm">{credential.issuer}</dd>
+                    </div>
+                  )}
+                  {credential.completionDate && (
+                    <div>
+                      <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
+                        Completion date
+                      </dt>
+                      <dd class="text-on-surface mt-1 text-sm">{credential.completionDate}</dd>
+                    </div>
+                  )}
+                  {credential.credentialId && (
+                    <div>
+                      <dt class="text-on-surface-dim font-mono text-[0.68rem] uppercase">
+                        Credential ID
+                      </dt>
+                      <dd class="text-on-surface mt-1 text-sm break-all">
+                        {credential.credentialId}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+                {credential.credentialUrl && (
+                  <a
+                    href={credential.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-primary hover:text-accent mt-5 inline-block font-mono text-xs"
+                  >
+                    View credential ↗
+                  </a>
+                )}
+                {credential.certificateImage && (
+                  <img
+                    src={credential.certificateImage}
+                    alt={`${credential.name} credential`}
+                    class="border-outline mt-5 max-h-64 w-full rounded-md border object-contain"
+                    loading="lazy"
+                  />
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-outline bg-surface mt-16 rounded-lg border p-6 sm:p-8" data-reveal>
+        <p class="text-accent font-mono text-xs tracking-[0.18em] uppercase">Next</p>
+        <h2 class="font-heading text-primary mt-3 text-3xl font-medium">
+          Explore my professional experience.
+        </h2>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="/experience"
+            class="bg-primary text-background hover:bg-accent-bright inline-flex h-12 items-center rounded-md px-5 font-mono text-sm font-semibold transition-colors"
+          >
+            View experience
+          </a>
+          <a
+            href="/contact"
+            class="border-outline text-primary hover:border-accent inline-flex h-12 items-center rounded-md border px-5 font-mono text-sm transition-colors"
+          >
+            Contact Me
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>
