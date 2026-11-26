@@ -8,8 +8,9 @@ This directory contains the portfolio's editable content, separated from the UI.
 - `experience.json` — employers, roles, products, and product-specific contributions.
 - `skills.json` — skill categories and items.
 - `education.json` — education history.
-- `projects.json` — personal, research, freelance, and test-automation projects.
-- `certifications.json` — certification names and optional issuer/date/verification metadata.
+- `projects.json` — personal, freelance, and data-analysis project details.
+- `research.json` — completed research write-ups, publications, interests, and active/planned directions. Bracketed case-study text is an editorial placeholder to replace with verified research details.
+- `certifications.json` — credentials with optional verified type, issuer, completion date, URL, ID, and certificate image.
 
 ## Recommended integration
 
@@ -23,6 +24,7 @@ src/
     skills.json
     education.json
     projects.json
+    research.json
     certifications.json
   components/
   pages/
@@ -31,12 +33,13 @@ src/
 For a Vite/React or Next.js application, import JSON directly:
 
 ```ts
-import profile from "@/content/profile.json";
-import experience from "@/content/experience.json";
-import skills from "@/content/skills.json";
-import education from "@/content/education.json";
-import projects from "@/content/projects.json";
-import certifications from "@/content/certifications.json";
+import profile from '@/content/profile.json';
+import experience from '@/content/experience.json';
+import skills from '@/content/skills.json';
+import education from '@/content/education.json';
+import projects from '@/content/projects.json';
+import research from '@/content/research.json';
+import credentials from '@/content/certifications.json';
 ```
 
 Then pass the data into presentation components:
@@ -99,7 +102,7 @@ No component changes should be needed for ordinary text, date, URL, or technolog
 - The browser extension is an internal Visonex Digital initiative, separate from SAS Connect.
 - The PEO Mobile CDN and AWS WAF work was supplied by the user in addition to the résumé.
 - The education classification `Second Class Upper Division` was confirmed by the user separately; the résumé itself lists the degree and GPA but not the classification.
-- Certification issuer, completion date, and verification URL are intentionally null because they were not provided.
+- Set a credential type only after checking an issuer source. Leave unavailable metadata null; do not infer credential IDs or certificate images from profile links.
 - The résumé spells the employer `Visonex Digital`. Confirm the official spelling before publishing if the company uses a different spelling.
 - The phone number is intentionally omitted from `profile.json`; add it only if you want it publicly displayed.
 - Replace the résumé file path with the actual public asset path used by the application.

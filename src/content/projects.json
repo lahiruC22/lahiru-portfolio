@@ -22,22 +22,6 @@
       ]
     },
     {
-      "id": "federated-learning-slr",
-      "name": "Adapting CI/CD and MLOps for Federated Learning",
-      "type": "Research",
-      "summary": "A systematic literature review investigating lifecycle-management challenges in Federated Learning and the adaptation of CI/CD and MLOps practices to decentralized machine-learning environments.",
-      "contributions": [
-        "Conducted a systematic literature review to identify lifecycle-management challenges in Federated Learning.",
-        "Investigated how traditional CI/CD and MLOps frameworks can be adapted to decentralized machine-learning environments."
-      ],
-      "technologies": [
-        "Systematic Literature Review",
-        "Federated Learning",
-        "CI/CD",
-        "MLOps"
-      ]
-    },
-    {
       "id": "local-business-admin-dashboard",
       "name": "Local Business Admin Dashboard",
       "type": "Freelance contribution",
@@ -45,10 +29,7 @@
       "contributions": [
         "Implemented features and bug fixes in a Vue.js frontend and NestJS backend while collaborating directly with the core developer."
       ],
-      "technologies": [
-        "Vue.js",
-        "NestJS"
-      ]
+      "technologies": ["Vue.js", "NestJS"]
     },
     {
       "id": "green-mirage",
@@ -59,11 +40,7 @@
         "Analyzed environmental and economic datasets to identify factors associated with urban sustainability.",
         "Used PySpark for data transformation and exploratory analysis to derive data-driven insights."
       ],
-      "technologies": [
-        "Microsoft Fabric",
-        "PySpark",
-        "Exploratory Data Analysis"
-      ]
+      "technologies": ["Microsoft Fabric", "PySpark", "Exploratory Data Analysis"]
     },
     {
       "id": "ebay-mobile-automation",
@@ -75,11 +52,7 @@
         "Structured the test framework using the Page Object Model to separate test logic from UI elements.",
         "Implemented dynamic waits and synchronization strategies to improve reliability across varying network conditions."
       ],
-      "technologies": [
-        "Mobile test automation",
-        "Page Object Model",
-        "Dynamic waits"
-      ]
+      "technologies": ["Mobile test automation", "Page Object Model", "Dynamic waits"]
     }
   ]
 }

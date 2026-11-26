@@ -1,0 +1,70 @@
+{
+  "completed": [
+    {
+      "id": "federated-learning-slr",
+      "title": "Adapting CI/CD and MLOps for Federated Learning",
+      "status": "completed",
+      "summary": "A systematic literature review investigating lifecycle-management challenges in Federated Learning and the adaptation of CI/CD and MLOps practices to decentralized machine-learning environments.",
+      "caseStudy": {
+        "domain": ["Federated Learning", "CI/CD", "MLOps"],
+        "motivation": "[Add why this topic matters, grounded in the completed research.]",
+        "problemStatement": "Lifecycle-management challenges in Federated Learning and the adaptation of CI/CD and MLOps practices to decentralized machine-learning environments.",
+        "researchQuestion": "[Add the main research question from the completed study.]",
+        "objectives": [
+          "Identify lifecycle-management challenges in Federated Learning.",
+          "Investigate how traditional CI/CD and MLOps frameworks can be adapted to decentralized machine-learning environments."
+        ],
+        "methodology": "Systematic literature review.",
+        "evidenceCollection": "[Add the databases, search strategy, and search dates used.]",
+        "studySelection": "[Add the screening process and inclusion or exclusion criteria.]",
+        "qualityAssessment": "[Add the quality-assessment criteria and scoring approach used.]",
+        "findings": "[Add evidence-supported requirements, challenges, and evaluation dimensions from the review.]",
+        "discussion": "[Add interpretation of the findings and their engineering implications.]",
+        "limitations": "[Add the limitations of the research and review process.]",
+        "conclusion": "[Add conclusions supported by the completed study.]",
+        "supportingMaterials": []
+      }
+    }
+  ],
+  "publications": [],
+  "interests": [
+    {
+      "title": "Reliable AI systems",
+      "description": "Making model-backed services resilient, observable, and understandable under real production constraints."
+    },
+    {
+      "title": "Evaluation and benchmarks",
+      "description": "Using lightweight, repeatable tests to detect quality regressions in retrieval and AI-assisted workflows."
+    },
+    {
+      "title": "Distributed systems for ML",
+      "description": "Studying latency, consistency, throughput, and infrastructure trade-offs at the AI/backend boundary."
+    },
+    {
+      "title": "Human-AI developer workflows",
+      "description": "Exploring how AI-assisted development can preserve technical rigor, accountability, and reviewability."
+    }
+  ],
+  "active": [
+    {
+      "id": "evaluation-foundations",
+      "title": "Evaluation foundations for AI features",
+      "problem": "Ad hoc demonstrations can miss correctness, relevance, and failure-mode regressions that affect real workflows.",
+      "methodology": "Incremental benchmark design: start with representative cases, define failure modes, compare variants, and retain the evidence for later runs."
+    }
+  ],
+  "planned": [
+    {
+      "id": "agent-reliability",
+      "title": "Reliability patterns for agentic systems",
+      "problem": "Retries, tool failures, partial execution, and timeout behavior need explicit workflow states rather than single-request assumptions.",
+      "methodology": "Planned experiments will use controlled service and tool failures, explicit workflow states, and trace-based analysis."
+    },
+    {
+      "id": "decision-aware-infrastructure",
+      "title": "Decision-aware AI infrastructure",
+      "problem": "Infrastructure decisions often treat every request as equally certain, even when model confidence or latency budgets vary.",
+      "methodology": "System experiments would compare routing policies against latency budgets, fallback behavior, and defined success criteria."
+    }
+  ]
+}

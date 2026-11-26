@@ -1,39 +1,54 @@
 {
-  "certifications": [
+  "credentials": [
     {
       "id": "digital-analytics-regression",
-      "name": "Digital Analytics and Regression",
-      "issuer": null,
-      "date": null,
-      "verificationUrl": null
+      "name": "Digital Analytics & Regression (ML0103EN)",
+      "credentialType": "course-completion-certificate",
+      "issuer": "Cognitive Class",
+      "completionDate": "2025-01-17",
+      "credentialUrl": "https://courses.cognitiveclass.ai/certificates/fb120c0efb2f49f7a75d79a7b43872fd",
+      "credentialId": null,
+      "certificateImage": null
     },
     {
       "id": "computational-neuroscience",
       "name": "Computational Neuroscience",
-      "issuer": null,
-      "date": null,
-      "verificationUrl": null
+      "credentialType": "course-completion-certificate",
+      "issuer": "University of Washington via Coursera",
+      "completionDate": "2024-12-07",
+      "credentialUrl": "https://coursera.org/share/e411652846fe3d053619b889f8490229",
+      "credentialId": null,
+      "certificateImage": null
     },
     {
       "id": "data-analysis-python",
       "name": "Data Analysis with Python",
-      "issuer": null,
-      "date": null,
-      "verificationUrl": null
+      "credentialType": "formal-certification",
+      "issuer": "freeCodeCamp.org",
+      "completionDate": "2021-10-08",
+      "credentialUrl": "https://www.freecodecamp.org/certification/lahirucw/data-analysis-with-python-v7",
+      "credentialId": null,
+      "certificateImage": null
     },
     {
       "id": "scientific-computing-python",
       "name": "Scientific Computing with Python",
-      "issuer": null,
-      "date": null,
-      "verificationUrl": null
+      "credentialType": "formal-certification",
+      "issuer": "freeCodeCamp.org",
+      "completionDate": "2021-07-19",
+      "credentialUrl": "https://www.freecodecamp.org/certification/lahirucw/scientific-computing-with-python-v7",
+      "credentialId": null,
+      "certificateImage": null
     },
     {
-      "id": "data-science-fundamentals",
-      "name": "Data Science Fundamentals",
+      "id": "data-science-foundations-level-1",
+      "name": "Data Science Foundations - Level 1",
+      "credentialType": null,
       "issuer": null,
-      "date": null,
-      "verificationUrl": null
+      "completionDate": null,
+      "credentialUrl": null,
+      "credentialId": null,
+      "certificateImage": null
     }
   ]
 }
